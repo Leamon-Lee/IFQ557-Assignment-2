@@ -41,7 +41,6 @@
   <section class="container py-5">
     <div class="row g-4 align-items-start">
       <div class="col-lg-8">
-        <!-- 活动简介 -->
         <section class="content-panel detail-section-card">
           <p class="eyebrow dark">About this event</p>
           <h2>{{ event.description[:80] }}{% if event.description|length > 80 %}...{% endif %}</h2>
@@ -51,7 +50,6 @@
           {% endif %}
         </section>
 
-        <!-- 详细信息卡片 -->
         <section class="detail-info-grid mt-4">
           <div class="detail-info-card">
             <span>Artist</span>
@@ -71,7 +69,6 @@
           </div>
         </section>
 
-        <!-- 评论区（暂时保持静态，后续再动态化） -->
         <section class="content-panel mt-4">
           <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
             <div>
@@ -80,7 +77,6 @@
             </div>
             <span class="comment-count">0 comments</span>
           </div>
-
           <form class="comment-form mt-4">
             <label for="commentText" class="form-label">Post a comment</label>
             <textarea class="form-control" id="commentText" rows="4" placeholder="Write a comment about this event"></textarea>
@@ -89,7 +85,6 @@
         </section>
       </div>
 
-      <!-- 购票面板 -->
       <div class="col-lg-4">
         <aside class="ticket-panel detail-ticket-panel">
           <div class="ticket-topline">
@@ -99,7 +94,6 @@
             </div>
             <span class="price-pill">${{ event.registrations[0].ticket.price if event.registrations and event.registrations[0].ticket else 'N/A' }}</span>
           </div>
-
           <div class="ticket-availability">
             <div class="d-flex justify-content-between">
               <span>Available tickets</span>
@@ -109,14 +103,12 @@
               <span style="{{ bar_style }}"></span>
             </div>
           </div>
-
           <ul class="event-facts">
             <li><span>Venue</span><strong>{{ event.venue.venue_name if event.venue else 'TBA' }}</strong></li>
             <li><span>Date</span><strong>{{ event.start_time.strftime('%d %B %Y') }}</strong></li>
             <li><span>Time</span><strong>{{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</strong></li>
             <li><span>Status</span><strong>{{ event.event_status }}</strong></li>
           </ul>
-
           <form class="mt-4">
             <label for="ticketQuantity" class="form-label">Number of tickets</label>
             <input type="number" class="form-control form-control-lg" id="ticketQuantity" min="1" max="{{ remaining }}" value="1" {% if remaining == 0 %}disabled{% endif %}>

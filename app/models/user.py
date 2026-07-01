@@ -13,6 +13,8 @@ class User(UserMixin, db.Model):
     contact_number = db.Column(db.String(20), nullable=True)
     street_address = db.Column(db.String(255), nullable=True)
     user_type = db.Column(db.String(50), nullable=False)
+    contact_number = db.Column(db.String(20), nullable=True)
+    street_address = db.Column(db.String(255), nullable=True)
 
     __mapper_args__ = {
         "polymorphic_identity": "user",
