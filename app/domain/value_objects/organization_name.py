@@ -10,6 +10,8 @@ class OrganizationName:
             raise ValueError("Organization name must be 1 to 120 characters")
         if self.value.strip() != self.value:
             raise ValueError("Organization name cannot start or end with spaces")
+        if "  " in self.value:
+            raise ValueError("Organization name cannot contain repeated spaces")
 
     def __str__(self) -> str:
         return self.value

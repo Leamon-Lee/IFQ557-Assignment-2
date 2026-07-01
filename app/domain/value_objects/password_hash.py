@@ -10,6 +10,8 @@ class PasswordHash:
             raise ValueError("Password hash cannot be empty")
         if len(self.value) > 255:
             raise ValueError("Password hash cannot be longer than 255 characters")
+        if any(char.isspace() for char in self.value):
+            raise ValueError("Password hash cannot contain spaces")
 
     def __str__(self) -> str:
         return self.value

@@ -6,6 +6,8 @@ class Text200:
     value: str
 
     def __post_init__(self) -> None:
+        if not self.value:
+            raise ValueError("Text200 cannot be empty")
         if len(self.value) > 200:
             raise ValueError("Text200 cannot be longer than 200 characters")
 

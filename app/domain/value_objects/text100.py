@@ -6,6 +6,8 @@ class Text100:
     value: str
 
     def __post_init__(self) -> None:
+        if self.value is None:
+            raise ValueError("Text100 cannot be None")
         if len(self.value) > 100:
             raise ValueError("Text100 cannot be longer than 100 characters")
 
