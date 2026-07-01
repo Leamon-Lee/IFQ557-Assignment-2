@@ -1,6 +1,6 @@
-# Bacon Music Platform
+# SoundWave Events
 
-Bacon Music Platform is a Python Flask MVC web application for music event browsing, event creation, registration, ticketing, venue management, artist participation, payment, and admin event review.
+SoundWave Events is a Python Flask MVC web application for music event browsing, event creation, registration, ticketing, venue management, artist participation, payment, and admin event review.
 
 The project currently contains the Flask MVC structure, SQLAlchemy ORM models, Blueprint routes, Jinja2 templates, Bootstrap-based frontend pages, and domain value object classes. Many business methods are intentionally left as method declarations with `return`, so the next developer can complete the internal logic.
 
@@ -29,7 +29,7 @@ conda run -n musicevent python --version
 From the project root:
 
 ```powershell
-cd D:\Desktop\Bacon-Music-Platform\music_event_app
+cd music_event_app
 pip install -r requirement.txt
 ```
 
@@ -317,7 +317,7 @@ music_event_app/
 
 ## Notes For The Next Developer
 
-- The frontend pages from the `bacon` branch have been merged into Flask templates.
+- The frontend prototype pages have been merged into Flask templates.
 - Static CSS and images are stored under `app/static/`.
 - Important domain datatypes are represented as classes in `app/domain/value_objects/`.
 - Business logic is not completed yet. Many methods intentionally contain only `return`.
