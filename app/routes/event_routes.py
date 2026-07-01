@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, flash, redirect, render_template, url_for
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from app.extensions import db
@@ -51,9 +51,29 @@ def index():
 
 @event_bp.route("/events")
 def list_events():
+    genre = request.args.get("genre")
     service = EventService()
-    events = service.listEvents()
-    return render_template("events/list.html", events=events)
+    events = service.listEvents(genre if genre else None)
+
+    event_data = []
+    for e in events:
+        event_data.append({
+            "event": e,
+            "remaining": service.getRemainingTickets(e.event_id),
+            "venue_name": e.venue.venue_name if e.venue else "TBA",
+            "artist_names": ", ".join(
+                f"{a.first_name} {a.second_name}".strip() for a in e.artists
+            ) if e.artists else "TBA",
+        })
+
+    genres = ["Jazz", "Rock", "Campus Festival", "Acoustic", "Concert"]
+
+    return render_template(
+        "events/list.html",
+        events=event_data,
+        genres=genres,
+        current_genre=genre,
+    )
 
 
 @event_bp.route("/events/create", methods=["GET", "POST"])

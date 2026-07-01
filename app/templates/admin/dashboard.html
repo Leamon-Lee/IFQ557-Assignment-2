@@ -1,2 +1,84 @@
-﻿{% extends "base.html" %}
-{% block content %}{% endblock %}
+{% extends "base.html" %}
+{% block content %}
+
+<main class="detail-page">
+  <section class="container pt-5">
+    <div class="row g-4 align-items-end mb-4">
+      <div class="col-lg-7">
+        <p class="eyebrow">Admin dashboard</p>
+        <h1>System overview.</h1>
+        <p class="text-white-50 mb-0">Monitor events, users, and platform activity at a glance.</p>
+      </div>
+      <div class="col-lg-5">
+        <a href="{{ url_for('admin.review_events') }}" class="btn btn-primary-action">Review events</a>
+      </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="history-summary flex-column align-items-start">
+          <strong style="font-size: 2rem;">{{ total_events }}</strong>
+          <span>Total events</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="history-summary flex-column align-items-start">
+          <strong style="font-size: 2rem;">{{ open_events }}</strong>
+          <span>Open events</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="history-summary flex-column align-items-start">
+          <strong style="font-size: 2rem;">{{ total_users }}</strong>
+          <span>Registered users</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="mb-3">Recent events</h2>
+    {% if recent_events %}
+    <div class="table-responsive history-table">
+      <table class="table table-dark table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Genre</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Venue</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for e in recent_events %}
+          <tr>
+            <td>
+              <a href="{{ url_for('events.event_detail', event_id=e.event_id) }}" class="text-white text-decoration-none">
+                {{ e.event_title }}
+              </a>
+            </td>
+            <td>{{ e.music_genre }}</td>
+            <td>{{ e.start_time.strftime('%d %b %Y') }}</td>
+            <td>
+              {% if e.event_status == 'Open' %}
+              <span class="badge text-bg-success">Open</span>
+              {% elif e.event_status == 'Cancelled' %}
+              <span class="badge text-bg-danger">Cancelled</span>
+              {% elif e.event_status == 'Sold Out' %}
+              <span class="badge text-bg-warning">Sold Out</span>
+              {% else %}
+              <span class="badge text-bg-secondary">{{ e.event_status }}</span>
+              {% endif %}
+            </td>
+            <td>{{ e.venue.venue_name if e.venue else 'TBA' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="text-white-50">No events in the system yet.</p>
+    {% endif %}
+  </section>
+</main>
+
+{% endblock %}

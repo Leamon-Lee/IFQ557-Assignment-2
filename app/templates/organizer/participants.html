@@ -1,2 +1,70 @@
-﻿{% extends "base.html" %}
-{% block content %}{% endblock %}
+{% extends "base.html" %}
+{% block content %}
+
+<main class="detail-page">
+  <section class="container pt-5">
+    <div class="row g-4 align-items-end mb-4">
+      <div class="col-lg-7">
+        <p class="eyebrow">Participant list</p>
+        <h1>{{ event.event_title }}.</h1>
+        <p class="text-white-50 mb-0">
+          {{ event.venue.venue_name if event.venue else 'TBA' }} &middot;
+          {{ event.start_time.strftime('%d %B %Y, %I:%M %p') }} &middot;
+          {{ registrations|length }} registration{% if registrations|length != 1 %}s{% endif %}
+        </p>
+      </div>
+      <div class="col-lg-5 text-lg-end">
+        <a href="{{ url_for('organizer.dashboard') }}" class="btn btn-outline-light">← Back to dashboard</a>
+      </div>
+    </div>
+
+    {% if registrations %}
+    <div class="table-responsive history-table">
+      <table class="table table-dark table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Participant</th>
+            <th>Email</th>
+            <th>Booked at</th>
+            <th>Status</th>
+            <th>Check-in</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reg in registrations %}
+          <tr>
+            <td>{{ reg.registration_id }}</td>
+            <td>{{ reg.participant.first_name }} {{ reg.participant.second_name }}</td>
+            <td>{{ reg.participant.email }}</td>
+            <td>{{ reg.registration_time.strftime('%d %b %Y, %I:%M %p') }}</td>
+            <td>
+              {% if reg.registration_status == 'Confirmed' %}
+              <span class="badge text-bg-success">Confirmed</span>
+              {% elif reg.registration_status == 'Cancelled' %}
+              <span class="badge text-bg-danger">Cancelled</span>
+              {% else %}
+              <span class="badge text-bg-warning">{{ reg.registration_status }}</span>
+              {% endif %}
+            </td>
+            <td>
+              {% if reg.check_in_status == 'CheckedIn' %}
+              <span class="badge text-bg-success">Checked in</span>
+              {% else %}
+              <span class="badge text-bg-secondary">Not checked in</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <p class="text-white-50">No participants have registered for this event yet.</p>
+    </div>
+    {% endif %}
+  </section>
+</main>
+
+{% endblock %}

@@ -6,6 +6,7 @@ from flask_wtf.csrf import CSRFError
 
 from app.extensions import db
 from app.models.music_event import MusicEvent
+from app.models.ticket import Ticket
 from app.services.event_service import EventService
 from app.services.registration_service import RegistrationService
 
@@ -99,4 +100,13 @@ def register_event(event_id: int):
 @participant_bp.route("/tickets/<int:ticket_id>")
 @login_required
 def ticket(ticket_id: int):
-    return render_template("participant/ticket.html")
+    ticket = db.session.get(Ticket, ticket_id)
+    if ticket is None:
+        abort(404)
+
+    registration = ticket.registration
+    if registration.participant_id != current_user.user_id:
+        flash("You can only view your own tickets.", "danger")
+        return redirect(url_for("participant.registrations"))
+
+    return render_template("participant/ticket.html", ticket=ticket)
