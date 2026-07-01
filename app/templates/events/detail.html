@@ -27,6 +27,11 @@
         <div>
           {% if current_user.is_authenticated and current_user.user_id == event.organizer_id %}
           <a href="{{ url_for('events.edit_event', event_id=event.event_id) }}" class="btn btn-outline-light btn-sm me-2">Edit Event</a>
+          {% if event.event_status != 'Cancelled' %}
+          <form method="POST" action="{{ url_for('events.cancel_event', event_id=event.event_id) }}" class="d-inline" onsubmit="return confirm('Cancel this event? This cannot be undone.');">
+            <button type="submit" class="btn btn-outline-danger btn-sm me-2">Cancel Event</button>
+          </form>
+          {% endif %}
           {% endif %}
           <span class="status-chip {{ status_class(event.event_status) }}">{{ event.event_status }}</span>
         </div>

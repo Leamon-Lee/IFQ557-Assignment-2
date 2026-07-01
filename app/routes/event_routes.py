@@ -152,6 +152,26 @@ def edit_event(event_id: int):
     return render_template("events/edit.html", form=form, event=event)
 
 
+@event_bp.route("/events/<int:event_id>/cancel", methods=["POST"])
+@login_required
+def cancel_event(event_id: int):
+    event = db.session.get(MusicEvent, event_id)
+    if event is None:
+        abort(404)
+
+    if event.organizer_id != current_user.user_id:
+        flash("You can only cancel your own events.", "danger")
+        return redirect(url_for("events.event_detail", event_id=event_id))
+
+    if event.event_status == "Cancelled":
+        flash("This event is already cancelled.", "info")
+    else:
+        event.cancel()
+        flash("Event has been cancelled.", "info")
+
+    return redirect(url_for("events.event_detail", event_id=event_id))
+
+
 @event_bp.route("/events/<int:event_id>", methods=["GET", "POST"])
 def event_detail(event_id: int):
     service = EventService()
