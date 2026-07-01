@@ -9,12 +9,22 @@
 </head>
 <body class="loading-body">
   <main class="loading-page">
+    <video class="loading-video" autoplay muted loop playsinline poster="{{ url_for('static', filename='img/concert-audience.jpg') }}" aria-hidden="true">
+      <source src="{{ url_for('static', filename='video/concert-ambient.mp4') }}" type="video/mp4">
+    </video>
     <div class="loading-ripple-layer" aria-hidden="true"></div>
 
+    <nav class="container loading-nav" aria-label="Welcome navigation">
+      <a class="loading-logo" href="{{ url_for('events.index') }}" aria-label="SoundWave Events home">
+        <span class="brand-mark">SW</span>
+        <span>SoundWave</span>
+      </a>
+      <span class="loading-nav-meta">Concerts · Tickets · Campus nights</span>
+    </nav>
+
     <section class="container loading-shell">
-      <div class="loading-card">
+      <div class="loading-hero">
         <div class="loading-brand">
-          <span class="brand-mark">SW</span>
           <span>LIVE MUSIC EXPERIENCE</span>
         </div>
 
@@ -31,13 +41,20 @@
           <span></span>
         </div>
 
-        <a class="btn btn-primary-action btn-lg loading-enter" href="{{ url_for('events.index') }}">
-          Enter SoundWave
-        </a>
-
-        <p class="loading-hint">Move your cursor and feel the sound.</p>
+        <div class="loading-actions">
+          <a class="btn btn-primary-action btn-lg loading-enter" href="{{ url_for('events.index') }}">
+            Enter SoundWave
+          </a>
+          <p class="loading-hint">Move your cursor and feel the sound.</p>
+        </div>
       </div>
     </section>
+
+    <div class="loading-bottom-bar" aria-hidden="true">
+      <span>Live shows</span>
+      <span>Dynamic stages</span>
+      <span>Easy booking</span>
+    </div>
   </main>
 
   <script>
@@ -46,7 +63,10 @@
       if (!layer) return;
 
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduceMotion) return;
+      if (reduceMotion) {
+        document.querySelector('.loading-video')?.pause();
+        return;
+      }
 
       let lastMove = 0;
 

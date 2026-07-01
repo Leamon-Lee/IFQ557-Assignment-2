@@ -1956,3 +1956,207 @@ p {
     animation: none;
   }
 }
+
+/* Luma-inspired cinematic loading page refinements */
+.loading-page {
+  align-items: stretch;
+  background: #050814 url("../img/concert-audience.jpg") center/cover;
+}
+
+.loading-video {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.82;
+  filter: brightness(0.58) contrast(1.08) saturate(1.18);
+}
+
+.loading-page::before,
+.loading-page::after {
+  z-index: 1;
+}
+
+.loading-page::before {
+  background:
+    linear-gradient(90deg, rgba(3, 6, 18, 0.86), rgba(3, 6, 18, 0.45) 47%, rgba(3, 6, 18, 0.86)),
+    linear-gradient(180deg, rgba(3, 6, 18, 0.7), rgba(3, 6, 18, 0.18) 36%, rgba(3, 6, 18, 0.88));
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+.loading-page::after {
+  background:
+    radial-gradient(circle at 18% 20%, rgba(244, 63, 94, 0.34), transparent 30%),
+    radial-gradient(circle at 72% 34%, rgba(56, 189, 248, 0.24), transparent 34%),
+    radial-gradient(circle at 48% 82%, rgba(168, 85, 247, 0.24), transparent 32%);
+  mix-blend-mode: screen;
+  opacity: 0.82;
+  animation: loading-aurora-shift 12s ease-in-out infinite alternate;
+}
+
+.loading-ripple-layer {
+  z-index: 5;
+}
+
+.loading-nav {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateX(-50%);
+  padding-top: 1.6rem;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.loading-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #ffffff;
+  font-weight: 850;
+  text-decoration: none;
+  letter-spacing: -0.03em;
+}
+
+.loading-logo:hover {
+  color: #ffffff;
+}
+
+.loading-nav-meta {
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.58);
+}
+
+.loading-shell {
+  align-items: center;
+  justify-content: flex-start;
+  padding-block: 7rem 5rem;
+}
+
+.loading-hero {
+  position: relative;
+  z-index: 3;
+  max-width: 1080px;
+  text-align: left;
+}
+
+.loading-hero .loading-brand {
+  margin-bottom: 1.15rem;
+  color: rgba(255, 255, 255, 0.66);
+  letter-spacing: 0.24em;
+}
+
+.loading-hero h1 {
+  max-width: 1120px;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(4.4rem, 11vw, 10rem);
+  font-weight: 950;
+  line-height: 0.86;
+  letter-spacing: -0.09em;
+  text-wrap: balance;
+  text-shadow: 0 18px 70px rgba(0, 0, 0, 0.38);
+}
+
+.loading-hero .loading-subtitle {
+  max-width: 620px;
+  margin: 1.5rem 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: clamp(1.15rem, 2.1vw, 1.55rem);
+  line-height: 1.45;
+}
+
+.loading-hero .loading-wave {
+  justify-content: flex-start;
+  margin: 2rem 0 0;
+}
+
+.loading-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+  margin-top: 1.8rem;
+}
+
+.loading-actions .loading-enter {
+  min-width: 0;
+  padding: 0.9rem 1.45rem;
+  border-radius: 999px;
+}
+
+.loading-actions .loading-hint {
+  margin: 0;
+}
+
+.loading-bottom-bar {
+  position: absolute;
+  right: max(1.25rem, calc((100vw - 1140px) / 2));
+  bottom: 1.6rem;
+  z-index: 4;
+  display: flex;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.loading-bottom-bar span {
+  padding: 0.55rem 0.78rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.82rem;
+  backdrop-filter: blur(14px);
+}
+
+@keyframes loading-aurora-shift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(2%, 1%, 0) scale(1.08);
+  }
+}
+
+@media (max-width: 767px) {
+  .loading-nav-meta,
+  .loading-bottom-bar {
+    display: none;
+  }
+
+  .loading-nav {
+    justify-content: center;
+  }
+
+  .loading-shell {
+    justify-content: center;
+    padding-block: 6rem 3rem;
+  }
+
+  .loading-hero {
+    text-align: center;
+  }
+
+  .loading-hero .loading-brand,
+  .loading-hero .loading-wave,
+  .loading-actions {
+    justify-content: center;
+  }
+
+  .loading-hero h1 {
+    font-size: clamp(3.45rem, 18vw, 5.8rem);
+    letter-spacing: -0.075em;
+  }
+
+  .loading-hero .loading-subtitle {
+    margin-inline: auto;
+  }
+}
