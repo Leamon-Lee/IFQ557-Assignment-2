@@ -2410,6 +2410,185 @@ p {
   will-change: transform;
 }
 
+.loading-moving-lights {
+  display: none;
+}
+
+.loading-show-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 1;
+  filter: saturate(1.18) contrast(1.04);
+}
+
+.loading-moving-lights span {
+  position: absolute;
+  top: var(--top);
+  right: var(--right);
+  width: var(--width, clamp(150px, 15vw, 300px));
+  height: var(--height, clamp(440px, 66vh, 780px));
+  border-radius: 48% 48% 44% 44% / 6% 6% 88% 88%;
+  background:
+    radial-gradient(ellipse at 50% 4%, rgba(var(--light), 0.5), rgba(var(--light), 0.22) 16%, rgba(var(--light), 0.08) 46%, rgba(var(--light), 0.03) 66%, transparent 82%);
+  filter: blur(var(--blur, 18px)) saturate(1.22) brightness(0.95);
+  opacity: var(--alpha, 0.28);
+  transform-origin: 50% -6%;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.7) 38%, rgba(0, 0, 0, 0.18) 74%, transparent 100%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.7) 38%, rgba(0, 0, 0, 0.18) 74%, transparent 100%);
+  animation:
+    loading-spotlight-tilt var(--duration, 7s) cubic-bezier(0.42, 0, 0.22, 1) infinite alternate,
+    loading-spotlight-intensity var(--pulse, 5.6s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s), var(--pulse-delay, 0s);
+  will-change: transform, filter;
+}
+
+.loading-moving-lights span::before,
+.loading-moving-lights span::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.loading-moving-lights span::before {
+  top: -4px;
+  left: 50%;
+  width: clamp(24px, 2.8vw, 52px);
+  height: clamp(9px, 1vw, 18px);
+  border-radius: 999px;
+  background: radial-gradient(ellipse, rgba(255, 255, 255, 0.62), rgba(var(--light), 0.38) 42%, transparent 78%);
+  filter: blur(6px);
+  opacity: 0.54;
+  transform: translate(-50%, -50%);
+}
+
+.loading-moving-lights span::after {
+  bottom: -15%;
+  left: 50%;
+  width: 116%;
+  height: 28%;
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse, rgba(var(--light), 0.18), rgba(var(--light), 0.06) 38%, transparent 72%);
+  filter: blur(24px);
+  opacity: 0.38;
+  transform: translateX(-50%) scaleX(1.1);
+}
+
+.loading-moving-lights span:nth-child(1) {
+  --top: 6%;
+  --right: 31%;
+  --light: 56, 189, 248;
+  --alpha: 0.24;
+  --duration: 7.8s;
+  --pulse: 5.4s;
+  --delay: -1s;
+  --angle-a: -18deg;
+  --angle-b: -4deg;
+  --angle-c: -26deg;
+}
+
+.loading-moving-lights span:nth-child(2) {
+  --top: 8%;
+  --right: 23%;
+  --light: 168, 85, 247;
+  --alpha: 0.22;
+  --duration: 8.6s;
+  --pulse: 6.2s;
+  --delay: -4.2s;
+  --angle-a: -2deg;
+  --angle-b: -22deg;
+  --angle-c: -10deg;
+}
+
+.loading-moving-lights span:nth-child(3) {
+  --top: 9%;
+  --right: 15%;
+  --light: 245, 158, 11;
+  --alpha: 0.2;
+  --duration: 7.2s;
+  --pulse: 5.8s;
+  --delay: -2.6s;
+  --angle-a: 8deg;
+  --angle-b: -8deg;
+  --angle-c: 15deg;
+}
+
+.loading-moving-lights span:nth-child(4) {
+  --top: 12%;
+  --right: 7%;
+  --light: 236, 72, 153;
+  --alpha: 0.22;
+  --duration: 9.1s;
+  --pulse: 6.6s;
+  --delay: -5.1s;
+  --angle-a: 18deg;
+  --angle-b: -2deg;
+  --angle-c: 10deg;
+}
+
+.loading-moving-lights span:nth-child(5) {
+  --top: 18%;
+  --right: -1%;
+  --light: 125, 211, 252;
+  --alpha: 0.18;
+  --duration: 8.2s;
+  --pulse: 5.9s;
+  --delay: -3.3s;
+  --angle-a: 24deg;
+  --angle-b: 8deg;
+  --angle-c: 30deg;
+}
+
+.loading-moving-lights span:nth-child(6) {
+  --top: 24%;
+  --right: 27%;
+  --light: 251, 191, 36;
+  --alpha: 0.16;
+  --width: clamp(130px, 12vw, 240px);
+  --height: clamp(380px, 54vh, 640px);
+  --duration: 10s;
+  --pulse: 7s;
+  --delay: -7s;
+  --angle-a: -30deg;
+  --angle-b: -12deg;
+  --angle-c: -22deg;
+}
+
+.loading-moving-lights span:nth-child(7) {
+  --top: 30%;
+  --right: 14%;
+  --light: 34, 211, 238;
+  --alpha: 0.15;
+  --width: clamp(130px, 11vw, 220px);
+  --height: clamp(360px, 50vh, 600px);
+  --duration: 8.8s;
+  --pulse: 6.4s;
+  --delay: -4.6s;
+  --angle-a: -16deg;
+  --angle-b: 7deg;
+  --angle-c: -5deg;
+}
+
+.loading-moving-lights span:nth-child(8) {
+  --top: 35%;
+  --right: 2%;
+  --light: 244, 114, 182;
+  --alpha: 0.14;
+  --width: clamp(120px, 10vw, 210px);
+  --height: clamp(340px, 48vh, 580px);
+  --duration: 9.4s;
+  --pulse: 6.8s;
+  --delay: -6.2s;
+  --angle-a: 10deg;
+  --angle-b: -14deg;
+  --angle-c: 2deg;
+}
+
 .loading-atmosphere {
   position: absolute;
   inset: 0;
@@ -2580,6 +2759,31 @@ p {
   }
 }
 
+@keyframes loading-spotlight-tilt {
+  0% {
+    transform: translate3d(-1.5%, -22px, 0) rotate(var(--angle-a, -12deg)) scaleY(0.96);
+  }
+
+  48% {
+    transform: translate3d(1%, 20px, 0) rotate(var(--angle-b, 10deg)) scaleY(1.05);
+  }
+
+  100% {
+    transform: translate3d(-0.5%, -10px, 0) rotate(var(--angle-c, -4deg)) scaleY(0.99);
+  }
+}
+
+@keyframes loading-spotlight-intensity {
+  0%,
+  100% {
+    filter: blur(var(--blur, 18px)) saturate(1.1) brightness(0.84);
+  }
+
+  52% {
+    filter: blur(var(--blur, 18px)) saturate(1.32) brightness(1.12);
+  }
+}
+
 @keyframes loading-soft-pulse {
   0% {
     opacity: 0.9;
@@ -2629,6 +2833,20 @@ p {
     filter: blur(46px);
   }
 
+  .loading-moving-lights {
+    inset: -18%;
+  }
+
+  .loading-moving-lights span {
+    width: 48vw;
+    height: 62vh;
+    min-width: 0;
+  }
+
+  .loading-moving-lights span::after {
+    filter: blur(12px) saturate(1.08);
+  }
+
   .loading-cursor-glow {
     display: none;
   }
@@ -2636,6 +2854,8 @@ p {
 
 @media (prefers-reduced-motion: reduce) {
   .loading-cinematic-backdrop,
+  .loading-show-canvas,
+  .loading-moving-lights span,
   .loading-atmosphere span,
   .loading-wave::before,
   .loading-wave::after,
