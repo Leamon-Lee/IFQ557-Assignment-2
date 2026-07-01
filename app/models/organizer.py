@@ -6,10 +6,10 @@ class Organizer(User):
     __tablename__ = "organizers"
 
     organizer_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), primary_key=True)
-    _organization_name = db.Column("organization_name", db.String(120), nullable=False)
-    _first_name = db.Column("first_name", db.String(30), nullable=False)
-    _second_name = db.Column("second_name", db.String(30), nullable=False)
-    _bio = db.Column("bio", db.String(100))
+    organization_name = db.Column(db.String(120), nullable=False)
+    first_name = db.Column(db.String(80), nullable=False)
+    second_name = db.Column(db.String(80), nullable=False)
+    bio = db.Column(db.String(100))
 
     events = db.relationship("MusicEvent", back_populates="organizer")
 

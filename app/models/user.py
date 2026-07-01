@@ -17,38 +17,8 @@ class User(UserMixin, db.Model):
 
     __mapper_args__ = {
         "polymorphic_identity": "user",
-        "polymorphic_on": _user_type,
+        "polymorphic_on": user_type,
     }
-
-    @property
-    def nickname(self) -> Nickname:
-        return Nickname(self._nickname)
-
-    @nickname.setter
-    def nickname(self, value: Nickname) -> None:
-        if not isinstance(value, Nickname):
-            raise TypeError("nickname must be a Nickname value object")
-        self._nickname = value.value
-
-    @property
-    def email(self) -> Email:
-        return Email(self._email)
-
-    @email.setter
-    def email(self, value: Email) -> None:
-        if not isinstance(value, Email):
-            raise TypeError("email must be an Email value object")
-        self._email = value.value
-
-    @property
-    def password_hash(self) -> PasswordHash:
-        return PasswordHash(self._password_hash)
-
-    @password_hash.setter
-    def password_hash(self, value: PasswordHash) -> None:
-        if not isinstance(value, PasswordHash):
-            raise TypeError("password_hash must be a PasswordHash value object")
-        self._password_hash = value.value
 
     def get_id(self) -> str:
         return str(self.user_id)
