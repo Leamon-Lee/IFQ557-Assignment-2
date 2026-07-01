@@ -1,0 +1,26 @@
+Image sources used in SoundWave Events prototype
+
+1. jazz-night.jpg
+   Source: Wikimedia Commons - File:Colorful jazz concert (Unsplash).jpg
+   URL: https://commons.wikimedia.org/wiki/File:Colorful_jazz_concert_(Unsplash).jpg
+   License shown on Commons: CC0
+
+2. festival-crowd.png
+   Source: Wikimedia Commons - File:BAALS Music Festival 2014 - Crowd.png
+   URL: https://commons.wikimedia.org/wiki/File:BAALS_Music_Festival_2014_-_Crowd.png
+   License shown on Commons: CC BY-SA 4.0
+
+3. rock-stage.jpg
+   Source: Wikimedia Commons - File:Radio Rock Main stage in 2019 Tuska Open air.jpg
+   URL: https://commons.wikimedia.org/wiki/File:Radio_Rock_Main_stage_in_2019_Tuska_Open_air.jpg
+   License shown on Commons: CC BY-SA 4.0
+
+4. acoustic-guitar.jpg
+   Source: Wikimedia Commons - File:Concert of classical guitar in Ivry-sur-Seine.jpg
+   URL: https://commons.wikimedia.org/wiki/File:Concert_of_classical_guitar_in_Ivry-sur-Seine.jpg
+   License shown on Commons: CC BY-SA 4.0
+
+5. concert-audience.jpg
+   Source: Wikimedia Commons - File:Peace Concert Hall Audience.jpg
+   URL: https://commons.wikimedia.org/wiki/File:Peace_Concert_Hall_Audience.jpg
+   License shown on Commons: CC BY-SA 4.0

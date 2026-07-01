@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SoundWave Events | Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/style/style.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <span class="brand-mark">SW</span> SoundWave Events
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="event-details.html">Event Details</a></li>
+          <li class="nav-item"><a class="nav-link" href="create-event.html">Create Event</a></li>
+          <li class="nav-item"><a class="nav-link" href="booking-history.html">Booking History</a></li>
+          <li class="nav-item"><a class="nav-link nav-login" href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero-stage">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="container hero-content">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <p class="eyebrow">Live music in Nanjing</p>
+          <h1 class="hero-title">Plan your next live show.</h1>
+          <p class="hero-copy">Browse upcoming concerts, jazz nights and campus festivals. Check the venue, ticket availability and event status before you book.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a class="btn btn-primary-action btn-lg" href="#featured-events">Find events</a>
+            <a class="btn btn-glass btn-lg" href="create-event.html">Create your event</a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div id="heroEventCarousel" class="carousel slide spotlight-carousel" data-bs-ride="carousel" data-bs-interval="4200">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#heroEventCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Riverside Jazz Night"></button>
+              <button type="button" data-bs-target="#heroEventCarousel" data-bs-slide-to="1" aria-label="Campus Music Festival"></button>
+              <button type="button" data-bs-target="#heroEventCarousel" data-bs-slide-to="2" aria-label="Indie Rock Live"></button>
+            </div>
+
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <a class="spotlight-slide poster-jazz" href="event-details.html">
+                  <span class="live-pill">Featured tonight</span>
+                  <div class="spotlight-slide-copy">
+                    <p class="event-date">12 July 2026 · Blue Hall</p>
+                    <h2>Riverside Jazz Night</h2>
+                    <p>A warm live-jazz session with skyline views, food stalls and 38 tickets still available.</p>
+                    <div class="slide-meta">
+                      <span>Open</span>
+                      <span>7 PM</span>
+                      <span>38 tickets</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="carousel-item">
+                <a class="spotlight-slide poster-campus" href="event-details.html">
+                  <span class="live-pill">Campus pick</span>
+                  <div class="spotlight-slide-copy">
+                    <p class="event-date">14 July 2026 · Main Lawn</p>
+                    <h2>Campus Music Festival</h2>
+                    <p>Student bands, pop performances and an outdoor market atmosphere for a summer evening.</p>
+                    <div class="slide-meta">
+                      <span>Open</span>
+                      <span>6 PM</span>
+                      <span>120 tickets</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div class="carousel-item">
+                <a class="spotlight-slide poster-rock" href="event-details.html">
+                  <span class="live-pill">Popular event</span>
+                  <div class="spotlight-slide-copy">
+                    <p class="event-date">16 July 2026 · Echo Stage</p>
+                    <h2>Indie Rock Live</h2>
+                    <p>An energetic live-house performance featuring local indie bands and a packed stage.</p>
+                    <div class="slide-meta">
+                      <span>Sold Out</span>
+                      <span>8 PM</span>
+                      <span>Waitlist</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroEventCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroEventCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="container py-5">
+      <div class="search-panel mb-5">
+        <div class="row g-3 align-items-end">
+          <div class="col-lg-5">
+            <label for="searchEvents" class="form-label">Search events</label>
+            <input type="text" class="form-control form-control-lg" id="searchEvents" placeholder="Artist, event or venue">
+          </div>
+          <div class="col-md-4 col-lg-3">
+            <label for="filterCategory" class="form-label">Category</label>
+            <select class="form-select form-select-lg" id="filterCategory">
+              <option>All categories</option>
+              <option>Concert</option>
+              <option>Jazz</option>
+              <option>Rock</option>
+              <option>Campus Festival</option>
+            </select>
+          </div>
+          <div class="col-md-4 col-lg-2">
+            <label for="filterDate" class="form-label">Date</label>
+            <select class="form-select form-select-lg" id="filterDate">
+              <option>Any date</option>
+              <option>This week</option>
+              <option>This month</option>
+            </select>
+          </div>
+          <div class="col-md-4 col-lg-2">
+            <button class="btn btn-dark btn-lg w-100" type="button">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-heading">
+        <p class="eyebrow dark">Browse by category</p>
+        <h2>Explore music categories</h2>
+      </div>
+      <div class="category-strip">
+        <span>Concert</span>
+        <span>Jazz</span>
+        <span>Rock</span>
+        <span>Campus Festival</span>
+        <span>Acoustic</span>
+      </div>
+    </section>
+
+    <section class="container pb-5" id="featured-events">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+        <div>
+          <p class="eyebrow dark">Event listings</p>
+          <h2 class="mb-0">Music events</h2>
+        </div>
+        <p class="text-muted mb-0">Showing status, venue and date at a glance.</p>
+      </div>
+
+      <div class="event-showcase">
+        <article class="event-card event-headliner poster-jazz">
+          <span class="status-badge status-open">Open</span>
+          <div class="event-headliner-copy">
+            <p class="event-kicker">Featured live show</p>
+            <p class="event-date">12 July 2026 · Blue Hall</p>
+            <h3>Riverside Jazz Night</h3>
+            <p>A relaxed evening of live jazz, food stalls and riverside views. Seats are limited, so the booking panel keeps ticket quantity visible.</p>
+            <div class="headliner-meta">
+              <span><strong>38</strong> tickets left</span>
+              <span><strong>7 PM</strong> start</span>
+              <span><strong>$32</strong> from</span>
+            </div>
+            <a href="event-details.html" class="event-text-link stretched-link">View event details</a>
+          </div>
+        </article>
+
+        <aside class="event-card event-queue">
+          <div class="queue-header">
+            <p class="event-kicker">Coming up</p>
+            <h3>This week's lineup</h3>
+          </div>
+
+          <a class="queue-event" href="event-details.html">
+            <span class="queue-date">14 Jul</span>
+            <div>
+              <span class="status-chip status-open">Open</span>
+              <h4>Campus Music Festival</h4>
+              <p>Main Lawn · Student bands and outdoor market atmosphere.</p>
+            </div>
+          </a>
+
+          <a class="queue-event" href="event-details.html">
+            <span class="queue-date">16 Jul</span>
+            <div>
+              <span class="status-chip status-sold">Sold Out</span>
+              <h4>Indie Rock Live</h4>
+              <p>Echo Stage · Local indie bands in a live-house setting.</p>
+            </div>
+          </a>
+
+          <a class="queue-event" href="event-details.html">
+            <span class="queue-date">18 Jul</span>
+            <div>
+              <span class="status-chip status-cancelled">Cancelled</span>
+              <h4>Acoustic Sunset Session</h4>
+              <p>Garden Room · An intimate acoustic weekend session.</p>
+            </div>
+          </a>
+        </aside>
+
+        <div class="status-strip">
+          <article class="event-card status-tile poster-campus">
+            <span class="status-chip status-open">Open</span>
+            <h3>Campus Fest</h3>
+            <p>14 July · Main Lawn</p>
+            <a href="event-details.html" class="stretched-link">View details</a>
+          </article>
+
+          <article class="event-card status-tile poster-rock">
+            <span class="status-chip status-sold">Sold Out</span>
+            <h3>Rock Live</h3>
+            <p>16 July · Echo Stage</p>
+            <a href="event-details.html" class="stretched-link">View details</a>
+          </article>
+
+          <article class="event-card status-tile poster-acoustic">
+            <span class="status-chip status-cancelled">Cancelled</span>
+            <h3>Acoustic Session</h3>
+            <p>18 July · Garden Room</p>
+            <a href="event-details.html" class="stretched-link">View details</a>
+          </article>
+
+          <article class="event-card status-tile status-tile-plain">
+            <span class="status-chip status-inactive">Inactive</span>
+            <h3>Electronic Night Lab</h3>
+            <p>20 June · Studio 9 · Past show with archived comments.</p>
+            <a href="event-details.html" class="stretched-link">View details</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="experience-band">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5">
+            <p class="eyebrow">Why SoundWave</p>
+            <h2>Useful details before people commit to a ticket.</h2>
+          </div>
+          <div class="col-lg-7">
+            <div class="journey-grid">
+              <div><span>01</span><strong>Clear event status</strong><p>Open, sold out, cancelled and inactive events are easy to tell apart.</p></div>
+              <div><span>02</span><strong>Venue and time</strong><p>Each event highlights where and when the show happens.</p></div>
+              <div><span>03</span><strong>Ticket quantity</strong><p>The detail page makes the booking action visible.</p></div>
+              <div><span>04</span><strong>Past orders</strong><p>The booking page keeps order IDs and booked times organised.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
