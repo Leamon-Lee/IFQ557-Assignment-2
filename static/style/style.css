@@ -2221,3 +2221,180 @@ p {
     letter-spacing: -0.062em;
   }
 }
+
+/* Higher-impact concert motion layer */
+.loading-video {
+  opacity: 0.96;
+  filter: brightness(0.7) contrast(1.18) saturate(1.42);
+  transform: scale(1.03);
+}
+
+.loading-page::before {
+  background:
+    linear-gradient(90deg, rgba(3, 6, 18, 0.78), rgba(3, 6, 18, 0.34) 46%, rgba(3, 6, 18, 0.82)),
+    linear-gradient(180deg, rgba(3, 6, 18, 0.58), rgba(3, 6, 18, 0.08) 36%, rgba(3, 6, 18, 0.9));
+}
+
+.loading-page::after {
+  opacity: 1;
+  background:
+    radial-gradient(circle at 14% 22%, rgba(244, 63, 94, 0.48), transparent 31%),
+    radial-gradient(circle at 74% 30%, rgba(56, 189, 248, 0.36), transparent 34%),
+    radial-gradient(circle at 44% 84%, rgba(168, 85, 247, 0.34), transparent 34%);
+  animation: loading-aurora-shift 8s ease-in-out infinite alternate;
+}
+
+.loading-light-beams,
+.loading-energy-field {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.loading-light-beams span {
+  position: absolute;
+  width: 52vw;
+  height: 16vw;
+  min-width: 560px;
+  min-height: 150px;
+  border-radius: 999px;
+  opacity: 0.55;
+  filter: blur(34px);
+  mix-blend-mode: screen;
+  transform-origin: center;
+}
+
+.loading-light-beams span:nth-child(1) {
+  top: 5%;
+  left: -16%;
+  background: linear-gradient(90deg, transparent, rgba(255, 57, 92, 0.78), rgba(255, 175, 64, 0.42), transparent);
+  transform: rotate(14deg);
+  animation: loading-beam-sweep-a 7.5s ease-in-out infinite alternate;
+}
+
+.loading-light-beams span:nth-child(2) {
+  top: 12%;
+  right: -18%;
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.72), rgba(139, 92, 246, 0.54), transparent);
+  transform: rotate(-17deg);
+  animation: loading-beam-sweep-b 8.6s ease-in-out infinite alternate;
+}
+
+.loading-light-beams span:nth-child(3) {
+  bottom: 8%;
+  left: 18%;
+  width: 38vw;
+  height: 18vw;
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.46), rgba(56, 189, 248, 0.3), transparent 68%);
+  animation: loading-beam-pulse 5.4s ease-in-out infinite;
+}
+
+.loading-energy-field {
+  z-index: 3;
+  opacity: 0.36;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.44) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(56, 189, 248, 0.32) 0 1px, transparent 1.6px);
+  background-size: 82px 82px, 127px 127px;
+  background-position: 0 0, 22px 38px;
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.9), transparent 72%);
+  animation: loading-particles-drift 18s linear infinite;
+}
+
+.loading-hero {
+  animation: loading-hero-enter 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.loading-wave span {
+  box-shadow:
+    0 0 18px rgba(56, 189, 248, 0.58),
+    0 0 30px rgba(236, 72, 153, 0.28);
+}
+
+@keyframes loading-beam-sweep-a {
+  from {
+    transform: translate3d(-6%, -12%, 0) rotate(12deg) scaleX(0.95);
+    opacity: 0.36;
+  }
+
+  to {
+    transform: translate3d(22%, 28%, 0) rotate(18deg) scaleX(1.18);
+    opacity: 0.72;
+  }
+}
+
+@keyframes loading-beam-sweep-b {
+  from {
+    transform: translate3d(6%, -14%, 0) rotate(-20deg) scaleX(0.92);
+    opacity: 0.32;
+  }
+
+  to {
+    transform: translate3d(-24%, 30%, 0) rotate(-13deg) scaleX(1.2);
+    opacity: 0.68;
+  }
+}
+
+@keyframes loading-beam-pulse {
+  0%,
+  100% {
+    transform: translate3d(-8%, 8%, 0) scale(0.92);
+    opacity: 0.24;
+  }
+
+  50% {
+    transform: translate3d(10%, -12%, 0) scale(1.16);
+    opacity: 0.58;
+  }
+}
+
+@keyframes loading-particles-drift {
+  from {
+    background-position: 0 0, 22px 38px;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    background-position: 82px 164px, 149px 292px;
+    transform: translate3d(2%, -2%, 0);
+  }
+}
+
+@keyframes loading-hero-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 767px) {
+  .loading-video {
+    filter: brightness(0.62) contrast(1.16) saturate(1.36);
+  }
+
+  .loading-energy-field {
+    opacity: 0.24;
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 80%);
+  }
+
+  .loading-light-beams span {
+    min-width: 460px;
+    min-height: 120px;
+    opacity: 0.42;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-light-beams span,
+  .loading-energy-field,
+  .loading-hero {
+    animation: none;
+  }
+}
