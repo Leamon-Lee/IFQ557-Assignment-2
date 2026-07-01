@@ -2160,3 +2160,64 @@ p {
     margin-inline: auto;
   }
 }
+
+/* Loading page typography polish */
+@font-face {
+  font-family: "SoundWave Display";
+  src: url("../fonts/inter-tight-800.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+.loading-body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.loading-logo,
+.loading-nav-meta,
+.loading-hero .loading-brand,
+.loading-hero .loading-subtitle,
+.loading-actions .loading-hint,
+.loading-bottom-bar span {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.loading-logo {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.loading-hero .loading-brand {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+}
+
+.loading-hero h1 {
+  font-family: "SoundWave Display", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  max-width: 1040px;
+  font-size: clamp(4.2rem, 10.2vw, 9.2rem);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.072em;
+}
+
+.loading-hero .loading-subtitle {
+  font-weight: 520;
+  letter-spacing: -0.018em;
+}
+
+.loading-actions .loading-enter {
+  font-weight: 850;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 767px) {
+  .loading-hero h1 {
+    font-size: clamp(3.35rem, 17vw, 5.45rem);
+    line-height: 0.94;
+    letter-spacing: -0.062em;
+  }
+}
