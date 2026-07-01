@@ -1963,17 +1963,6 @@ p {
   background: #050814 url("../img/soundwave-loading-bg.png") center/cover;
 }
 
-.loading-video {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.82;
-  filter: brightness(0.58) contrast(1.08) saturate(1.18);
-}
-
 .loading-page::before,
 .loading-page::after {
   z-index: 1;
@@ -2222,13 +2211,6 @@ p {
   }
 }
 
-/* Higher-impact concert motion layer */
-.loading-video {
-  opacity: 0.96;
-  filter: brightness(0.7) contrast(1.18) saturate(1.42);
-  transform: scale(1.03);
-}
-
 .loading-page::before {
   background:
     linear-gradient(90deg, rgba(3, 6, 18, 0.78), rgba(3, 6, 18, 0.34) 46%, rgba(3, 6, 18, 0.82)),
@@ -2375,10 +2357,6 @@ p {
 }
 
 @media (max-width: 767px) {
-  .loading-video {
-    filter: brightness(0.62) contrast(1.16) saturate(1.36);
-  }
-
   .loading-energy-field {
     opacity: 0.24;
     mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 80%);
@@ -2396,5 +2374,99 @@ p {
   .loading-energy-field,
   .loading-hero {
     animation: none;
+  }
+}
+
+/* Smooth real-time concert ambience */
+.loading-cinematic-backdrop {
+  position: absolute;
+  inset: -7%;
+  z-index: 0;
+  background: url("../img/soundwave-loading-bg.png") center/cover no-repeat;
+  filter: brightness(0.72) contrast(1.18) saturate(1.32);
+  transform: translate3d(0, 0, 0) scale(1.08);
+  transform-origin: 62% 48%;
+  will-change: transform;
+  animation: loading-backdrop-float 26s cubic-bezier(0.45, 0, 0.2, 1) infinite alternate;
+}
+
+.loading-neon-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  opacity: 0.82;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.loading-hero,
+.loading-nav,
+.loading-bottom-bar {
+  z-index: 6;
+}
+
+.loading-ripple-layer {
+  z-index: 7;
+}
+
+.loading-light-beams span {
+  filter: blur(46px);
+}
+
+.loading-light-beams span:nth-child(1) {
+  animation-duration: 14s;
+  opacity: 0.46;
+}
+
+.loading-light-beams span:nth-child(2) {
+  animation-duration: 16s;
+  opacity: 0.42;
+}
+
+.loading-light-beams span:nth-child(3) {
+  animation-duration: 11s;
+  opacity: 0.38;
+}
+
+.loading-energy-field {
+  opacity: 0.2;
+  animation-duration: 42s;
+}
+
+@keyframes loading-backdrop-float {
+  0% {
+    transform: translate3d(-1.8%, -1.2%, 0) scale(1.08);
+  }
+
+  50% {
+    transform: translate3d(1.2%, 0.8%, 0) scale(1.115);
+  }
+
+  100% {
+    transform: translate3d(2.2%, -0.6%, 0) scale(1.095);
+  }
+}
+
+@media (max-width: 767px) {
+  .loading-cinematic-backdrop {
+    inset: -10%;
+    filter: brightness(0.66) contrast(1.12) saturate(1.22);
+    transform-origin: 55% 46%;
+  }
+
+  .loading-neon-canvas {
+    opacity: 0.64;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-cinematic-backdrop {
+    animation: none;
+  }
+
+  .loading-neon-canvas {
+    display: none;
   }
 }

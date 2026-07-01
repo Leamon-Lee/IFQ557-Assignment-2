@@ -9,9 +9,8 @@
 </head>
 <body class="loading-body">
   <main class="loading-page">
-    <video class="loading-video" autoplay muted loop playsinline poster="{{ url_for('static', filename='img/soundwave-loading-bg.png') }}" aria-hidden="true">
-      <source src="{{ url_for('static', filename='video/concert-ambient.mp4') }}" type="video/mp4">
-    </video>
+    <div class="loading-cinematic-backdrop" aria-hidden="true"></div>
+    <canvas class="loading-neon-canvas" aria-hidden="true"></canvas>
     <div class="loading-light-beams" aria-hidden="true">
       <span></span>
       <span></span>
@@ -63,39 +62,6 @@
     </div>
   </main>
 
-  <script>
-    (() => {
-      const layer = document.querySelector('.loading-ripple-layer');
-      if (!layer) return;
-
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduceMotion) {
-        document.querySelector('.loading-video')?.pause();
-        return;
-      }
-
-      let lastMove = 0;
-
-      const createRipple = (x, y, strong = false) => {
-        const ripple = document.createElement('span');
-        ripple.className = strong ? 'sound-ripple sound-ripple-strong' : 'sound-ripple';
-        ripple.style.left = `${x}px`;
-        ripple.style.top = `${y}px`;
-        layer.appendChild(ripple);
-        ripple.addEventListener('animationend', () => ripple.remove(), { once: true });
-      };
-
-      window.addEventListener('pointermove', (event) => {
-        const now = Date.now();
-        if (now - lastMove < 85) return;
-        lastMove = now;
-        createRipple(event.clientX, event.clientY);
-      }, { passive: true });
-
-      window.addEventListener('pointerdown', (event) => {
-        createRipple(event.clientX, event.clientY, true);
-      }, { passive: true });
-    })();
-  </script>
+  <script src="{{ url_for('static', filename='js/loading.js') }}"></script>
 </body>
 </html>
