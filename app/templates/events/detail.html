@@ -24,7 +24,12 @@
     <article class="detail-hero {{ genre_css.get(event.music_genre, 'poster-jazz') }}">
       <div class="detail-hero-nav">
         <a href="{{ url_for('events.index') }}#featured-events">← Back to events</a>
-        <span class="status-chip {{ status_class(event.event_status) }}">{{ event.event_status }}</span>
+        <div>
+          {% if current_user.is_authenticated and current_user.user_id == event.organizer_id %}
+          <a href="{{ url_for('events.edit_event', event_id=event.event_id) }}" class="btn btn-outline-light btn-sm me-2">Edit Event</a>
+          {% endif %}
+          <span class="status-chip {{ status_class(event.event_status) }}">{{ event.event_status }}</span>
+        </div>
       </div>
       <div class="detail-hero-copy">
         <p class="eyebrow">{{ event.music_genre }} 路 Live music</p>
