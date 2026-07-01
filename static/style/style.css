@@ -1512,7 +1512,8 @@ p {
   gap: 1.25rem;
 }
 
-.footer-bottom a {
+.footer-bottom a,
+.footer-bottom span {
   color: rgba(255, 255, 255, 0.56);
 }
 
