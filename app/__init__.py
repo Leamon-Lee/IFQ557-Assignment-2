@@ -13,6 +13,12 @@ def create_app() -> Flask:
     login_manager.init_app(app)
     bootstrap.init_app(app)
 
+    from app.models.user import User
+
+    @login_manager.user_loader
+    def load_user(user_id: str) -> User:
+        return
+
     from app.routes.admin_routes import admin_bp
     from app.routes.auth_routes import auth_bp
     from app.routes.event_routes import event_bp
