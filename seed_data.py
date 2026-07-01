@@ -1,36 +1,37 @@
+# 临时测试数据
 from datetime import datetime, timedelta
 
-from werkzeug.security import generate_password_hash
-
 from app import create_app
-from app.extensions import db
+from app.extensions import db, bcrypt
 from app.models import Organizer, Participant, MusicEvent, Venue, Artist, Registration, Ticket, Payment
 
 app = create_app()
 
 with app.app_context():
+    # 清空所有数据（开发阶段可重复执行）
     db.drop_all()
     db.create_all()
 
-    now = datetime.now()
+    # ---- 1. 创建用户 ----
+    pwd1 = bcrypt.generate_password_hash("123456").decode("utf-8")
+    pwd2 = bcrypt.generate_password_hash("123456").decode("utf-8")
 
-    # ---- 1. Users ----
     organizer = Organizer(
         nickname="music_live",
         email="organizer@soundwave.com",
-        password_hash=generate_password_hash("123456"),
+        password_hash=pwd1,
         contact_number="+86 138 0000 1111",
         street_address="10 Music Street",
         organization_name="SoundWave Productions",
         first_name="David",
         second_name="Lee",
-        bio="Professional music event organizer.",
+        bio="Professional music event organizer with 5 years of experience.",
     )
 
     participant = Participant(
         nickname="alexchen",
         email="alex@soundwave.com",
-        password_hash=generate_password_hash("123456"),
+        password_hash=pwd2,
         contact_number="+86 138 0000 2222",
         street_address="88 Happy Road",
         first_name="Alex",
@@ -38,9 +39,9 @@ with app.app_context():
     )
 
     db.session.add_all([organizer, participant])
-    db.session.flush()
+    db.session.flush()  # 获取 ID 但不提交
 
-    # ---- 2. Venues ----
+    # ---- 2. 创建场地 ----
     venues = [
         Venue(venue_name="Blue Hall", address="15 Riverside Ave", city="Shanghai", room="Hall A", capacity=100),
         Venue(venue_name="Main Lawn", address="22 University Blvd", city="Beijing", room="Outdoor Stage", capacity=500),
@@ -51,7 +52,7 @@ with app.app_context():
     db.session.add_all(venues)
     db.session.flush()
 
-    # ---- 3. Artists ----
+    # ---- 3. 创建艺术家 ----
     artists = [
         Artist(first_name="The Blue River", second_name="Quartet", artist_type="Band", music_genre="Jazz", bio="Four-piece jazz ensemble."),
         Artist(first_name="Campus", second_name="Bands", artist_type="Group", music_genre="Campus Festival", bio="Student bands from top universities."),
@@ -61,13 +62,14 @@ with app.app_context():
     db.session.add_all(artists)
     db.session.flush()
 
-    # ---- 4. Events ----
+    # ---- 4. 创建活动 ----
+    now = datetime.now()
     events = [
         MusicEvent(
             event_title="Riverside Jazz Night",
             description="A warm live-jazz session with skyline views, food stalls and 38 tickets still available.",
-            start_time=now + timedelta(days=11, hours=19),
-            end_time=now + timedelta(days=11, hours=22),
+            start_time=now + timedelta(days=11),
+            end_time=now + timedelta(days=11, hours=3),
             capacity=100,
             age_restriction=12,
             event_status="Open",
@@ -78,8 +80,8 @@ with app.app_context():
         MusicEvent(
             event_title="Campus Music Festival",
             description="Student bands, outdoor market energy and a summer-night crowd.",
-            start_time=now + timedelta(days=13, hours=16),
-            end_time=now + timedelta(days=13, hours=21),
+            start_time=now + timedelta(days=13),
+            end_time=now + timedelta(days=13, hours=5),
             capacity=500,
             age_restriction=0,
             event_status="Open",
@@ -90,8 +92,8 @@ with app.app_context():
         MusicEvent(
             event_title="Indie Rock Live",
             description="Local indie bands, a packed stage and an energetic live-house atmosphere.",
-            start_time=now + timedelta(days=15, hours=20),
-            end_time=now + timedelta(days=15, hours=23),
+            start_time=now + timedelta(days=15),
+            end_time=now + timedelta(days=15, hours=3),
             capacity=80,
             age_restriction=16,
             event_status="Sold Out",
@@ -102,8 +104,8 @@ with app.app_context():
         MusicEvent(
             event_title="Acoustic Sunset Session",
             description="An intimate acoustic weekend session in a garden setting.",
-            start_time=now + timedelta(days=17, hours=17, minutes=30),
-            end_time=now + timedelta(days=17, hours=20),
+            start_time=now + timedelta(days=17),
+            end_time=now + timedelta(days=17, hours=2, minutes=30),
             capacity=60,
             age_restriction=0,
             event_status="Cancelled",
@@ -114,8 +116,8 @@ with app.app_context():
         MusicEvent(
             event_title="Electronic Night Lab",
             description="An experimental electronic music night with cutting-edge sound design.",
-            start_time=now - timedelta(days=11, hours=21),
-            end_time=now - timedelta(days=11, hours=23, minutes=59),
+            start_time=now - timedelta(days=11),
+            end_time=now - timedelta(days=11, hours=4),
             capacity=40,
             age_restriction=18,
             event_status="Inactive",
@@ -127,45 +129,49 @@ with app.app_context():
     db.session.add_all(events)
     db.session.flush()
 
-    # ---- 5. Link Artists to Events ----
-    events[0].artists.append(artists[0])
-    events[1].artists.append(artists[1])
-    events[2].artists.append(artists[2])
-    events[3].artists.append(artists[3])
-    events[4].artists.append(artists[1])
+    # ---- 5. 关联 Artist 到 Event ----
+    events[0].artists.append(artists[0])  # Jazz Night -> Blue River Quartet
+    events[1].artists.append(artists[1])  # Campus -> Campus Bands
+    events[2].artists.append(artists[2])  # Indie Rock -> Indie Rockers
+    events[3].artists.append(artists[3])  # Acoustic -> Acoustic Duo
+    events[4].artists.append(artists[1])  # Electronic -> Campus Bands
 
-    # ---- 6. Registrations ----
+    # ---- 6. 创建一些注册记录 ----
     reg1 = Registration(
+        registration_time=now - timedelta(days=5),
+        registration_status="confirmed",
+        check_in_status="pending",
         participant_id=participant.participant_id,
         event_id=events[0].event_id,
     )
-    reg1.confirmRegistration()
     reg2 = Registration(
+        registration_time=now - timedelta(days=3),
+        registration_status="confirmed",
+        check_in_status="pending",
         participant_id=participant.participant_id,
         event_id=events[1].event_id,
     )
-    reg2.confirmRegistration()
+    db.session.add_all([reg1, reg2])
     db.session.flush()
 
-    # ---- 7. Tickets & Payments ----
-    t1 = Ticket(
-        ticket_type="standard", price=32.00, qr_code="SW-TKT-001",
+    # ---- 7. 创建票和支付 ----
+    ticket1 = Ticket(
+        ticket_type="standard", price=32.00, qr_code="SW-TKT-001", ticket_status="valid",
         registration_id=reg1.registration_id,
     )
-    t2 = Ticket(
-        ticket_type="free", price=0.00, qr_code="SW-TKT-002",
+    ticket2 = Ticket(
+        ticket_type="free", price=0.00, qr_code="SW-TKT-002", ticket_status="valid",
         registration_id=reg2.registration_id,
     )
-    p1 = Payment(
-        amount=32.00, payment_method="card",
+    pay1 = Payment(
+        amount=32.00, payment_method="card", payment_status="paid",
         payment_time=now - timedelta(days=5),
         registration_id=reg1.registration_id,
     )
-    p1.pay(32.00, "card")
+    db.session.add_all([ticket1, ticket2, pay1])
 
-    db.session.add_all([t1, t2, p1])
+    # ---- 提交 ----
     db.session.commit()
-
     print("Seed data inserted successfully!")
     print(f"  Users: 1 organizer + 1 participant")
     print(f"  Venues: {len(venues)}")
