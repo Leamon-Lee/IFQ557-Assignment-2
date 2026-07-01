@@ -13,5 +13,12 @@ class Venue(db.Model):
 
     events = db.relationship("MusicEvent", back_populates="venue")
 
-    def checkAvailability(self, start_time: object, end_time: object) -> bool:
-        return
+    def checkAvailability(self, start_time, end_time) -> bool:
+        from app.models.music_event import MusicEvent
+        conflicting_events = MusicEvent.query.filter(
+            MusicEvent.venue_id == self.venue_id,
+            MusicEvent.start_time < end_time,
+            MusicEvent.end_time > start_time
+        ).count()
+
+        return conflicting_events == 0
