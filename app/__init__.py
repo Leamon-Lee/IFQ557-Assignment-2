@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from app.extensions import bcrypt, bootstrap, db, login_manager
 from config import Config
@@ -11,6 +11,7 @@ def create_app() -> Flask:
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
+    login_manager.login_view = "auth.login"
     bootstrap.init_app(app)
 
     from app.models.user import User

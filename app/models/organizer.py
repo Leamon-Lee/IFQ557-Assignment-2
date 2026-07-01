@@ -1,5 +1,5 @@
 from app.extensions import db
-from app.models.user import User
+from .user import User
 
 
 class Organizer(User):
@@ -17,17 +17,42 @@ class Organizer(User):
         "polymorphic_identity": "organizer",
     }
 
-    def createEvent(self) -> int:
-        return
+    def createEvent(self, title, description, start_time, end_time, capacity) -> int:
+        from app.models.music_event import MusicEvent
+        new_event = MusicEvent(
+            event_title=title,
+            description=description,
+            start_time=start_time,
+            end_time=end_time,
+            capacity=capacity,
+            organizer_id=self.organizer_id
+        )
+        db.session.add(new_event)
+        db.session.commit()
+        return new_event.event_id
 
-    def updateEvent(self, event_id: int) -> bool:
-        return
+    def updateEvent(self, event_id: int, **kwargs) -> bool:
+        from app.models.music_event import MusicEvent
+        event = MusicEvent.query.filter_by(event_id=event_id, organizer_id=self.organizer_id).first()
+        if event:
+            for key, value in kwargs.items():
+                setattr(event, key, value)
+            db.session.commit()
+            return True
+        return False
 
     def cancelEvent(self, event_id: int) -> bool:
-        return
+        from app.models.music_event import MusicEvent
+        event = MusicEvent.query.filter_by(event_id=event_id, organizer_id=self.organizer_id).first()
+        if event:
+            event.event_status = "Cancelled"
+            db.session.commit()
+            return True
+        return False
 
     def viewParticipants(self, event_id: int) -> list:
-        return
+        from app.models.registration import Registration
+        return Registration.query.filter_by(event_id=event_id).all()
 
     def sendAnnouncement(self, event_id: int, message: str) -> bool:
-        return
+        return True
