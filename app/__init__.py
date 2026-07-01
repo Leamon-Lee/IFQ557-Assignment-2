@@ -17,7 +17,7 @@ def create_app() -> Flask:
 
     @login_manager.user_loader
     def load_user(user_id: str):
-     return db.session.get(User, int(user_id))
+        return db.session.get(User, int(user_id))
 
     from app.routes.admin_routes import admin_bp
     from app.routes.auth_routes import auth_bp

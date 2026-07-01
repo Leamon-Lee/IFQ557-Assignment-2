@@ -1,6 +1,7 @@
 from app.extensions import db
 from app.models.music_event import event_artist
 
+
 class Artist(db.Model):
     __tablename__ = "artists"
 
@@ -14,11 +15,7 @@ class Artist(db.Model):
     events = db.relationship("MusicEvent", secondary=event_artist, back_populates="artists")
 
     def updateProfile(self, first_name: str, second_name: str, bio: str) -> bool:
-        self.first_name = first_name
-        self.second_name = second_name
-        self.bio = bio
-        db.session.commit()
-        return True
+        return
 
-    def viewEvents(self) -> list:
-        return [event.event_id for event in self.events]
+    def viewEvents(self) -> list[int]:
+        return

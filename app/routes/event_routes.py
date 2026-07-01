@@ -11,6 +11,7 @@ def index():
     service = EventService()
     events = service.listEvents()
 
+    # 为每个活动附加上下文数据，方便模板使用
     event_data = []
     for e in events:
         event_data.append({
@@ -23,6 +24,7 @@ def index():
             ) if e.artists else "TBA",
         })
 
+    # 用于首页 hero 轮播（取前 3 个 Open 的活动）
     featured = [d for d in event_data if d["event"].event_status == "Open"][:3]
 
     return render_template(
@@ -34,6 +36,7 @@ def index():
 
 @event_bp.route("/events")
 def list_events():
+    """活动列表页（暂时用首页替代，后续可单独实现）。"""
     service = EventService()
     events = service.listEvents()
     return render_template("events/list.html", events=events)
@@ -58,10 +61,7 @@ def event_detail(event_id: int):
 
     remaining = service.getRemainingTickets(event_id)
     confirmed = service.getConfirmedCount(event_id)
-    if event.capacity > 0:
-        fill_pct = round(confirmed / event.capacity * 100, 1)
-    else:
-        fill_pct = 0
+    fill_pct = round(confirmed / event.capacity * 100, 1) if event.capacity > 0 else 0
     bar_style = f"width: {fill_pct}%"
 
     artist_names = ", ".join(
