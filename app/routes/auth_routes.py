@@ -2,6 +2,7 @@ from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 
 from app.forms.auth_forms import LoginForm, SignupForm
+from app.domain.value_objects import Email, Name, Nickname
 from app.models.participant import Participant
 from app.models.user import User
 
@@ -16,8 +17,9 @@ def login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and user.login(form.email.data, form.password.data):
+        email = Email(form.email.data)
+        user = User.query.filter(User._email == email.value).first()
+        if user and user.login(email, form.password.data):
             login_user(user)
             flash("Login successful.", "success")
             return redirect(url_for("events.index"))
@@ -33,15 +35,17 @@ def signup():
 
     form = SignupForm()
     if form.validate_on_submit():
+        nickname = Nickname(form.nickname.data)
+        email = Email(form.email.data)
         new_user = Participant(
-            nickname=form.nickname.data,
-            email=form.email.data,
-            first_name=form.first_name.data,
-            second_name=form.second_name.data,
+            nickname=nickname,
+            email=email,
+            first_name=Name(form.first_name.data),
+            second_name=Name(form.second_name.data),
             contact_number=form.contact_number.data,
             street_address=form.street_address.data,
         )
-        if new_user.signup(form.nickname.data, form.email.data, form.password.data):
+        if new_user.signup(nickname, email, form.password.data):
             flash("Account created! Please log in.", "success")
             return redirect(url_for("auth.login"))
         flash("This email is already registered.", "danger")
