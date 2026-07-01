@@ -13,5 +13,11 @@ class Text500:
         if self.value.strip() != self.value:
             raise ValueError("Text500 cannot start or end with spaces")
 
+    def __getitem__(self, key):
+        return self.value[key]
+
+    def __len__(self) -> int:
+        return len(self.value)
+
     def __str__(self) -> str:
         return self.value

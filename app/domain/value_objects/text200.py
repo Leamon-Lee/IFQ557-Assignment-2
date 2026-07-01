@@ -11,5 +11,11 @@ class Text200:
         if len(self.value) > 200:
             raise ValueError("Text200 cannot be longer than 200 characters")
 
+    def __getitem__(self, key):
+        return self.value[key]
+
+    def __len__(self) -> int:
+        return len(self.value)
+
     def __str__(self) -> str:
         return self.value
