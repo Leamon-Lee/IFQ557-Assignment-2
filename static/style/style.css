@@ -828,7 +828,7 @@ p {
 .poster-night {
   background:
     linear-gradient(180deg, rgba(5, 8, 15, 0.04), rgba(5, 8, 15, 0.72)),
-    url("../img/concert-audience.jpg") center/cover;
+    url("../img/soundwave-loading-bg.png") center/cover;
 }
 
 .status-badge {
@@ -1960,7 +1960,7 @@ p {
 /* Luma-inspired cinematic loading page refinements */
 .loading-page {
   align-items: stretch;
-  background: #050814 url("../img/concert-audience.jpg") center/cover;
+  background: #050814 url("../img/soundwave-loading-bg.png") center/cover;
 }
 
 .loading-video {
