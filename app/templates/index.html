@@ -1,0 +1,213 @@
+﻿{% extends "base.html" %}
+{% block content %}
+
+{% set genre_css = {
+    'Jazz': 'poster-jazz',
+    'Rock': 'poster-rock',
+    'Campus Festival': 'poster-campus',
+    'Acoustic': 'poster-acoustic',
+    'Concert': 'poster-night',
+} %}
+
+{% macro status_class(status) -%}
+  {% if status == 'Open' %}status-open
+  {% elif status == 'Sold Out' %}status-sold
+  {% elif status == 'Cancelled' %}status-cancelled
+  {% else %}status-inactive
+  {% endif %}
+{%- endmacro %}
+
+{% macro hero_css(genre) -%}
+  {% if genre == 'Jazz' %}hero-slide-jazz
+  {% elif genre == 'Rock' %}hero-slide-rock
+  {% elif genre == 'Campus Festival' %}hero-slide-campus
+  {% else %}hero-slide-jazz
+  {% endif %}
+{%- endmacro %}
+
+{% macro genre_card_css(genre) -%}
+  {{ genre_css.get(genre, 'poster-jazz') }}
+{%- endmacro %}
+
+<header id="heroEventCarousel" class="hero-stage carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5200">
+  <div class="carousel-inner hero-carousel-inner">
+    {% for item in featured_events %}
+    {% set e = item.event %}
+    <div class="carousel-item {% if loop.first %}active{% endif %}">
+      <a class="hero-slide {{ hero_css(e.music_genre) }}" href="{{ url_for('events.event_detail', event_id=e.event_id) }}">
+        <div class="container hero-content">
+          <div class="hero-copy-block">
+            <p class="eyebrow">
+              {% if loop.first %}Featured live show
+              {% elif loop.index == 2 %}Campus pick
+              {% else %}Popular event
+              {% endif %}
+            </p>
+            <h1 class="hero-title">{{ e.event_title }}</h1>
+            <p class="hero-event-meta">{{ e.start_time.strftime('%d %B %Y') }} 路 {{ item.venue_name }} 路 {{ e.event_status }}</p>
+            <p class="hero-copy">{{ e.description[:120] }}{% if e.description|length > 120 %}...{% endif %}</p>
+            <span class="btn btn-primary-action btn-lg">View event details</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="hero-actions">
+    <a class="hero-secondary-link" href="#featured-events">Browse all events</a>
+    <a class="hero-secondary-link" href="{{ url_for('events.create_event') }}">Create event</a>
+  </div>
+
+  <div class="carousel-indicators hero-indicators">
+    {% for item in featured_events %}
+    <button type="button" data-bs-target="#heroEventCarousel" data-bs-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active" aria-current="true"{% endif %} aria-label="{{ item.event.event_title }}"></button>
+    {% endfor %}
+  </div>
+
+  <button class="carousel-control-prev hero-control" type="button" data-bs-target="#heroEventCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next hero-control" type="button" data-bs-target="#heroEventCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</header>
+
+<main>
+  <!-- 搜索区 -->
+  <section class="container py-5">
+    <form method="GET" action="{{ url_for('events.index') }}" class="search-panel mb-5">
+      <div class="row g-3 align-items-end">
+        <div class="col-lg-5">
+          <label for="searchEvents" class="form-label">Search events</label>
+          <input type="text" class="form-control form-control-lg" id="searchEvents" name="search" placeholder="Artist, event or venue" value="{{ current_search or '' }}">
+        </div>
+        <div class="col-md-4 col-lg-3">
+          <label for="filterCategory" class="form-label">Category</label>
+          <select class="form-select form-select-lg" id="filterCategory" name="genre">
+            <option value="">All categories</option>
+            {% for genre in genres %}
+            <option value="{{ genre }}" {% if current_genre == genre %}selected{% endif %}>{{ genre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-4 col-lg-2">
+          <label for="filterDate" class="form-label">Date</label>
+          <select class="form-select form-select-lg" id="filterDate" name="date">
+            <option value="">Any date</option>
+            <option value="week" {% if current_date == 'week' %}selected{% endif %}>This week</option>
+            <option value="month" {% if current_date == 'month' %}selected{% endif %}>This month</option>
+          </select>
+        </div>
+        <div class="col-md-4 col-lg-2">
+          <button class="btn btn-dark btn-lg w-100" type="submit">Search</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- 分类浏览 -->
+    <div class="section-heading">
+      <p class="eyebrow dark">Browse by category</p>
+      <h2>Explore music categories</h2>
+    </div>
+    <div class="category-strip">
+      {% set genres = all_events|map(attribute='event')|map(attribute='music_genre')|unique|list %}
+      {% for genre in genres %}
+      <span>{{ genre }}</span>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- 活动列表 -->
+  <section class="container pb-5" id="featured-events">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
+      <div>
+        <p class="eyebrow dark">Event listings</p>
+        <h2 class="mb-0">Music events</h2>
+      </div>
+      <p class="text-muted mb-0">Showing status, venue and date at a glance.</p>
+    </div>
+
+    <div class="event-showcase">
+      {% set open_events = all_events|selectattr('event.event_status', 'equalto', 'Open')|list %}
+      {% set other_events = all_events|rejectattr('event.event_status', 'equalto', 'Open')|list %}
+
+      {% if open_events %}
+      {% set headliner = open_events[0] %}
+      <article class="event-card event-headliner {{ genre_card_css(headliner.event.music_genre) }}">
+        <span class="status-badge status-open">Open</span>
+        <div class="event-headliner-copy">
+          <p class="event-kicker">Featured live show</p>
+          <p class="event-date">{{ headliner.event.start_time.strftime('%d %B %Y') }} 路 {{ headliner.venue_name }}</p>
+          <h3>{{ headliner.event.event_title }}</h3>
+          <p>{{ headliner.event.description }}</p>
+          <div class="headliner-meta">
+            <span><strong>{{ headliner.remaining }}</strong> tickets left</span>
+            <span><strong>{{ headliner.event.start_time.strftime('%I %p') }}</strong> start</span>
+            <span><strong>$32</strong> from</span>
+          </div>
+          <a href="{{ url_for('events.event_detail', event_id=headliner.event.event_id) }}" class="event-text-link stretched-link">View event details</a>
+        </div>
+      </article>
+      {% endif %}
+
+      <!-- 队列区 -->
+      <aside class="event-card event-queue">
+        <div class="queue-header">
+          <p class="event-kicker">Coming up</p>
+          <h3>This week's lineup</h3>
+        </div>
+        {% for item in (open_events[1:] if open_events|length > 1 else open_events)[:3] %}
+        <a class="queue-event" href="{{ url_for('events.event_detail', event_id=item.event.event_id) }}">
+          <span class="queue-date">{{ item.event.start_time.strftime('%d %b') }}</span>
+          <div>
+            <span class="status-chip {{ status_class(item.event.event_status) }}">{{ item.event.event_status }}</span>
+            <h4>{{ item.event.event_title }}</h4>
+            <p>{{ item.venue_name }} 路 {{ item.event.description[:60] }}{% if item.event.description|length > 60 %}...{% endif %}</p>
+          </div>
+        </a>
+        {% endfor %}
+        {% if open_events|length == 0 %}
+        <div class="p-3 text-white-50">No upcoming events at the moment.</div>
+        {% endif %}
+      </aside>
+
+      <!-- 状态卡片区 -->
+      <div class="status-strip">
+        {% for item in all_events[:4] %}
+        {% set e = item.event %}
+        <article class="event-card status-tile {% if e.music_genre in genre_css %}{{ genre_css[e.music_genre] }}{% else %}status-tile-plain{% endif %}">
+          <span class="status-chip {{ status_class(e.event_status) }}">{{ e.event_status }}</span>
+          <h3>{{ e.event_title[:20] }}{% if e.event_title|length > 20 %}...{% endif %}</h3>
+          <p>{{ e.start_time.strftime('%d %B') }} 路 {{ item.venue_name }}</p>
+          <a href="{{ url_for('events.event_detail', event_id=e.event_id) }}" class="stretched-link">View details</a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- 体验区（静态内容保持不变） -->
+  <section class="experience-band">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-5">
+          <p class="eyebrow">Why SoundWave</p>
+          <h2>Useful details before people commit to a ticket.</h2>
+        </div>
+        <div class="col-lg-7">
+          <div class="journey-grid">
+            <div><span>01</span><strong>Clear event status</strong><p>Open, sold out, cancelled and inactive events are easy to tell apart.</p></div>
+            <div><span>02</span><strong>Venue and time</strong><p>Each event highlights where and when the show happens.</p></div>
+            <div><span>03</span><strong>Ticket quantity</strong><p>The detail page makes the booking action visible.</p></div>
+            <div><span>04</span><strong>Past orders</strong><p>The booking page keeps order IDs and booked times organised.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

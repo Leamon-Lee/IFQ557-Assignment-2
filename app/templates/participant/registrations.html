@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% set genre_css = {
+    'Jazz': 'poster-jazz',
+    'Rock': 'poster-rock',
+    'Campus Festival': 'poster-campus',
+    'Acoustic': 'poster-acoustic',
+    'Concert': 'poster-night',
+} %}
+
+<main class="history-page">
+  <section class="container">
+    <div class="row g-4 align-items-end mb-4">
+      <div class="col-lg-7">
+        <p class="eyebrow">User dashboard</p>
+        <h1>Your bookings.</h1>
+        <p class="text-white-50 mb-0">Keep track of upcoming shows, order IDs, booked times and ticket quantities in one place.</p>
+      </div>
+      <div class="col-lg-5">
+        <div class="history-summary">
+          {% set confirmed = registrations|selectattr('registration_status', 'equalto', 'Confirmed')|list %}
+          <div><strong>{{ confirmed|length }}</strong><span>Confirmed bookings</span></div>
+          <div><strong>{{ registrations|length }}</strong><span>Total bookings</span></div>
+          <div><strong>{{ registrations|length }}</strong><span>All time</span></div>
+        </div>
+      </div>
+    </div>
+
+    {% if registrations %}
+    <div class="history-timeline">
+      {% for reg in registrations %}
+      <article class="history-card">
+        <div class="history-poster {{ genre_css.get(reg.music_event.music_genre, 'poster-jazz') }}">{{ reg.music_event.music_genre }}</div>
+        <div class="history-info">
+          <span class="status-badge {% if reg.registration_status == 'Confirmed' %}status-open{% elif reg.registration_status == 'Cancelled' %}status-cancelled{% else %}status-inactive{% endif %}">{{ reg.registration_status }}</span>
+          <h2>{{ reg.music_event.event_title }}</h2>
+          <p>{{ reg.music_event.venue.venue_name if reg.music_event.venue else 'TBA' }} &middot; {{ reg.music_event.start_time.strftime('%d %B %Y') if reg.music_event.start_time else '' }} &middot; 1 ticket</p>
+        </div>
+        <div class="history-order">
+          <small>Order ID</small>
+          <strong>SW-{{ reg.music_event.start_time.strftime('%Y') if reg.music_event.start_time else '2026' }}-{{ '%04d' % reg.registration_id }}</strong>
+          <span>Booked: {{ reg.registration_time.strftime('%d %B %Y, %I:%M %p') }}</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="table-responsive mt-5 history-table">
+      <table class="table table-dark table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Order ID</th>
+            <th>Booked at</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for reg in registrations %}
+          <tr>
+            <td>
+              <a href="{{ url_for('events.event_detail', event_id=reg.music_event.event_id) }}" class="text-white text-decoration-none">
+                {{ reg.music_event.event_title }}
+              </a>
+            </td>
+            <td>SW-{{ reg.music_event.start_time.strftime('%Y') if reg.music_event.start_time else '2026' }}-{{ '%04d' % reg.registration_id }}</td>
+            <td>{{ reg.registration_time.strftime('%d %B %Y, %I:%M %p') }}</td>
+            <td>
+              {% if reg.registration_status == 'Confirmed' %}
+              <span class="badge text-bg-success">Confirmed</span>
+              {% elif reg.registration_status == 'Cancelled' %}
+              <span class="badge text-bg-danger">Cancelled</span>
+              {% else %}
+              <span class="badge text-bg-warning">{{ reg.registration_status }}</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <p class="text-white-50">No bookings yet.</p>
+      <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+    </div>
+    {% endif %}
+  </section>
+</main>
+
+{% endblock %}

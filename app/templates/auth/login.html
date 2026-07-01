@@ -1,0 +1,45 @@
+﻿{% extends "base.html" %}
+{% block content %}
+<main class="auth-page">
+  <section class="container">
+    <div class="auth-shell">
+      <aside class="auth-panel">
+        <p class="eyebrow">Member access</p>
+        <h1>Sign in before booking your next live show.</h1>
+        <p>Log in to book tickets, post comments, and manage your events.</p>
+        <div class="auth-benefits">
+          <span>Book tickets faster</span>
+          <span>Post event comments</span>
+          <span>Manage your own events</span>
+        </div>
+      </aside>
+
+      <div class="auth-card">
+        <div class="auth-heading">
+          <h2>Welcome back</h2>
+          <p>Don't have an account? <a href="{{ url_for('auth.signup') }}">Create one</a></p>
+        </div>
+
+        <form method="POST" action="{{ url_for('auth.login') }}">
+          {{ form.hidden_tag() }}
+          <div class="mb-3">
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control form-control-lg", placeholder="you@example.com") }}
+            {% for error in form.email.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control form-control-lg", placeholder="Enter your password") }}
+            {% for error in form.password.errors %}
+              <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+          </div>
+          {{ form.submit(class="btn btn-primary-action btn-lg w-100") }}
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

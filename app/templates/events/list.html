@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% set genre_css = {
+    'Jazz': 'poster-jazz',
+    'Rock': 'poster-rock',
+    'Campus Festival': 'poster-campus',
+    'Acoustic': 'poster-acoustic',
+    'Concert': 'poster-night',
+} %}
+
+{% macro status_class(status) -%}
+  {% if status == 'Open' %}status-open
+  {% elif status == 'Sold Out' %}status-sold
+  {% elif status == 'Cancelled' %}status-cancelled
+  {% else %}status-inactive
+  {% endif %}
+{%- endmacro %}
+
+<main class="detail-page">
+  <section class="container pt-5">
+    <div class="row g-4 align-items-end mb-4">
+      <div class="col-lg-7">
+        <p class="eyebrow">Event listings</p>
+        <h1>All music events.</h1>
+        <p class="text-white-50 mb-0">Browse by category or scroll through the full collection.</p>
+      </div>
+      <div class="col-lg-5">
+        <div class="d-flex flex-wrap gap-2">
+          <a href="{{ url_for('events.list_events') }}" class="btn btn-sm {% if not current_genre %}btn-primary-action{% else %}btn-outline-light{% endif %}">All</a>
+          {% for g in genres %}
+          <a href="{{ url_for('events.list_events', genre=g) }}" class="btn btn-sm {% if current_genre == g %}btn-primary-action{% else %}btn-outline-light{% endif %}">{{ g }}</a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {% if events %}
+    <div class="row g-4">
+      {% for ed in events %}
+      <div class="col-md-6 col-lg-4">
+        <article class="event-card">
+          <div class="event-poster {{ genre_css.get(ed.event.music_genre, 'poster-jazz') }}">
+            <span class="status-chip {{ status_class(ed.event.event_status) }}">{{ ed.event.event_status }}</span>
+            <h2>{{ ed.event.event_title }}</h2>
+            <p>{{ ed.event.description[:60] }}{% if ed.event.description|length > 60 %}...{% endif %}</p>
+          </div>
+          <div class="event-card-body">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <small class="text-muted">{{ ed.event.start_time.strftime('%d %B %Y, %I:%M %p') }}</small>
+                <p class="mb-0"><strong>{{ ed.venue_name }}</strong></p>
+              </div>
+              <span class="badge bg-secondary">{{ ed.remaining }} left</span>
+            </div>
+            <a href="{{ url_for('events.event_detail', event_id=ed.event.event_id) }}" class="btn btn-outline-light btn-sm w-100 mt-3">View details</a>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <p class="text-white-50">No events found{% if current_genre %} in {{ current_genre }}{% endif %}.</p>
+      <a href="{{ url_for('events.list_events') }}" class="btn btn-outline-light">Show all events</a>
+    </div>
+    {% endif %}
+  </section>
+</main>
+
+{% endblock %}

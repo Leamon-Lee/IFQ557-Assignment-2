@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="history-page">
+  <section class="container">
+    <div class="row g-4 align-items-end mb-4">
+      <div class="col-lg-7">
+        <p class="eyebrow">User dashboard</p>
+        <h1>Welcome, {{ current_user.nickname }}.</h1>
+        <p class="text-white-50 mb-0">Manage your bookings and discover upcoming events.</p>
+      </div>
+      <div class="col-lg-5">
+        <div class="history-summary">
+          <div><strong>{{ registrations|length }}</strong><span>Confirmed bookings</span></div>
+          <div><strong>{{ total_tickets }}</strong><span>Total tickets</span></div>
+          <div><strong>{{ registrations|selectattr('music_event.event_status', 'equalto', 'Open')|list|length }}</strong><span>Active events</span></div>
+        </div>
+      </div>
+    </div>
+
+    {% if registrations %}
+    <div class="history-timeline">
+      {% for reg in registrations[:5] %}
+      <article class="history-card">
+        <div class="history-poster poster-jazz">{{ reg.music_event.music_genre }}</div>
+        <div class="history-info">
+          <span class="status-badge status-open">{{ reg.registration_status }}</span>
+          <h2>{{ reg.music_event.event_title }}</h2>
+          <p>{{ reg.music_event.venue.venue_name if reg.music_event.venue else 'TBA' }} &middot; {{ reg.music_event.start_time.strftime('%d %B %Y') if reg.music_event.start_time else '' }}</p>
+        </div>
+        <div class="history-order">
+          <small>Order ID</small>
+          <strong>SW-{{ reg.music_event.start_time.strftime('%Y') if reg.music_event.start_time else '2026' }}-{{ '%04d' % reg.registration_id }}</strong>
+          <span>Booked: {{ reg.registration_time.strftime('%d %B %Y, %I:%M %p') }}</span>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="d-flex gap-3 mt-4">
+      <a href="{{ url_for('participant.registrations') }}" class="btn btn-outline-light">View all bookings</a>
+      <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <p class="text-white-50">You haven't booked any events yet.</p>
+      <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+    </div>
+    {% endif %}
+  </section>
+</main>
+
+{% endblock %}

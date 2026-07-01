@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% macro status_class(status) -%}
+  {% if status == 'Open' %}status-open
+  {% elif status == 'Sold Out' %}status-sold
+  {% elif status == 'Cancelled' %}status-cancelled
+  {% else %}status-inactive
+  {% endif %}
+{%- endmacro %}
+
+<main class="detail-page">
+  <section class="container pt-5">
+    <div class="row g-4 align-items-end mb-4">
+      <div class="col-lg-7">
+        <p class="eyebrow">Organizer dashboard</p>
+        <h1>{{ organizer.organization_name }}.</h1>
+        <p class="text-white-50 mb-0">Manage your events, track ticket sales, and view participant lists.</p>
+      </div>
+      <div class="col-lg-5">
+        <div class="history-summary">
+          <div><strong>{{ events|length }}</strong><span>Total events</span></div>
+          <div><strong>{{ events|sum(attribute='confirmed') }}</strong><span>Confirmed bookings</span></div>
+          <div><strong>{{ events|selectattr('event.event_status', 'equalto', 'Open')|list|length }}</strong><span>Active events</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end mb-4">
+      <a href="{{ url_for('events.create_event') }}" class="btn btn-primary-action">+ Create new event</a>
+    </div>
+
+    {% if events %}
+    <div class="table-responsive history-table">
+      <table class="table table-dark table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Venue</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Booked</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for ed in events %}
+          <tr>
+            <td>
+              <a href="{{ url_for('events.event_detail', event_id=ed.event.event_id) }}" class="text-white text-decoration-none">
+                {{ ed.event.event_title }}
+              </a>
+            </td>
+            <td>{{ ed.venue_name }}</td>
+            <td>{{ ed.event.start_time.strftime('%d %b %Y') }}</td>
+            <td>
+              <span class="status-chip {{ status_class(ed.event.event_status) }}">{{ ed.event.event_status }}</span>
+            </td>
+            <td>{{ ed.confirmed }} / {{ ed.event.capacity }}</td>
+            <td>
+              <div class="d-flex gap-2">
+                <a href="{{ url_for('events.edit_event', event_id=ed.event.event_id) }}" class="btn btn-outline-light btn-sm">Edit</a>
+                <a href="{{ url_for('organizer.participants', event_id=ed.event.event_id) }}" class="btn btn-outline-light btn-sm">Participants</a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <p class="text-white-50">You haven't created any events yet.</p>
+      <a href="{{ url_for('events.create_event') }}" class="btn btn-primary-action">Create your first event</a>
+    </div>
+    {% endif %}
+  </section>
+</main>
+
+{% endblock %}

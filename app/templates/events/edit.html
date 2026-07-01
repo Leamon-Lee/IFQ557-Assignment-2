@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="form-page">
+  <section class="container">
+    <div class="row g-5 align-items-start">
+      <div class="col-lg-4">
+        <div class="creator-panel">
+          <p class="eyebrow">Event editor</p>
+          <h1>Edit event.</h1>
+          <p>Update the details for <strong>{{ event.event_title }}</strong>. Status changes are not allowed here — use the cancel action if needed.</p>
+          <div class="creator-checklist">
+            <span>Title &amp; description</span>
+            <span>Venue &amp; category</span>
+            <span>Schedule &amp; capacity</span>
+            <span>Status is read-only</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <form method="POST" class="creator-form" novalidate>
+          {{ form.hidden_tag() }}
+
+          <div class="form-section">
+            <h2>Basic information</h2>
+            <div class="row g-3">
+              <div class="col-md-8">
+                {{ form.event_title.label(class="form-label") }}
+                {{ form.event_title(class="form-control form-control-lg") }}
+                {% for error in form.event_title.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+              <div class="col-md-4">
+                {{ form.music_genre.label(class="form-label") }}
+                {{ form.music_genre(class="form-select form-select-lg") }}
+              </div>
+              <div class="col-md-6">
+                {{ form.venue_id.label(class="form-label") }}
+                {{ form.venue_id(class="form-select") }}
+              </div>
+              <div class="col-md-6">
+                {{ form.age_restriction.label(class="form-label") }}
+                {{ form.age_restriction(class="form-control", min="0", max="100") }}
+                {% for error in form.age_restriction.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Schedule and tickets</h2>
+            <div class="row g-3">
+              <div class="col-md-6">
+                {{ form.start_time.label(class="form-label") }}
+                {{ form.start_time(class="form-control") }}
+                {% for error in form.start_time.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+              <div class="col-md-6">
+                {{ form.end_time.label(class="form-label") }}
+                {{ form.end_time(class="form-control") }}
+                {% for error in form.end_time.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+              <div class="col-md-6">
+                {{ form.capacity.label(class="form-label") }}
+                {{ form.capacity(class="form-control", min="1") }}
+                {% for error in form.capacity.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Status (read-only)</label>
+                <input type="text" class="form-control" value="{{ event.event_status }}" readonly disabled>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h2>Description</h2>
+            <div class="row g-3">
+              <div class="col-12">
+                {{ form.description.label(class="form-label") }}
+                {{ form.description(class="form-control", rows="5") }}
+                {% for error in form.description.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-3">
+            {{ form.submit(class="btn btn-primary-action") }}
+            <a href="{{ url_for('events.event_detail', event_id=event.event_id) }}" class="btn btn-outline-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

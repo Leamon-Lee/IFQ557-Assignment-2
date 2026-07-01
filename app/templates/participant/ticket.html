@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main class="detail-page">
+  <section class="container pt-5">
+    <div class="row g-4 align-items-end mb-4">
+      <div class="col-lg-7">
+        <p class="eyebrow">Ticket detail</p>
+        <h1>{{ ticket.registration.music_event.event_title }}.</h1>
+        <p class="text-white-50 mb-0">Ticket #{{ ticket.ticket_id }} &middot; {{ ticket.ticket_type|capitalize }} &middot; ${{ ticket.price }}</p>
+      </div>
+      <div class="col-lg-5 text-lg-end">
+        <a href="{{ url_for('participant.registrations') }}" class="btn btn-outline-light">← Back to bookings</a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <div class="content-panel">
+          <h2>Event details</h2>
+          <ul class="event-facts mt-3">
+            <li><span>Event</span><strong>{{ ticket.registration.music_event.event_title }}</strong></li>
+            <li><span>Venue</span><strong>{{ ticket.registration.music_event.venue.venue_name if ticket.registration.music_event.venue else 'TBA' }}</strong></li>
+            <li><span>Date</span><strong>{{ ticket.registration.music_event.start_time.strftime('%d %B %Y') }}</strong></li>
+            <li><span>Time</span><strong>{{ ticket.registration.music_event.start_time.strftime('%I:%M %p') }} - {{ ticket.registration.music_event.end_time.strftime('%I:%M %p') }}</strong></li>
+            <li><span>Booked at</span><strong>{{ ticket.registration.registration_time.strftime('%d %B %Y, %I:%M %p') }}</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="ticket-panel text-center">
+          <p class="eyebrow dark mb-1">Ticket status</p>
+          {% if ticket.ticket_status == 'Valid' %}
+          <span class="status-chip status-open d-inline-block mb-3">{{ ticket.ticket_status }}</span>
+          {% elif ticket.ticket_status == 'Cancelled' %}
+          <span class="status-chip status-cancelled d-inline-block mb-3">{{ ticket.ticket_status }}</span>
+          {% else %}
+          <span class="status-chip status-inactive d-inline-block mb-3">{{ ticket.ticket_status }}</span>
+          {% endif %}
+
+          <div class="qr-placeholder mb-3">
+            <p class="eyebrow dark">QR Code</p>
+            <div class="bg-light text-dark p-3 rounded" style="font-family: monospace; font-size: 10px; word-break: break-all;">
+              {{ ticket.qr_code }}
+            </div>
+          </div>
+
+          <p class="small text-muted">Present this QR code at the venue for check-in.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% endblock %}

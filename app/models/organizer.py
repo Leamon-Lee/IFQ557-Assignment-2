@@ -1,0 +1,120 @@
+from app.extensions import db
+from app.domain.value_objects import AgeRestriction, Capacity, EventStatus, EventTitle, MusicGenre, Name, OrganizationName, Text100, Text200
+from sqlalchemy.ext.hybrid import hybrid_property
+from .user import User
+
+
+class Organizer(User):
+    __tablename__ = "organizers"
+
+    organizer_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), primary_key=True)
+    _organization_name = db.Column("organization_name", db.String(120), nullable=False)
+    _first_name = db.Column("first_name", db.String(30), nullable=False)
+    _second_name = db.Column("second_name", db.String(30), nullable=False)
+    _bio = db.Column("bio", db.String(100))
+
+    events = db.relationship("MusicEvent", back_populates="organizer")
+
+    __mapper_args__ = {
+        "polymorphic_identity": "organizer",
+    }
+
+    @hybrid_property
+    def organization_name(self) -> OrganizationName:
+        return OrganizationName(self._organization_name)
+
+    @organization_name.expression
+    def organization_name(cls):
+        return cls._organization_name
+
+    @organization_name.setter
+    def organization_name(self, value: OrganizationName) -> None:
+        if not isinstance(value, OrganizationName):
+            raise TypeError("organization_name must be an OrganizationName value object")
+        self._organization_name = value.value
+
+    @hybrid_property
+    def first_name(self) -> Name:
+        return Name(self._first_name)
+
+    @first_name.expression
+    def first_name(cls):
+        return cls._first_name
+
+    @first_name.setter
+    def first_name(self, value: Name) -> None:
+        if not isinstance(value, Name):
+            raise TypeError("first_name must be a Name value object")
+        self._first_name = value.value
+
+    @hybrid_property
+    def second_name(self) -> Name:
+        return Name(self._second_name)
+
+    @second_name.expression
+    def second_name(cls):
+        return cls._second_name
+
+    @second_name.setter
+    def second_name(self, value: Name) -> None:
+        if not isinstance(value, Name):
+            raise TypeError("second_name must be a Name value object")
+        self._second_name = value.value
+
+    @hybrid_property
+    def bio(self) -> Text100:
+        return Text100(self._bio or "")
+
+    @bio.expression
+    def bio(cls):
+        return cls._bio
+
+    @bio.setter
+    def bio(self, value: Text100) -> None:
+        if not isinstance(value, Text100):
+            raise TypeError("bio must be a Text100 value object")
+        self._bio = value.value
+
+    def createEvent(self, title: EventTitle, description: Text200, start_time: object, end_time: object, capacity: Capacity) -> int:
+        from app.models.music_event import MusicEvent
+        new_event = MusicEvent(
+            event_title=title,
+            description=description,
+            start_time=start_time,
+            end_time=end_time,
+            capacity=capacity,
+            age_restriction=AgeRestriction(0),
+            event_status=EventStatus("Open"),
+            music_genre=MusicGenre("General"),
+            organizer_id=self.organizer_id,
+            venue_id=1,
+        )
+        db.session.add(new_event)
+        db.session.commit()
+        return new_event.event_id
+
+    def updateEvent(self, event_id: int, **kwargs) -> bool:
+        from app.models.music_event import MusicEvent
+        event = MusicEvent.query.filter_by(event_id=event_id, organizer_id=self.organizer_id).first()
+        if event:
+            for key, value in kwargs.items():
+                setattr(event, key, value)
+            db.session.commit()
+            return True
+        return False
+
+    def cancelEvent(self, event_id: int) -> bool:
+        from app.models.music_event import MusicEvent
+        event = MusicEvent.query.filter_by(event_id=event_id, organizer_id=self.organizer_id).first()
+        if event:
+            event.event_status = EventStatus("Cancelled")
+            db.session.commit()
+            return True
+        return False
+
+    def viewParticipants(self, event_id: int) -> list:
+        from app.models.registration import Registration
+        return Registration.query.filter_by(event_id=event_id).all()
+
+    def sendAnnouncement(self, event_id: int, message: str) -> bool:
+        return True
