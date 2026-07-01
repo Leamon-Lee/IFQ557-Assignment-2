@@ -1,0 +1,13 @@
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class EventTitle:
+    value: str
+
+    def __post_init__(self) -> None:
+        if not 1 <= len(self.value) <= 100:
+            raise ValueError("Event title must be 1 to 100 characters")
+
+    def __str__(self) -> str:
+        return self.value
