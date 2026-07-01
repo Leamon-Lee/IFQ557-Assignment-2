@@ -1,5 +1,8 @@
-from flask import Blueprint, abort, render_template
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
+from flask_login import current_user, login_required
 
+from app.forms.comment_forms import CommentForm
+from app.services.comment_service import CommentService
 from app.services.event_service import EventService
 
 
@@ -11,7 +14,6 @@ def index():
     service = EventService()
     events = service.listEvents()
 
-    # 为每个活动附加上下文数据，方便模板使用
     event_data = []
     for e in events:
         event_data.append({
@@ -24,7 +26,6 @@ def index():
             ) if e.artists else "TBA",
         })
 
-    # 用于首页 hero 轮播（取前 3 个 Open 的活动）
     featured = [d for d in event_data if d["event"].event_status == "Open"][:3]
 
     return render_template(
@@ -36,7 +37,6 @@ def index():
 
 @event_bp.route("/events")
 def list_events():
-    """活动列表页（暂时用首页替代，后续可单独实现）。"""
     service = EventService()
     events = service.listEvents()
     return render_template("events/list.html", events=events)
@@ -52,12 +52,29 @@ def edit_event(event_id: int):
     return render_template("events/edit.html")
 
 
-@event_bp.route("/events/<int:event_id>")
+@event_bp.route("/events/<int:event_id>", methods=["GET", "POST"])
 def event_detail(event_id: int):
     service = EventService()
     event = service.getEvent(event_id)
     if event is None:
         abort(404)
+
+    comment_service = CommentService()
+    comment_form = CommentForm()
+
+    if comment_form.validate_on_submit():
+        if not current_user.is_authenticated:
+            flash("Please log in to post a comment.", "warning")
+            return redirect(url_for("auth.login"))
+        comment_service.addComment(
+            user_id=current_user.user_id,
+            event_id=event_id,
+            content=comment_form.content.data,
+        )
+        flash("Comment posted.", "success")
+        return redirect(url_for("events.event_detail", event_id=event_id))
+
+    comments = comment_service.getCommentsByEvent(event_id)
 
     remaining = service.getRemainingTickets(event_id)
     confirmed = service.getConfirmedCount(event_id)
@@ -76,4 +93,6 @@ def event_detail(event_id: int):
         artist_names=artist_names,
         fill_pct=fill_pct,
         bar_style=bar_style,
+        comments=comments,
+        comment_form=comment_form,
     )

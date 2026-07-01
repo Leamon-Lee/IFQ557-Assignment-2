@@ -18,7 +18,7 @@ class EventService:
     def getConfirmedCount(self, event_id: int) -> int:
         """统计某个活动的已确认报名人数。"""
         return Registration.query.filter_by(
-            event_id=event_id, registration_status="confirmed"
+            event_id=event_id, registration_status="Confirmed"
         ).count()
 
     def getRemainingTickets(self, event_id: int) -> int:

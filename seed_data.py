@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 
 from app import create_app
 from app.extensions import db
-from app.models import Organizer, Participant, MusicEvent, Venue, Artist, Registration, Ticket, Payment
+from app.models import Organizer, Participant, MusicEvent, Venue, Artist, Registration, Ticket, Payment, Comment
 
 app = create_app()
 
@@ -139,13 +139,16 @@ with app.app_context():
         participant_id=participant.participant_id,
         event_id=events[0].event_id,
     )
+    db.session.add(reg1)
+    db.session.flush()
     reg1.confirmRegistration()
     reg2 = Registration(
         participant_id=participant.participant_id,
         event_id=events[1].event_id,
     )
-    reg2.confirmRegistration()
+    db.session.add(reg2)
     db.session.flush()
+    reg2.confirmRegistration()
 
     # ---- 7. Tickets & Payments ----
     t1 = Ticket(
@@ -159,11 +162,32 @@ with app.app_context():
     p1 = Payment(
         amount=32.00, payment_method="card",
         payment_time=now - timedelta(days=5),
+        payment_status="Paid",
         registration_id=reg1.registration_id,
     )
-    p1.pay(32.00, "card")
 
     db.session.add_all([t1, t2, p1])
+    db.session.commit()
+
+    # ---- 8. Comments ----
+    comments = [
+        Comment(
+            content="Absolutely loved the atmosphere! The riverside setting was magical.",
+            user_id=participant.user_id,
+            event_id=events[0].event_id,
+        ),
+        Comment(
+            content="Great lineup this year. Can't wait for the next edition!",
+            user_id=participant.user_id,
+            event_id=events[1].event_id,
+        ),
+        Comment(
+            content="The jazz quartet was incredible. Will definitely come again.",
+            user_id=organizer.user_id,
+            event_id=events[0].event_id,
+        ),
+    ]
+    db.session.add_all(comments)
     db.session.commit()
 
     print("Seed data inserted successfully!")
@@ -172,3 +196,4 @@ with app.app_context():
     print(f"  Artists: {len(artists)}")
     print(f"  Events: {len(events)}")
     print(f"  Registrations: 2")
+    print(f"  Comments: {len(comments)}")

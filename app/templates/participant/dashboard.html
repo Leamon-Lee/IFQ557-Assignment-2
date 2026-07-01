@@ -1,110 +1,53 @@
-﻿<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SoundWave Events | Booking History</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="{{ url_for('events.index') }}"><span class="brand-mark">SW</span> SoundWave Events</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('events.index') }}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('events.event_detail', event_id=1) }}">Event Details</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('events.create_event') }}">Create Event</a></li>
-          <li class="nav-item"><a class="nav-link active" href="{{ url_for('participant.registrations') }}">Booking History</a></li>
-          <li class="nav-item"><a class="nav-link nav-login" href="{{ url_for('auth.login') }}">Login</a></li>
-        </ul>
+{% extends "base.html" %}
+{% block content %}
+
+<main class="history-page">
+  <section class="container">
+    <div class="row g-4 align-items-end mb-4">
+      <div class="col-lg-7">
+        <p class="eyebrow">User dashboard</p>
+        <h1>Welcome, {{ current_user.nickname }}.</h1>
+        <p class="text-white-50 mb-0">Manage your bookings and discover upcoming events.</p>
+      </div>
+      <div class="col-lg-5">
+        <div class="history-summary">
+          <div><strong>{{ registrations|length }}</strong><span>Confirmed bookings</span></div>
+          <div><strong>{{ total_tickets }}</strong><span>Total tickets</span></div>
+          <div><strong>{{ registrations|selectattr('music_event.event_status', 'equalto', 'Open')|list|length }}</strong><span>Active events</span></div>
+        </div>
       </div>
     </div>
-  </nav>
 
-  <main class="history-page">
-    <section class="container">
-      <div class="row g-4 align-items-end mb-4">
-        <div class="col-lg-7">
-          <p class="eyebrow">User dashboard</p>
-          <h1>Your bookings.</h1>
-          <p class="text-white-50 mb-0">Keep track of upcoming shows, order IDs, booked times and ticket quantities in one place.</p>
+    {% if registrations %}
+    <div class="history-timeline">
+      {% for reg in registrations[:5] %}
+      <article class="history-card">
+        <div class="history-poster poster-jazz">{{ reg.music_event.music_genre }}</div>
+        <div class="history-info">
+          <span class="status-badge status-open">{{ reg.registration_status }}</span>
+          <h2>{{ reg.music_event.event_title }}</h2>
+          <p>{{ reg.music_event.venue.venue_name if reg.music_event.venue else 'TBA' }} &middot; {{ reg.music_event.start_time.strftime('%d %B %Y') if reg.music_event.start_time else '' }}</p>
         </div>
-        <div class="col-lg-5">
-          <div class="history-summary">
-            <div><strong>2</strong><span>Confirmed bookings</span></div>
-            <div><strong>3</strong><span>Total tickets</span></div>
-            <div><strong>1</strong><span>Upcoming month</span></div>
-          </div>
+        <div class="history-order">
+          <small>Order ID</small>
+          <strong>SW-{{ reg.music_event.start_time.strftime('%Y') if reg.music_event.start_time else '2026' }}-{{ '%04d' % reg.registration_id }}</strong>
+          <span>Booked: {{ reg.registration_time.strftime('%d %B %Y, %I:%M %p') }}</span>
         </div>
-      </div>
+      </article>
+      {% endfor %}
+    </div>
 
-      <div class="history-timeline">
-        <article class="history-card">
-          <div class="history-poster poster-jazz">Jazz</div>
-          <div class="history-info">
-            <span class="status-badge status-open">Confirmed</span>
-            <h2>Riverside Jazz Night</h2>
-            <p>Blue Hall 路 12 July 2026 路 2 tickets</p>
-          </div>
-          <div class="history-order">
-            <small>Order ID</small>
-            <strong>SW-2026-0018</strong>
-            <span>Booked: 25 June 2026, 14:30</span>
-          </div>
-        </article>
+    <div class="d-flex gap-3 mt-4">
+      <a href="{{ url_for('participant.registrations') }}" class="btn btn-outline-light">View all bookings</a>
+      <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+      <p class="text-white-50">You haven't booked any events yet.</p>
+      <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+    </div>
+    {% endif %}
+  </section>
+</main>
 
-        <article class="history-card">
-          <div class="history-poster poster-campus">Fest</div>
-          <div class="history-info">
-            <span class="status-badge status-open">Confirmed</span>
-            <h2>Campus Music Festival</h2>
-            <p>Main Lawn 路 14 July 2026 路 1 ticket</p>
-          </div>
-          <div class="history-order">
-            <small>Order ID</small>
-            <strong>SW-2026-0021</strong>
-            <span>Booked: 26 June 2026, 09:45</span>
-          </div>
-        </article>
-      </div>
-
-      <div class="table-responsive mt-5 history-table">
-        <table class="table table-dark table-hover align-middle mb-0">
-          <thead>
-            <tr>
-              <th>Event</th>
-              <th>Order ID</th>
-              <th>Booked at</th>
-              <th>Tickets</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Riverside Jazz Night</td>
-              <td>SW-2026-0018</td>
-              <td>25 June 2026, 14:30</td>
-              <td>2</td>
-              <td><span class="badge text-bg-success">Confirmed</span></td>
-            </tr>
-            <tr>
-              <td>Campus Music Festival</td>
-              <td>SW-2026-0021</td>
-              <td>26 June 2026, 09:45</td>
-              <td>1</td>
-              <td><span class="badge text-bg-success">Confirmed</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}

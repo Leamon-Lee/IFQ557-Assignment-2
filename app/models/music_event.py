@@ -27,6 +27,7 @@ class MusicEvent(db.Model):
     venue = db.relationship("Venue", back_populates="events")
     artists = db.relationship("Artist", secondary=event_artist, back_populates="events")
     registrations = db.relationship("Registration", back_populates="music_event")
+    comments = db.relationship("Comment", back_populates="music_event")
 
     def publish(self) -> bool:
         self.event_status = "Open"
