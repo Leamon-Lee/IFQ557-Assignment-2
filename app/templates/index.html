@@ -78,35 +78,34 @@
 <main>
   <!-- 搜索区 -->
   <section class="container py-5">
-    <div class="search-panel mb-5">
+    <form method="GET" action="{{ url_for('events.index') }}" class="search-panel mb-5">
       <div class="row g-3 align-items-end">
         <div class="col-lg-5">
           <label for="searchEvents" class="form-label">Search events</label>
-          <input type="text" class="form-control form-control-lg" id="searchEvents" placeholder="Artist, event or venue">
+          <input type="text" class="form-control form-control-lg" id="searchEvents" name="search" placeholder="Artist, event or venue" value="{{ current_search or '' }}">
         </div>
         <div class="col-md-4 col-lg-3">
           <label for="filterCategory" class="form-label">Category</label>
-          <select class="form-select form-select-lg" id="filterCategory">
-            <option>All categories</option>
-            {% set genres = all_events|map(attribute='event')|map(attribute='music_genre')|unique|list %}
+          <select class="form-select form-select-lg" id="filterCategory" name="genre">
+            <option value="">All categories</option>
             {% for genre in genres %}
-            <option>{{ genre }}</option>
+            <option value="{{ genre }}" {% if current_genre == genre %}selected{% endif %}>{{ genre }}</option>
             {% endfor %}
           </select>
         </div>
         <div class="col-md-4 col-lg-2">
           <label for="filterDate" class="form-label">Date</label>
-          <select class="form-select form-select-lg" id="filterDate">
-            <option>Any date</option>
-            <option>This week</option>
-            <option>This month</option>
+          <select class="form-select form-select-lg" id="filterDate" name="date">
+            <option value="">Any date</option>
+            <option value="week" {% if current_date == 'week' %}selected{% endif %}>This week</option>
+            <option value="month" {% if current_date == 'month' %}selected{% endif %}>This month</option>
           </select>
         </div>
         <div class="col-md-4 col-lg-2">
-          <button class="btn btn-dark btn-lg w-100" type="button">Search</button>
+          <button class="btn btn-dark btn-lg w-100" type="submit">Search</button>
         </div>
       </div>
-    </div>
+    </form>
 
     <!-- 分类浏览 -->
     <div class="section-heading">

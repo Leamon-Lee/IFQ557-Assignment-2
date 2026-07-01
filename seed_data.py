@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 
 from app import create_app
 from app.extensions import db
-from app.models import Organizer, Participant, MusicEvent, Venue, Artist, Registration, Ticket, Payment, Comment
+from app.models import Organizer, Participant, MusicEvent, Venue, Artist, Registration, Ticket, Payment, Comment, Announcement
 
 app = create_app()
 
@@ -188,6 +188,14 @@ with app.app_context():
         ),
     ]
     db.session.add_all(comments)
+    db.session.flush()
+
+    # ---- 9. Announcements ----
+    announcement = Announcement(
+        content="Welcome to Riverside Jazz Night! Doors open at 6:30 PM. Please have your QR code ready for check-in.",
+        event_id=events[0].event_id,
+    )
+    db.session.add(announcement)
     db.session.commit()
 
     print("Seed data inserted successfully!")
@@ -197,3 +205,4 @@ with app.app_context():
     print(f"  Events: {len(events)}")
     print(f"  Registrations: 2")
     print(f"  Comments: {len(comments)}")
+    print(f"  Announcements: 1")

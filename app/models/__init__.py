@@ -1,4 +1,5 @@
 from app.models.admin import Admin
+from app.models.announcement import Announcement
 from app.models.artist import Artist
 from app.models.comment import Comment
 from app.models.music_event import MusicEvent, event_artist
@@ -12,6 +13,7 @@ from app.models.venue import Venue
 
 __all__ = [
     "Admin",
+    "Announcement",
     "Artist",
     "Comment",
     "MusicEvent",

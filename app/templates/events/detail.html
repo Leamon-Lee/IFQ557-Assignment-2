@@ -78,6 +78,20 @@
           </div>
         </section>
 
+        <!-- 公告区 -->
+        {% if announcements %}
+        <section class="content-panel mt-4">
+          <p class="eyebrow dark">Announcements</p>
+          <h2>From the organizer</h2>
+          {% for a in announcements %}
+          <div class="border-bottom border-secondary pb-2 mb-2">
+            <small class="text-muted">{{ a.created_at.strftime('%d %b %Y, %I:%M %p') }}</small>
+            <p class="mb-0">{{ a.content }}</p>
+          </div>
+          {% endfor %}
+        </section>
+        {% endif %}
+
         <!-- 评论区 -->
         <section class="content-panel mt-4">
           <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">

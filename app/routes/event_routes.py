@@ -4,6 +4,7 @@ from flask_login import current_user, login_required
 from app.extensions import db
 from app.forms.comment_forms import CommentForm
 from app.forms.event_forms import EventForm
+from app.models.announcement import Announcement
 from app.models.music_event import MusicEvent
 from app.models.organizer import Organizer
 from app.models.venue import Venue
@@ -25,8 +26,16 @@ def _get_venue_choices():
 
 @event_bp.route("/")
 def index():
+    genre = request.args.get("genre")
+    search = request.args.get("search")
+    date_filter = request.args.get("date")
+
     service = EventService()
-    events = service.listEvents()
+    events = service.listEvents(
+        genre=genre if genre else None,
+        search=search if search else None,
+        date_filter=date_filter if date_filter else None,
+    )
 
     event_data = []
     for e in events:
@@ -42,10 +51,16 @@ def index():
 
     featured = [d for d in event_data if d["event"].event_status == "Open"][:3]
 
+    genres = ["Jazz", "Rock", "Campus Festival", "Acoustic", "Concert"]
+
     return render_template(
         "index.html",
         featured_events=featured,
         all_events=event_data,
+        genres=genres,
+        current_genre=genre,
+        current_search=search,
+        current_date=date_filter,
     )
 
 
@@ -160,6 +175,12 @@ def event_detail(event_id: int):
         return redirect(url_for("events.event_detail", event_id=event_id))
 
     comments = comment_service.getCommentsByEvent(event_id)
+    announcements = (
+        Announcement.query
+        .filter_by(event_id=event_id)
+        .order_by(Announcement.created_at.desc())
+        .all()
+    )
 
     remaining = service.getRemainingTickets(event_id)
     confirmed = service.getConfirmedCount(event_id)
@@ -180,4 +201,5 @@ def event_detail(event_id: int):
         bar_style=bar_style,
         comments=comments,
         comment_form=comment_form,
+        announcements=announcements,
     )
