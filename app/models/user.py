@@ -10,6 +10,8 @@ class User(UserMixin, db.Model):
     nickname = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), nullable=False, unique=True)
     password_hash = db.Column(db.String(255), nullable=False)
+    contact_number = db.Column(db.String(20), nullable=True)
+    street_address = db.Column(db.String(255), nullable=True)
     user_type = db.Column(db.String(50), nullable=False)
 
     __mapper_args__ = {
@@ -18,7 +20,7 @@ class User(UserMixin, db.Model):
     }
 
     def get_id(self) -> str:
-        return
+        return str(self.user_id)
 
     def login(self, email: str, password_hash: str) -> bool:
         return
