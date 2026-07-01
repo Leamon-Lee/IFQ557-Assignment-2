@@ -1,5 +1,5 @@
 from app.extensions import db
-from app.domain.value_objects import Capacity, EventStatus, EventTitle, Name, OrganizationName, Text100
+from app.domain.value_objects import AgeRestriction, Capacity, EventStatus, EventTitle, MusicGenre, Name, OrganizationName, Text100, Text200
 from .user import User
 
 
@@ -23,50 +23,52 @@ class Organizer(User):
         return OrganizationName(self._organization_name)
 
     @organization_name.setter
-    def organization_name(self, value: OrganizationName | str) -> None:
-        organization_name = value if isinstance(value, OrganizationName) else OrganizationName(value)
-        self._organization_name = organization_name.value
+    def organization_name(self, value: OrganizationName) -> None:
+        if not isinstance(value, OrganizationName):
+            raise TypeError("organization_name must be an OrganizationName value object")
+        self._organization_name = value.value
 
     @property
     def first_name(self) -> Name:
         return Name(self._first_name)
 
     @first_name.setter
-    def first_name(self, value: Name | str) -> None:
-        name = value if isinstance(value, Name) else Name(value)
-        self._first_name = name.value
+    def first_name(self, value: Name) -> None:
+        if not isinstance(value, Name):
+            raise TypeError("first_name must be a Name value object")
+        self._first_name = value.value
 
     @property
     def second_name(self) -> Name:
         return Name(self._second_name)
 
     @second_name.setter
-    def second_name(self, value: Name | str) -> None:
-        name = value if isinstance(value, Name) else Name(value)
-        self._second_name = name.value
+    def second_name(self, value: Name) -> None:
+        if not isinstance(value, Name):
+            raise TypeError("second_name must be a Name value object")
+        self._second_name = value.value
 
     @property
     def bio(self) -> Text100:
         return Text100(self._bio or "")
 
     @bio.setter
-    def bio(self, value: Text100 | str) -> None:
-        bio = value if isinstance(value, Text100) else Text100(value)
-        self._bio = bio.value
+    def bio(self, value: Text100) -> None:
+        if not isinstance(value, Text100):
+            raise TypeError("bio must be a Text100 value object")
+        self._bio = value.value
 
-    def createEvent(self, title: EventTitle | str, description: str, start_time: object, end_time: object, capacity: Capacity | int) -> int:
+    def createEvent(self, title: EventTitle, description: Text200, start_time: object, end_time: object, capacity: Capacity) -> int:
         from app.models.music_event import MusicEvent
-        event_title = title if isinstance(title, EventTitle) else EventTitle(title)
-        event_capacity = capacity if isinstance(capacity, Capacity) else Capacity(capacity)
         new_event = MusicEvent(
-            event_title=event_title.value,
+            event_title=title,
             description=description,
             start_time=start_time,
             end_time=end_time,
-            capacity=event_capacity.value,
-            age_restriction=0,
-            event_status="draft",
-            music_genre="General",
+            capacity=capacity,
+            age_restriction=AgeRestriction(0),
+            event_status=EventStatus("draft"),
+            music_genre=MusicGenre("General"),
             organizer_id=self.organizer_id,
             venue_id=1,
         )
@@ -88,7 +90,7 @@ class Organizer(User):
         from app.models.music_event import MusicEvent
         event = MusicEvent.query.filter_by(event_id=event_id, organizer_id=self.organizer_id).first()
         if event:
-            event.event_status = EventStatus("cancelled").value
+            event.event_status = EventStatus("cancelled")
             db.session.commit()
             return True
         return False
