@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-
+from werkzeug.security import generate_password_hash, check_password_hash
 from app.extensions import db
 
 
@@ -18,16 +18,35 @@ class User(UserMixin, db.Model):
     }
 
     def get_id(self) -> str:
-        return
+        return str(self.user_id)
 
-    def login(self, email: str, password_hash: str) -> bool:
-        return
+    def login(self, email: str, password: str) -> bool:
+        user = User.query.filter_by(email=email).first()
+        if user and check_password_hash(user.password_hash, password):
+            return True
+        return False
 
     def logout(self) -> bool:
-        return
+        return True
 
-    def signup(self, nickname: str, email: str, password_hash: str) -> bool:
-        return
+    def signup(self, nickname: str, email: str, password: str) -> bool:
+        if User.query.filter_by(email=email).first():
+            return False
+
+        self.nickname = nickname
+        self.email = email
+        self.password_hash = generate_password_hash(password)
+
+        db.session.add(self)
+        db.session.commit()
+        return True
 
     def updateProfile(self, nickname: str, email: str) -> bool:
-        return
+        try:
+            self.nickname = nickname
+            self.email = email
+            db.session.commit()
+            return True
+        except:
+            db.session.rollback()
+            return False
