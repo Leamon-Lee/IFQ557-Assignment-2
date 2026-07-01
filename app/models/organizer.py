@@ -1,5 +1,6 @@
 from app.extensions import db
 from app.domain.value_objects import AgeRestriction, Capacity, EventStatus, EventTitle, MusicGenre, Name, OrganizationName, Text100, Text200
+from sqlalchemy.ext.hybrid import hybrid_property
 from .user import User
 
 
@@ -18,9 +19,13 @@ class Organizer(User):
         "polymorphic_identity": "organizer",
     }
 
-    @property
+    @hybrid_property
     def organization_name(self) -> OrganizationName:
         return OrganizationName(self._organization_name)
+
+    @organization_name.expression
+    def organization_name(cls):
+        return cls._organization_name
 
     @organization_name.setter
     def organization_name(self, value: OrganizationName) -> None:
@@ -28,9 +33,13 @@ class Organizer(User):
             raise TypeError("organization_name must be an OrganizationName value object")
         self._organization_name = value.value
 
-    @property
+    @hybrid_property
     def first_name(self) -> Name:
         return Name(self._first_name)
+
+    @first_name.expression
+    def first_name(cls):
+        return cls._first_name
 
     @first_name.setter
     def first_name(self, value: Name) -> None:
@@ -38,9 +47,13 @@ class Organizer(User):
             raise TypeError("first_name must be a Name value object")
         self._first_name = value.value
 
-    @property
+    @hybrid_property
     def second_name(self) -> Name:
         return Name(self._second_name)
+
+    @second_name.expression
+    def second_name(cls):
+        return cls._second_name
 
     @second_name.setter
     def second_name(self, value: Name) -> None:
@@ -48,9 +61,13 @@ class Organizer(User):
             raise TypeError("second_name must be a Name value object")
         self._second_name = value.value
 
-    @property
+    @hybrid_property
     def bio(self) -> Text100:
         return Text100(self._bio or "")
+
+    @bio.expression
+    def bio(cls):
+        return cls._bio
 
     @bio.setter
     def bio(self, value: Text100) -> None:
@@ -67,7 +84,7 @@ class Organizer(User):
             end_time=end_time,
             capacity=capacity,
             age_restriction=AgeRestriction(0),
-            event_status=EventStatus("draft"),
+            event_status=EventStatus("Open"),
             music_genre=MusicGenre("General"),
             organizer_id=self.organizer_id,
             venue_id=1,
@@ -90,7 +107,7 @@ class Organizer(User):
         from app.models.music_event import MusicEvent
         event = MusicEvent.query.filter_by(event_id=event_id, organizer_id=self.organizer_id).first()
         if event:
-            event.event_status = EventStatus("cancelled")
+            event.event_status = EventStatus("Cancelled")
             db.session.commit()
             return True
         return False

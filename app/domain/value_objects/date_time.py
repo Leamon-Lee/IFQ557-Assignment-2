@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -12,3 +13,6 @@ class DateTime:
 
     def __str__(self) -> str:
         return self.value.isoformat()
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self.value, name)

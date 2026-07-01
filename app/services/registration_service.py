@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
 from decimal import Decimal
 
+from app.domain.value_objects import DateTime, Money, PaymentMethod, TicketType
 from app.extensions import db
 from app.models.payment import Payment
 from app.models.registration import Registration
@@ -24,8 +25,8 @@ class RegistrationService:
         db.session.flush()
 
         ticket = Ticket(
-            ticket_type=ticket_type,
-            price=price,
+            ticket_type=TicketType(ticket_type),
+            price=Money(price),
             registration_id=registration.registration_id,
         )
         ticket.generateQRCode()
@@ -33,12 +34,12 @@ class RegistrationService:
 
         now = datetime.now(timezone.utc)
         payment = Payment(
-            amount=price,
-            payment_method=payment_method,
-            payment_time=now,
+            amount=Money(price),
+            payment_method=PaymentMethod(payment_method),
+            payment_time=DateTime(now),
             registration_id=registration.registration_id,
         )
-        payment.pay(price, payment_method)
+        payment.pay(Money(price), PaymentMethod(payment_method))
         db.session.add(payment)
 
         registration.confirmRegistration()

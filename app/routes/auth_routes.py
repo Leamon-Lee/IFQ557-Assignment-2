@@ -2,7 +2,7 @@ from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 
 from app.forms.auth_forms import LoginForm, SignupForm
-from app.domain.value_objects import Email, Name, Nickname
+from app.domain.value_objects import Address, ContactNumber, Email, Name, Nickname
 from app.models.participant import Participant
 from app.models.user import User
 
@@ -42,8 +42,8 @@ def signup():
             email=email,
             first_name=Name(form.first_name.data),
             second_name=Name(form.second_name.data),
-            contact_number=form.contact_number.data,
-            street_address=form.street_address.data,
+            contact_number=ContactNumber(form.contact_number.data),
+            street_address=Address(form.street_address.data),
         )
         if new_user.signup(nickname, email, form.password.data):
             flash("Account created! Please log in.", "success")

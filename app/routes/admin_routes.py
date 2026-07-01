@@ -1,5 +1,6 @@
 from flask import Blueprint, abort, flash, redirect, render_template, url_for
 
+from app.domain.value_objects import EventStatus
 from app.extensions import db
 from app.models.admin import Admin
 from app.models.music_event import MusicEvent
@@ -35,7 +36,7 @@ def approve_event(event_id: int):
     event = db.session.get(MusicEvent, event_id)
     if event is None:
         abort(404)
-    event.event_status = "Open"
+    event.event_status = EventStatus("Open")
     db.session.commit()
     flash(f"Event '{event.event_title}' has been approved.", "success")
     return redirect(url_for("admin.review_events"))
@@ -46,7 +47,7 @@ def reject_event(event_id: int):
     event = db.session.get(MusicEvent, event_id)
     if event is None:
         abort(404)
-    event.event_status = "Cancelled"
+    event.event_status = EventStatus("Cancelled")
     db.session.commit()
     flash(f"Event '{event.event_title}' has been rejected.", "info")
     return redirect(url_for("admin.review_events"))

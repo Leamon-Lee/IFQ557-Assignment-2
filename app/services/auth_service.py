@@ -1,6 +1,6 @@
 from flask_login import login_user, logout_user
 
-from app.domain.value_objects import Email, Name, Nickname, PasswordHash
+from app.domain.value_objects import Address, ContactNumber, Email, Name, Nickname, PasswordHash
 from app.extensions import bcrypt, db
 from app.models.participant import Participant
 from app.models.user import User
@@ -31,6 +31,8 @@ class AuthService:
         email_value = Email(email)
         first_name_value = Name(first_name)
         second_name_value = Name(second_name)
+        contact_number_value = ContactNumber(contact_number)
+        street_address_value = Address(street_address)
 
         existing = User.query.filter(User._email == email_value.value).first()
         if existing:
@@ -41,8 +43,8 @@ class AuthService:
             nickname=nickname_value,
             email=email_value,
             password_hash=PasswordHash(password_hash),
-            contact_number=contact_number,
-            street_address=street_address,
+            contact_number=contact_number_value,
+            street_address=street_address_value,
             first_name=first_name_value,
             second_name=second_name_value,
         )

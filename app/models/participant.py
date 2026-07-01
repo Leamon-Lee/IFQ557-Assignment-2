@@ -1,5 +1,6 @@
 from app.extensions import db
-from app.domain.value_objects import CheckInStatus, Name, RegistrationStatus
+from app.domain.value_objects import CheckInStatus, DateTime, Name, RegistrationStatus
+from sqlalchemy.ext.hybrid import hybrid_property
 from .user import User
 
 
@@ -16,9 +17,13 @@ class Participant(User):
         "polymorphic_identity": "participant",
     }
 
-    @property
+    @hybrid_property
     def first_name(self) -> Name:
         return Name(self._first_name)
+
+    @first_name.expression
+    def first_name(cls):
+        return cls._first_name
 
     @first_name.setter
     def first_name(self, value: Name) -> None:
@@ -26,9 +31,13 @@ class Participant(User):
             raise TypeError("first_name must be a Name value object")
         self._first_name = value.value
 
-    @property
+    @hybrid_property
     def second_name(self) -> Name:
         return Name(self._second_name)
+
+    @second_name.expression
+    def second_name(cls):
+        return cls._second_name
 
     @second_name.setter
     def second_name(self, value: Name) -> None:
@@ -46,9 +55,9 @@ class Participant(User):
         new_reg = Registration(
             participant_id=self.participant_id,
             event_id=event_id,
-            registration_time=datetime.now(),
-            registration_status=RegistrationStatus("pending"),
-            check_in_status=CheckInStatus("not_checked_in"),
+            registration_time=DateTime(datetime.now()),
+            registration_status=RegistrationStatus("Pending"),
+            check_in_status=CheckInStatus("NotCheckedIn"),
         )
         db.session.add(new_reg)
         db.session.commit()
@@ -58,7 +67,7 @@ class Participant(User):
         from app.models.registration import Registration
         reg = Registration.query.filter_by(registration_id=registration_id, participant_id=self.participant_id).first()
         if reg:
-            reg.registration_status = RegistrationStatus("cancelled")
+            reg.registration_status = RegistrationStatus("Cancelled")
             db.session.commit()
             return True
         return False

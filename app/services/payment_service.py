@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from app.domain.value_objects import Money, PaymentMethod
 from app.extensions import db
 from app.models.payment import Payment
 
@@ -9,7 +10,7 @@ class PaymentService:
         payment = Payment.query.filter_by(registration_id=registration_id).first()
         if payment is None:
             return False
-        return payment.pay(amount, payment_method)
+        return payment.pay(Money(amount), PaymentMethod(payment_method))
 
     def refund(self, payment_id: int) -> bool:
         payment = db.session.get(Payment, payment_id)

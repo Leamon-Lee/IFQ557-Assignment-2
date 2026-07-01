@@ -4,6 +4,7 @@ from flask_login import current_user, login_required
 from app.extensions import db
 from app.forms.comment_forms import CommentForm
 from app.forms.event_forms import EventForm
+from app.domain.value_objects import AgeRestriction, Capacity, DateTime, EventTitle, MusicGenre, Text200
 from app.models.announcement import Announcement
 from app.models.music_event import MusicEvent
 from app.models.organizer import Organizer
@@ -104,13 +105,13 @@ def create_event():
 
     if form.validate_on_submit():
         event = MusicEvent(
-            event_title=form.event_title.data,
-            description=form.description.data,
-            start_time=form.start_time.data,
-            end_time=form.end_time.data,
-            capacity=form.capacity.data,
-            age_restriction=form.age_restriction.data,
-            music_genre=form.music_genre.data,
+            event_title=EventTitle(form.event_title.data),
+            description=Text200(form.description.data),
+            start_time=DateTime(form.start_time.data),
+            end_time=DateTime(form.end_time.data),
+            capacity=Capacity(form.capacity.data),
+            age_restriction=AgeRestriction(form.age_restriction.data),
+            music_genre=MusicGenre(form.music_genre.data),
             organizer_id=org.organizer_id,
             venue_id=form.venue_id.data,
         )
@@ -137,13 +138,13 @@ def edit_event(event_id: int):
     form.venue_id.choices = _get_venue_choices()
 
     if form.validate_on_submit():
-        event.event_title = form.event_title.data
-        event.description = form.description.data
-        event.start_time = form.start_time.data
-        event.end_time = form.end_time.data
-        event.capacity = form.capacity.data
-        event.age_restriction = form.age_restriction.data
-        event.music_genre = form.music_genre.data
+        event.event_title = EventTitle(form.event_title.data)
+        event.description = Text200(form.description.data)
+        event.start_time = DateTime(form.start_time.data)
+        event.end_time = DateTime(form.end_time.data)
+        event.capacity = Capacity(form.capacity.data)
+        event.age_restriction = AgeRestriction(form.age_restriction.data)
+        event.music_genre = MusicGenre(form.music_genre.data)
         event.venue_id = form.venue_id.data
         db.session.commit()
         flash("Event updated successfully!", "success")
@@ -204,7 +205,7 @@ def event_detail(event_id: int):
 
     remaining = service.getRemainingTickets(event_id)
     confirmed = service.getConfirmedCount(event_id)
-    fill_pct = round(confirmed / event.capacity * 100, 1) if event.capacity > 0 else 0
+    fill_pct = round(confirmed / int(event.capacity) * 100, 1) if event.capacity > 0 else 0
     bar_style = f"width: {fill_pct}%"
 
     artist_names = ", ".join(

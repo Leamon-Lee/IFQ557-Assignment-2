@@ -1,6 +1,7 @@
 from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
+from app.domain.value_objects import Text500
 from app.extensions import db
 from app.models.announcement import Announcement
 from app.models.music_event import MusicEvent
@@ -63,7 +64,7 @@ def participants(event_id: int):
     if request.method == "POST":
         content = request.form.get("content", "").strip()
         if content:
-            announcement = Announcement(content=content, event_id=event_id)
+            announcement = Announcement(content=Text500(content), event_id=event_id)
             db.session.add(announcement)
             db.session.commit()
             flash("Announcement posted.", "success")
