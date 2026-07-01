@@ -39,8 +39,15 @@ class Participant(User):
         return MusicEvent.query.all()
 
     def registerEvent(self, event_id: int) -> int:
+        from datetime import datetime
         from app.models.registration import Registration
-        new_reg = Registration(participant_id=self.participant_id, event_id=event_id, registration_status="Pending")
+        new_reg = Registration(
+            participant_id=self.participant_id,
+            event_id=event_id,
+            registration_time=datetime.now(),
+            registration_status="pending",
+            check_in_status="not_checked_in",
+        )
         db.session.add(new_reg)
         db.session.commit()
         return new_reg.registration_id
@@ -49,7 +56,7 @@ class Participant(User):
         from app.models.registration import Registration
         reg = Registration.query.filter_by(registration_id=registration_id, participant_id=self.participant_id).first()
         if reg:
-            reg.registration_status = "Cancelled"
+            reg.registration_status = "cancelled"
             db.session.commit()
             return True
         return False

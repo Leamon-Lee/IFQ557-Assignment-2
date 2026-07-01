@@ -64,7 +64,11 @@ class Organizer(User):
             start_time=start_time,
             end_time=end_time,
             capacity=event_capacity.value,
-            organizer_id=self.organizer_id
+            age_restriction=0,
+            event_status="draft",
+            music_genre="General",
+            organizer_id=self.organizer_id,
+            venue_id=1,
         )
         db.session.add(new_event)
         db.session.commit()
