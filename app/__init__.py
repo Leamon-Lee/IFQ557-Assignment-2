@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from flask import Flask, render_template
 
 from app.extensions import bcrypt, bootstrap, db, login_manager
@@ -7,6 +9,7 @@ from config import Config
 def create_app() -> Flask:
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(Config)
+    Path(app.instance_path).mkdir(parents=True, exist_ok=True)
 
     db.init_app(app)
     bcrypt.init_app(app)

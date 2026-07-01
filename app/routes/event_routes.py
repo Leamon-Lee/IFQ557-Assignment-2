@@ -16,6 +16,11 @@ from app.services.event_service import EventService
 event_bp = Blueprint("events", __name__)
 
 
+@event_bp.route("/loading")
+def loading():
+    return render_template("loading.html")
+
+
 def _get_organizer():
     return Organizer.query.filter_by(organizer_id=current_user.user_id).first()
 
