@@ -57,7 +57,7 @@
         {% if messages %}
         <div class="container mt-5 pt-3">
             {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <div class="alert alert-{{ category }} alert-dismissible fade show flash-alert" role="alert" data-auto-dismiss="4500">
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -69,5 +69,22 @@
     {% block content %}{% endblock %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.querySelectorAll('.flash-alert[data-auto-dismiss]').forEach((alert) => {
+            const delay = Number(alert.dataset.autoDismiss) || 4500;
+
+            window.setTimeout(() => {
+                if (!document.body.contains(alert)) {
+                    return;
+                }
+
+                if (window.bootstrap?.Alert) {
+                    bootstrap.Alert.getOrCreateInstance(alert).close();
+                } else {
+                    alert.remove();
+                }
+            }, delay);
+        });
+    </script>
 </body>
 </html>

@@ -34,7 +34,7 @@
     {% for item in featured_events %}
     {% set e = item.event %}
     <div class="carousel-item {% if loop.first %}active{% endif %}">
-      <a class="hero-slide {{ hero_css(e.music_genre) }}" href="{{ url_for('events.event_detail', event_id=e.event_id) }}">
+      <div class="hero-slide {{ hero_css(e.music_genre) }}">
         <div class="container hero-content">
           <div class="hero-copy-block">
             <p class="eyebrow">
@@ -46,17 +46,18 @@
             <h1 class="hero-title">{{ e.event_title }}</h1>
             <p class="hero-event-meta">{{ e.start_time.strftime('%d %B %Y') }} 路 {{ item.venue_name }} 路 {{ e.event_status }}</p>
             <p class="hero-copy">{{ e.description[:120] }}{% if e.description|length > 120 %}...{% endif %}</p>
-            <span class="btn btn-primary-action btn-lg">View event details</span>
+            <div class="hero-actions">
+              <a class="btn btn-primary-action btn-lg hero-primary-link" href="{{ url_for('events.event_detail', event_id=e.event_id) }}">View event details</a>
+              <div class="hero-secondary-actions">
+                <a class="hero-secondary-link" href="#featured-events">Browse all events</a>
+                <a class="hero-secondary-link" href="{{ url_for('events.create_event') }}">Create event</a>
+              </div>
+            </div>
           </div>
         </div>
-      </a>
+      </div>
     </div>
     {% endfor %}
-  </div>
-
-  <div class="hero-actions">
-    <a class="hero-secondary-link" href="#featured-events">Browse all events</a>
-    <a class="hero-secondary-link" href="{{ url_for('events.create_event') }}">Create event</a>
   </div>
 
   <div class="carousel-indicators hero-indicators">
