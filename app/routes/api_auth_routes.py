@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_login import current_user, login_user
+from flask_login import current_user, login_required, login_user
 from app.extensions import bcrypt
 
 from app.domain.value_objects import (
@@ -92,3 +92,38 @@ def logout():
     if current_user.is_authenticated:
         logout_user()
     return success("Logged out.", {"redirect_url": "/"})
+
+@api_auth_bp.put("/me/profile")
+@login_required
+def update_profile():
+    data = payload()
+    try:
+        if "nickname" in data:
+            current_user.nickname = Nickname(data["nickname"])
+        if "email" in data:
+            current_user.email = Email(data["email"])
+        if "contact_number" in data:
+            current_user.contact_number = ContactNumber(data["contact_number"])
+        if "street_address" in data:
+            current_user.street_address = Address(data["street_address"])
+    except (TypeError, ValueError) as exc:
+        return error(str(exc), 400)
+    db.session.commit()
+    return success("Profile updated.", {
+        "user_id": current_user.user_id,
+        "nickname": str(current_user.nickname),
+        "email": str(current_user.email),
+    })
+
+
+@api_auth_bp.get("/me/profile")
+@login_required
+def get_profile():
+    return success(data={
+        "user_id": current_user.user_id,
+        "nickname": str(current_user.nickname),
+        "email": str(current_user.email),
+        "contact_number": str(current_user.contact_number) if current_user.contact_number else None,
+        "street_address": str(current_user.street_address) if current_user.street_address else None,
+        "role": role_for(current_user),
+    })
