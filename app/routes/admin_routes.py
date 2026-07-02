@@ -2,7 +2,6 @@ from flask import Blueprint, abort, flash, redirect, render_template, url_for
 
 from app.domain.value_objects import EventStatus
 from app.extensions import db
-from app.models.admin import Admin
 from app.models.music_event import MusicEvent
 from app.models.user import User
 
