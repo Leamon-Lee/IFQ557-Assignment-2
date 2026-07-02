@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_login import login_user
+from flask_login import current_user, login_user
 from app.extensions import bcrypt
 
 from app.domain.value_objects import (
@@ -85,3 +85,10 @@ def register():
         "role": role_for(user),
         "redirect_url": "/auth/login",
     }, 201)
+
+@api_auth_bp.post("/logout")
+def logout():
+    from flask_login import logout_user
+    if current_user.is_authenticated:
+        logout_user()
+    return success("Logged out.", {"redirect_url": "/"})
