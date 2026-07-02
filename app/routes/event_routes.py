@@ -16,6 +16,7 @@ from app.services.event_service import EventService
 event_bp = Blueprint("events", __name__)
 
 
+@event_bp.route("/")
 @event_bp.route("/loading")
 def loading():
     return render_template("loading.html")
@@ -30,7 +31,7 @@ def _get_venue_choices():
     return [(v.venue_id, f"{v.venue_name} ({v.city})") for v in venues]
 
 
-@event_bp.route("/")
+@event_bp.route("/home")
 def index():
     genre = request.args.get("genre")
     search = request.args.get("search")
