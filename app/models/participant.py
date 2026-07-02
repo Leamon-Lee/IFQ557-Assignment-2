@@ -77,4 +77,14 @@ class Participant(User):
         return Ticket.query.get(ticket_id)
 
     def checkIn(self, ticket_id: int) -> bool:
+        from app.models.ticket import Ticket
+        from app.domain.value_objects import CheckInStatus
+        ticket = Ticket.query.get(ticket_id)
+        if ticket is None:
+            return False
+        registration = ticket.registration
+        if registration is None or registration.participant_id != self.participant_id:
+            return False
+        registration.check_in_status = CheckInStatus("CheckedIn")
+        db.session.commit()
         return True

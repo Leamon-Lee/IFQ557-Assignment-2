@@ -117,4 +117,9 @@ class Organizer(User):
         return Registration.query.filter_by(event_id=event_id).all()
 
     def sendAnnouncement(self, event_id: int, message: str) -> bool:
+        from app.domain.value_objects import Text500
+        from app.models.announcement import Announcement
+        announcement = Announcement(content=Text500(message), event_id=event_id)
+        db.session.add(announcement)
+        db.session.commit()
         return True

@@ -76,9 +76,20 @@ class Admin(db.Model):
         return self.reviewEvent(event_id, EventStatus("Cancelled"))
 
     def manageUsers(self, user_id: int) -> bool:
+        from app.models.user import User
+        user = db.session.get(User, user_id)
+        if user is None:
+            return False
         return True
 
-    def generateReport(self) -> str:
+    def generateReport(self) -> dict:
         from app.models.music_event import MusicEvent
-        count = MusicEvent.query.count()
-        return f"Total events in system: {count}"
+        from app.models.registration import Registration
+        from app.models.user import User
+        return {
+            "total_events": MusicEvent.query.count(),
+            "total_users": User.query.count(),
+            "total_registrations": Registration.query.count(),
+            "open_events": MusicEvent.query.filter_by(_event_status="Open").count(),
+            "cancelled_events": MusicEvent.query.filter_by(_event_status="Cancelled").count(),
+        }
