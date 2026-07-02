@@ -6,11 +6,11 @@
       <aside class="auth-panel">
         <p class="eyebrow">Member access</p>
         <h1>Sign in before booking your next live show.</h1>
-        <p>Log in to book tickets, post comments, and manage your events.</p>
+        <p>Choose the right role so attendees and organizers land in the correct workspace.</p>
         <div class="auth-benefits">
-          <span>Book tickets faster</span>
-          <span>Post event comments</span>
-          <span>Manage your own events</span>
+          <span>Attendees book tickets and view QR codes</span>
+          <span>Organizers create events and check in guests</span>
+          <span>Role is verified by the backend after login</span>
         </div>
       </aside>
 
@@ -20,8 +20,28 @@
           <p>Don't have an account? <a href="{{ url_for('auth.signup') }}">Create one</a></p>
         </div>
 
-        <form method="POST" action="{{ url_for('auth.login') }}">
+        <form method="POST" action="{{ url_for('auth.login') }}" data-api-method="POST" data-api-endpoint="/api/auth/login">
           {{ form.hidden_tag() }}
+          <div class="mb-4">
+            <label class="form-label">Sign in as</label>
+            <div class="auth-role-toggle">
+              <label class="auth-role-card">
+                <input type="radio" name="login_role" value="participant" checked>
+                <span class="auth-role-content">
+                  <span class="auth-role-title">Attendee</span>
+                  <span class="auth-role-copy">Go to bookings and tickets after login.</span>
+                </span>
+              </label>
+              <label class="auth-role-card">
+                <input type="radio" name="login_role" value="organizer">
+                <span class="auth-role-content">
+                  <span class="auth-role-title">Organizer</span>
+                  <span class="auth-role-copy">Go to event management after login.</span>
+                </span>
+              </label>
+            </div>
+            <p class="auth-role-note">The backend should verify this against the account role before redirecting.</p>
+          </div>
           <div class="mb-3">
             {{ form.email.label(class="form-label") }}
             {{ form.email(class="form-control form-control-lg", placeholder="you@example.com") }}

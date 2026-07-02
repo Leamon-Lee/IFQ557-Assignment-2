@@ -25,23 +25,34 @@
                         <a class="nav-link {% if request.endpoint in ('events.list_events', 'events.event_detail') %}active{% endif %}" href="{{ url_for('events.list_events') }}">Events</a>
                     </li>
                     {% if current_user.is_authenticated %}
+                    {% set current_role = current_user._user_type|default('') %}
+                    {% if current_role == 'organizer' %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.endpoint == 'events.create_event' %}active{% endif %}" href="{{ url_for('events.create_event') }}">Create Event</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.endpoint == 'organizer.dashboard' %}active{% endif %}" href="{{ url_for('organizer.dashboard') }}">Organizer</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.endpoint == 'participant.registrations' %}active{% endif %}" href="{{ url_for('participant.registrations') }}">My Bookings</a>
-                    </li>
+                    {% endif %}
+                    {% if current_role == 'admin' %}
                     <li class="nav-item">
                         <a class="nav-link {% if request.endpoint == 'admin.dashboard' %}active{% endif %}" href="{{ url_for('admin.dashboard') }}">Admin</a>
                     </li>
-                    <li class="nav-item">
-                        <span class="nav-link text-white-50">{{ current_user.nickname }}</span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-login" href="{{ url_for('auth.logout') }}">Logout</a>
+                    {% endif %}
+                    <li class="nav-item dropdown account-menu">
+                        <button class="nav-link account-toggle dropdown-toggle" id="accountMenu" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="account-avatar">{{ current_user.nickname|string|first|upper }}</span>
+                            <span>{{ current_user.nickname }}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end account-dropdown" aria-labelledby="accountMenu">
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('participant.registrations') }}">Booking History</a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item account-logout" href="{{ url_for('auth.logout') }}">Logout</a>
+                            </li>
+                        </ul>
                     </li>
                     {% else %}
                     <li class="nav-item">
@@ -84,6 +95,29 @@
                     alert.remove();
                 }
             }, delay);
+        });
+
+        document.querySelectorAll('[data-role-toggle]').forEach((group) => {
+            const form = group.closest('form') || document;
+            const organizerFields = form.querySelector('[data-organizer-fields]');
+
+            if (!organizerFields) {
+                return;
+            }
+
+            const syncRoleFields = () => {
+                const checked = group.querySelector('input[type="radio"]:checked');
+                const isOrganizer = checked?.value === 'organizer';
+                organizerFields.hidden = !isOrganizer;
+                organizerFields.querySelectorAll('input, textarea, select').forEach((field) => {
+                    field.disabled = !isOrganizer;
+                });
+            };
+
+            group.querySelectorAll('input[type="radio"]').forEach((radio) => {
+                radio.addEventListener('change', syncRoleFields);
+            });
+            syncRoleFields();
         });
     </script>
 </body>

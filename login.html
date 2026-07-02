@@ -32,11 +32,11 @@
         <aside class="auth-panel">
           <p class="eyebrow">Member access</p>
           <h1>Sign in before booking your next live show.</h1>
-          <p>Use this prototype page to show how visitors would log in, create an account, book tickets, post comments and view their booking history.</p>
+          <p>Choose the right role so attendees and organizers land in the correct workspace.</p>
           <div class="auth-benefits">
-            <span>Book tickets faster</span>
-            <span>Post event comments</span>
-            <span>Manage your own events</span>
+            <span>Attendees book tickets and view QR codes</span>
+            <span>Organizers create events and check in guests</span>
+            <span>Role is verified by the backend after login</span>
           </div>
         </aside>
 
@@ -57,7 +57,26 @@
                 <p>This is a front-end prototype. The form does not connect to a backend yet.</p>
               </div>
 
-              <form>
+              <form data-api-method="POST" data-api-endpoint="/api/auth/login">
+                <div class="mb-4">
+                  <label class="form-label">Sign in as</label>
+                  <div class="auth-role-toggle">
+                    <label class="auth-role-card">
+                      <input type="radio" name="loginRole" value="participant" checked>
+                      <span class="auth-role-content">
+                        <span class="auth-role-title">Attendee</span>
+                        <span class="auth-role-copy">Go to bookings and tickets after login.</span>
+                      </span>
+                    </label>
+                    <label class="auth-role-card">
+                      <input type="radio" name="loginRole" value="organizer">
+                      <span class="auth-role-content">
+                        <span class="auth-role-title">Organizer</span>
+                        <span class="auth-role-copy">Go to event management after login.</span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
                 <div class="mb-3">
                   <label for="loginEmail" class="form-label">Email address</label>
                   <input type="email" class="form-control form-control-lg" id="loginEmail" placeholder="you@example.com">
@@ -83,7 +102,26 @@
                 <p>Registration collects the basic details needed for bookings and comments.</p>
               </div>
 
-              <form>
+              <form data-api-method="POST" data-api-endpoint="/api/auth/register">
+                <div class="mb-4">
+                  <label class="form-label">Account type</label>
+                  <div class="auth-role-toggle" data-role-toggle>
+                    <label class="auth-role-card">
+                      <input type="radio" name="accountType" value="participant" checked>
+                      <span class="auth-role-content">
+                        <span class="auth-role-title">Attendee</span>
+                        <span class="auth-role-copy">Book tickets, post comments and manage your bookings.</span>
+                      </span>
+                    </label>
+                    <label class="auth-role-card">
+                      <input type="radio" name="accountType" value="organizer">
+                      <span class="auth-role-content">
+                        <span class="auth-role-title">Organizer</span>
+                        <span class="auth-role-copy">Create events, track participants and send announcements.</span>
+                      </span>
+                    </label>
+                  </div>
+                </div>
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label for="registerName" class="form-label">Full name</label>
@@ -96,6 +134,20 @@
                   <div class="col-12">
                     <label for="registerEmail" class="form-label">Email address</label>
                     <input type="email" class="form-control" id="registerEmail" placeholder="you@example.com">
+                  </div>
+                  <div class="col-12" data-organizer-fields hidden>
+                    <div class="organizer-field-panel">
+                      <div class="row g-3">
+                        <div class="col-12">
+                          <label for="registerOrganization" class="form-label">Organization Name</label>
+                          <input type="text" class="form-control" id="registerOrganization" name="organization_name" placeholder="SoundWave Club" disabled>
+                        </div>
+                        <div class="col-12">
+                          <label for="registerOrganizerBio" class="form-label">Organizer Bio</label>
+                          <textarea class="form-control" id="registerOrganizerBio" name="bio" rows="3" maxlength="100" placeholder="Briefly introduce your event team." disabled></textarea>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                   <div class="col-12">
                     <label for="registerPassword" class="form-label">Password</label>
@@ -157,5 +209,29 @@
   </footer>
 
   <script src="static/style/bootstrap.bundle.min.js"></script>
+  <script>
+    document.querySelectorAll('[data-role-toggle]').forEach((group) => {
+      const form = group.closest('form') || document;
+      const organizerFields = form.querySelector('[data-organizer-fields]');
+
+      if (!organizerFields) {
+        return;
+      }
+
+      const syncRoleFields = () => {
+        const checked = group.querySelector('input[type="radio"]:checked');
+        const isOrganizer = checked?.value === 'organizer';
+        organizerFields.hidden = !isOrganizer;
+        organizerFields.querySelectorAll('input, textarea, select').forEach((field) => {
+          field.disabled = !isOrganizer;
+        });
+      };
+
+      group.querySelectorAll('input[type="radio"]').forEach((radio) => {
+        radio.addEventListener('change', syncRoleFields);
+      });
+      syncRoleFields();
+    });
+  </script>
 </body>
 </html>
