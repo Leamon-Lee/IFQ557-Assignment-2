@@ -22,7 +22,9 @@ def login():
         if user and user.login(email, form.password.data):
             login_user(user)
             flash("Login successful.", "success")
-            return redirect(url_for("events.index"))
+            # Role-based redirect
+            from app.routes.api_common import role_for, redirect_for
+            return redirect(redirect_for(role_for(user)))
         flash("Invalid email or password.", "danger")
 
     return render_template("auth/login.html", form=form)
@@ -37,14 +39,29 @@ def signup():
     if form.validate_on_submit():
         nickname = Nickname(form.nickname.data)
         email = Email(form.email.data)
-        new_user = Participant(
-            nickname=nickname,
-            email=email,
-            first_name=Name(form.first_name.data),
-            second_name=Name(form.second_name.data),
-            contact_number=ContactNumber(form.contact_number.data),
-            street_address=Address(form.street_address.data),
-        )
+        account_type = form.account_type.data if hasattr(form, "account_type") else "participant"
+        if account_type == "organizer":
+            from app.models.organizer import Organizer
+            from app.domain.value_objects import OrganizationName, Text100
+            new_user = Organizer(
+                nickname=nickname,
+                email=email,
+                first_name=Name(form.first_name.data),
+                second_name=Name(form.second_name.data),
+                contact_number=ContactNumber(form.contact_number.data),
+                street_address=Address(form.street_address.data),
+                organization_name=OrganizationName(form.organization_name.data if hasattr(form, "organization_name") else "Default Org"),
+                bio=Text100(form.bio.data if hasattr(form, "bio") else ""),
+            )
+        else:
+            new_user = Participant(
+                nickname=nickname,
+                email=email,
+                first_name=Name(form.first_name.data),
+                second_name=Name(form.second_name.data),
+                contact_number=ContactNumber(form.contact_number.data),
+                street_address=Address(form.street_address.data),
+            )
         if new_user.signup(nickname, email, form.password.data):
             flash("Account created! Please log in.", "success")
             return redirect(url_for("auth.login"))
