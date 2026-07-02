@@ -31,7 +31,7 @@ def _get_venue_choices():
     return [(v.venue_id, f"{v.venue_name} ({v.city})") for v in venues]
 
 
-@event_bp.route("/home")
+@event_bp.route("/")
 def index():
     genre = request.args.get("genre")
     search = request.args.get("search")

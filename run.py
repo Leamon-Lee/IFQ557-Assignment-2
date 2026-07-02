@@ -27,6 +27,6 @@ def rebuild_database() -> None:
 
 
 if __name__ == "__main__":
-    if need is True and os.environ.get("WERKZEUG_RUN_MAIN") != "true":
+    if need is False and os.environ.get("WERKZEUG_RUN_MAIN") != "true":
         rebuild_database()
     app.run(host="127.0.0.1", port=5000, debug=True, use_reloader=not need)
