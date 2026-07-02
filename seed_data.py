@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from decimal import Decimal
 
-from werkzeug.security import generate_password_hash
+from app.extensions import bcrypt
 
 from app import create_app
 from app.domain.value_objects import (
@@ -46,7 +46,7 @@ with app.app_context():
     organizer = Organizer(
         nickname=Nickname("music_live"),
         email=Email("organizer@soundwave.com"),
-        password_hash=PasswordHash(generate_password_hash("123456")),
+        password_hash=PasswordHash(bcrypt.generate_password_hash("123456").decode("utf-8")),
         contact_number=ContactNumber("+86 138 0000 1111"),
         street_address=Address("10 Music Street"),
         organization_name=OrganizationName("SoundWave Productions"),
@@ -58,7 +58,7 @@ with app.app_context():
     participant = Participant(
         nickname=Nickname("alexchen"),
         email=Email("alex@soundwave.com"),
-        password_hash=PasswordHash(generate_password_hash("123456")),
+        password_hash=PasswordHash(bcrypt.generate_password_hash("123456").decode("utf-8")),
         contact_number=ContactNumber("+86 138 0000 2222"),
         street_address=Address("88 Happy Road"),
         first_name=Name("Alex"),

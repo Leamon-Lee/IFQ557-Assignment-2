@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
+from app.extensions import bcrypt
 from sqlalchemy.ext.hybrid import hybrid_property
 
 from app.domain.value_objects import Address, ContactNumber, Email, Nickname, PasswordHash
@@ -103,7 +103,7 @@ class User(UserMixin, db.Model):
 
     def login(self, email: Email, password: str) -> bool:
         user = User.query.filter(User._email == email.value).first()
-        if user and check_password_hash(user.password_hash.value, password):
+        if user and bcrypt.check_password_hash(user.password_hash.value, password):
             return True
         return False
 
@@ -115,7 +115,7 @@ class User(UserMixin, db.Model):
             return False
         self.nickname = nickname
         self.email = email
-        self.password_hash = PasswordHash(generate_password_hash(password))
+        self.password_hash = PasswordHash(bcrypt.generate_password_hash(password).decode("utf-8"))
         db.session.add(self)
         db.session.commit()
         return True

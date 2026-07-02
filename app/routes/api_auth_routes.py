@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask_login import login_user
-from werkzeug.security import check_password_hash, generate_password_hash
+from app.extensions import bcrypt
 
 from app.domain.value_objects import (
     Address,
@@ -31,7 +31,7 @@ def login():
         return error(str(exc), 400)
 
     user = User.query.filter(User._email == email.value).first()
-    if user is None or not check_password_hash(user.password_hash.value, data.get("password", "")):
+    if user is None or not bcrypt.check_password_hash(user.password_hash.value, data.get("password", "")):
         return error("Invalid email or password.", 401)
 
     role = role_for(user)
@@ -59,7 +59,7 @@ def register():
         common = {
             "nickname": Nickname(data.get("nickname", "")),
             "email": Email(data.get("email", "")),
-            "password_hash": PasswordHash(generate_password_hash(data.get("password", ""))),
+            "password_hash": PasswordHash(bcrypt.generate_password_hash(data.get("password", "")).decode("utf-8")),
             "contact_number": ContactNumber(data.get("contact_number", "")),
             "street_address": Address(data.get("street_address", "")),
             "first_name": Name(data.get("first_name", "")),
