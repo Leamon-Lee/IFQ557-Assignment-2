@@ -9,69 +9,86 @@
   {% endif %}
 {%- endmacro %}
 
-<main class="detail-page">
-  <section class="container pt-5">
-    <div class="row g-4 align-items-end mb-4">
-      <div class="col-lg-7">
-        <p class="eyebrow">Organizer dashboard</p>
-        <h1>{{ organizer.organization_name }}.</h1>
-        <p class="text-white-50 mb-0">Manage your events, track ticket sales, and view participant lists.</p>
-      </div>
-      <div class="col-lg-5">
-        <div class="history-summary">
-          <div><strong>{{ events|length }}</strong><span>Total events</span></div>
-          <div><strong>{{ events|sum(attribute='confirmed') }}</strong><span>Confirmed bookings</span></div>
-          <div><strong>{{ events|selectattr('event.event_status', 'equalto', 'Open')|list|length }}</strong><span>Active events</span></div>
+<main class="organizer-page">
+  <section class="organizer-hero">
+    <div class="container">
+      <div class="organizer-hero-grid">
+        <div class="organizer-hero-copy">
+          <p class="eyebrow">Organizer dashboard</p>
+          <h1>{{ organizer.organization_name }}</h1>
+          <p>Plan live shows, manage tickets, and keep every participant list in one place.</p>
+          <div class="organizer-actions">
+            <a href="{{ url_for('events.create_event') }}" class="btn btn-primary-action btn-lg">+ Create new event</a>
+            <a href="{{ url_for('events.list_events') }}" class="btn btn-outline-light btn-lg">View public events</a>
+          </div>
         </div>
+
+        <aside class="organizer-overview-card" aria-label="Organizer overview">
+          <span class="overview-label">Live operations</span>
+          <div class="organizer-stat-grid">
+            <div>
+              <strong>{{ events|length }}</strong>
+              <span>Total events</span>
+            </div>
+            <div>
+              <strong>{{ events|sum(attribute='confirmed') }}</strong>
+              <span>Confirmed bookings</span>
+            </div>
+            <div>
+              <strong>{{ events|selectattr('event.event_status', 'equalto', 'Open')|list|length }}</strong>
+              <span>Active events</span>
+            </div>
+          </div>
+        </aside>
       </div>
     </div>
+  </section>
 
-    <div class="d-flex justify-content-end mb-4">
-      <a href="{{ url_for('events.create_event') }}" class="btn btn-primary-action">+ Create new event</a>
+  <section class="container organizer-workspace">
+    {% if events %}
+    <div class="organizer-section-head">
+      <div>
+        <p class="eyebrow">Your lineup</p>
+        <h2>Manage your events</h2>
+      </div>
+      <a href="{{ url_for('events.create_event') }}" class="btn btn-primary-action">Create another event</a>
     </div>
 
-    {% if events %}
-    <div class="table-responsive history-table">
-      <table class="table table-dark table-hover align-middle mb-0">
-        <thead>
-          <tr>
-            <th>Event</th>
-            <th>Venue</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Booked</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for ed in events %}
-          <tr>
-            <td>
-              <a href="{{ url_for('events.event_detail', event_id=ed.event.event_id) }}" class="text-white text-decoration-none">
-                {{ ed.event.event_title }}
-              </a>
-            </td>
-            <td>{{ ed.venue_name }}</td>
-            <td>{{ ed.event.start_time.strftime('%d %b %Y') }}</td>
-            <td>
-              <span class="status-chip {{ status_class(ed.event.event_status) }}">{{ ed.event.event_status }}</span>
-            </td>
-            <td>{{ ed.confirmed }} / {{ ed.event.capacity }}</td>
-            <td>
-              <div class="d-flex gap-2">
-                <a href="{{ url_for('events.edit_event', event_id=ed.event.event_id) }}" class="btn btn-outline-light btn-sm">Edit</a>
-                <a href="{{ url_for('organizer.participants', event_id=ed.event.event_id) }}" class="btn btn-outline-light btn-sm">Participants</a>
-              </div>
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+    <div class="organizer-event-grid">
+      {% for ed in events %}
+      <article class="organizer-event-card">
+        <div class="organizer-event-main">
+          <span class="status-chip {{ status_class(ed.event.event_status) }}">{{ ed.event.event_status }}</span>
+          <h3>{{ ed.event.event_title }}</h3>
+          <p>{{ ed.event.description }}</p>
+          <div class="organizer-event-meta">
+            <span>{{ ed.event.start_time.strftime('%d %b %Y') }}</span>
+            <span>{{ ed.venue_name }}</span>
+            <span>{{ ed.confirmed }} / {{ ed.event.capacity }} booked</span>
+          </div>
+        </div>
+        <div class="organizer-card-actions">
+          <a href="{{ url_for('events.event_detail', event_id=ed.event.event_id) }}" class="btn btn-outline-light btn-sm">Details</a>
+          <a href="{{ url_for('events.edit_event', event_id=ed.event.event_id) }}" class="btn btn-outline-light btn-sm">Edit</a>
+          <a href="{{ url_for('organizer.participants', event_id=ed.event.event_id) }}" class="btn btn-primary-action btn-sm">Participants</a>
+        </div>
+      </article>
+      {% endfor %}
     </div>
     {% else %}
-    <div class="text-center py-5">
-      <p class="text-white-50">You haven't created any events yet.</p>
-      <a href="{{ url_for('events.create_event') }}" class="btn btn-primary-action">Create your first event</a>
+    <div class="organizer-empty-state">
+      <div class="empty-stage-light" aria-hidden="true"></div>
+      <div class="empty-stage-copy">
+        <p class="eyebrow">No events yet</p>
+        <h2>Your first stage is waiting.</h2>
+        <p>Create an event to start collecting bookings, comments, and participant records.</p>
+        <a href="{{ url_for('events.create_event') }}" class="btn btn-primary-action btn-lg">Create your first event</a>
+      </div>
+      <div class="empty-stage-steps">
+        <div><span>01</span><strong>Add event details</strong><small>Title, description, date and time.</small></div>
+        <div><span>02</span><strong>Select venue</strong><small>Choose a room and capacity.</small></div>
+        <div><span>03</span><strong>Track bookings</strong><small>View participants from this dashboard.</small></div>
+      </div>
     </div>
     {% endif %}
   </section>
