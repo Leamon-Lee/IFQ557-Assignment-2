@@ -30,6 +30,7 @@ def create_app() -> Flask:
         return db.session.get(User, int(user_id))
 
     from app.routes.admin_routes import admin_bp
+    from app.routes.api_admin_routes import api_admin_bp
     from app.routes.auth_routes import auth_bp
     from app.routes.api_auth_routes import api_auth_bp
     from app.routes.api_booking_routes import api_booking_bp
@@ -47,6 +48,7 @@ def create_app() -> Flask:
     app.register_blueprint(event_bp)
     app.register_blueprint(participant_bp)
     app.register_blueprint(organizer_bp)
+    app.register_blueprint(api_admin_bp)
     app.register_blueprint(admin_bp)
 
     @app.errorhandler(404)
