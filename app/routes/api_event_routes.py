@@ -119,6 +119,8 @@ def update_event(event_id: int):
             event.description = Text200(data["description"])
         if "music_genre" in data:
             event.music_genre = MusicGenre(data["music_genre"])
+        if "event_status" in data:
+            event.event_status = EventStatus(data["event_status"])
         if "venue_id" in data:
             event.venue_id = int(data["venue_id"])
         if "start_time" in data:

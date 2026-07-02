@@ -4,7 +4,7 @@ from flask_login import current_user, login_required
 from app.extensions import db
 from app.forms.comment_forms import CommentForm
 from app.forms.event_forms import EventForm
-from app.domain.value_objects import AgeRestriction, Capacity, DateTime, EventTitle, MusicGenre, Text200
+from app.domain.value_objects import AgeRestriction, Capacity, DateTime, EventTitle, MusicGenre, Text200, EventStatus
 from app.models.announcement import Announcement
 from app.models.music_event import MusicEvent
 from app.models.organizer import Organizer
@@ -152,6 +152,7 @@ def edit_event(event_id: int):
         event.age_restriction = AgeRestriction(form.age_restriction.data)
         event.music_genre = MusicGenre(form.music_genre.data)
         event.venue_id = form.venue_id.data
+        event.event_status = EventStatus(form.event_status.data)
         db.session.commit()
         flash("Event updated successfully!", "success")
         return redirect(url_for("events.event_detail", event_id=event_id))

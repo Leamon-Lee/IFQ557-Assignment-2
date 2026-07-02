@@ -8,12 +8,12 @@
         <div class="creator-panel">
           <p class="eyebrow">Event editor</p>
           <h1>Edit event.</h1>
-          <p>Update the details for <strong>{{ event.event_title }}</strong>. Status changes are not allowed here — use the cancel action if needed.</p>
+          <p>Update the details and status for <strong>{{ event.event_title }}</strong>.</p>
           <div class="creator-checklist">
             <span>Title &amp; description</span>
             <span>Venue &amp; category</span>
             <span>Schedule &amp; capacity</span>
-            <span>Status is read-only</span>
+            <span>Status management</span>
           </div>
         </div>
       </div>
@@ -75,8 +75,11 @@
                 {% endfor %}
               </div>
               <div class="col-md-6">
-                <label class="form-label">Status (read-only)</label>
-                <input type="text" class="form-control" value="{{ event.event_status }}" readonly disabled>
+                {{ form.event_status.label(class="form-label") }}
+                {{ form.event_status(class="form-select") }}
+                {% for error in form.event_status.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
               </div>
             </div>
           </div>

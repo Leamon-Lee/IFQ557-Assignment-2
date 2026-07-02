@@ -11,10 +11,20 @@ GENRE_CHOICES = [
 ]
 
 
+STATUS_CHOICES = [
+    ("draft", "Draft"),
+    ("Open", "Open for Booking"),
+    ("Sold Out", "Sold Out"),
+    ("Cancelled", "Cancelled"),
+    ("finished", "Finished"),
+]
+
+
 class EventForm(FlaskForm):
     event_title = StringField("Event Title", validators=[DataRequired(), Length(min=1, max=100)])
     description = TextAreaField("Description", validators=[DataRequired(), Length(max=200)])
     music_genre = SelectField("Category", choices=GENRE_CHOICES, validators=[DataRequired()])
+    event_status = SelectField("Status", choices=STATUS_CHOICES, validators=[DataRequired()])
     start_time = DateTimeLocalField("Start Time", validators=[DataRequired()])
     end_time = DateTimeLocalField("End Time", validators=[DataRequired()])
     capacity = IntegerField("Total Tickets", validators=[DataRequired(), NumberRange(min=1)])
