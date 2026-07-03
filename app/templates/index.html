@@ -44,7 +44,7 @@
               {% endif %}
             </p>
             <h1 class="hero-title">{{ e.event_title }}</h1>
-            <p class="hero-event-meta">{{ e.start_time.strftime('%d %B %Y') }} 路 {{ item.venue_name }} 路 {{ e.event_status }}</p>
+            <p class="hero-event-meta">{{ e.start_time.strftime('%d %B %Y') }} · {{ item.venue_name }} · {{ e.event_status }}</p>
             <p class="hero-copy">{{ e.description[:120] }}{% if e.description|length > 120 %}...{% endif %}</p>
             <div class="hero-actions">
               <a class="btn btn-primary-action btn-lg hero-primary-link" href="{{ url_for('events.event_detail', event_id=e.event_id) }}">View event details</a>
@@ -141,7 +141,7 @@
         <span class="status-badge status-open">Open</span>
         <div class="event-headliner-copy">
           <p class="event-kicker">Featured live show</p>
-          <p class="event-date">{{ headliner.event.start_time.strftime('%d %B %Y') }} 路 {{ headliner.venue_name }}</p>
+          <p class="event-date">{{ headliner.event.start_time.strftime('%d %B %Y') }} · {{ headliner.venue_name }}</p>
           <h3>{{ headliner.event.event_title }}</h3>
           <p>{{ headliner.event.description }}</p>
           <div class="headliner-meta">
@@ -166,7 +166,7 @@
           <div>
             <span class="status-chip {{ status_class(item.event.event_status) }}">{{ item.event.event_status }}</span>
             <h4>{{ item.event.event_title }}</h4>
-            <p>{{ item.venue_name }} 路 {{ item.event.description[:60] }}{% if item.event.description|length > 60 %}...{% endif %}</p>
+            <p>{{ item.venue_name }} · {{ item.event.description[:60] }}{% if item.event.description|length > 60 %}...{% endif %}</p>
           </div>
         </a>
         {% endfor %}
@@ -182,7 +182,7 @@
         <article class="event-card status-tile {% if e.music_genre in genre_css %}{{ genre_css[e.music_genre] }}{% else %}status-tile-plain{% endif %}">
           <span class="status-chip {{ status_class(e.event_status) }}">{{ e.event_status }}</span>
           <h3>{{ e.event_title[:20] }}{% if e.event_title|length > 20 %}...{% endif %}</h3>
-          <p>{{ e.start_time.strftime('%d %B') }} 路 {{ item.venue_name }}</p>
+          <p>{{ e.start_time.strftime('%d %B') }} · {{ item.venue_name }}</p>
           <a href="{{ url_for('events.event_detail', event_id=e.event_id) }}" class="stretched-link">View details</a>
         </article>
         {% endfor %}

@@ -10,6 +10,9 @@
 } %}
 
 {% set ticket_price = event.registrations[0].ticket.price if event.registrations and event.registrations[0].ticket else 25.00 %}
+{% set ticket_price_value = ticket_price|float %}
+{% set ticket_price_display = "%.2f"|format(ticket_price_value) %}
+{% set age_limit = event.age_restriction|int %}
 
 {% macro status_class(status) -%}
   {% if status == 'Open' %}status-open
@@ -37,14 +40,14 @@
         </div>
       </div>
       <div class="detail-hero-copy">
-        <p class="eyebrow">{{ event.music_genre }} 路 Live music</p>
+        <p class="eyebrow">{{ event.music_genre }} · Live music</p>
         <h1>{{ event.event_title }}</h1>
         <p>{{ event.description }}</p>
         <div class="detail-quick-meta">
           <span><strong>{{ event.start_time.strftime('%d %b') }}</strong>Date</span>
           <span><strong>{{ event.start_time.strftime('%I %p') }}</strong>Start</span>
           <span><strong>{{ event.venue.venue_name if event.venue else 'TBA' }}</strong>Venue</span>
-          <span><strong>${{ ticket_price }}</strong>Ticket price</span>
+          <span><strong>${{ ticket_price_display }}</strong>Ticket price</span>
         </div>
       </div>
     </article>
@@ -79,7 +82,7 @@
           </div>
           <div class="detail-info-card">
             <span>Age Restriction</span>
-            <strong>{{ event.age_restriction }}+</strong>
+            <strong>{% if age_limit > 0 %}{{ age_limit }}+{% else %}All ages{% endif %}</strong>
           </div>
         </section>
 
@@ -88,12 +91,14 @@
         <section class="content-panel mt-4">
           <p class="eyebrow dark">Announcements</p>
           <h2>From the organizer</h2>
+          <div class="announcement-list">
           {% for a in announcements %}
-          <div class="border-bottom border-secondary pb-2 mb-2">
-            <small class="text-muted">{{ a.created_at.strftime('%d %b %Y, %I:%M %p') }}</small>
-            <p class="mb-0">{{ a.content }}</p>
+          <div class="announcement-item">
+            <small>{{ a.created_at.strftime('%d %b %Y, %I:%M %p') }}</small>
+            <p>{{ a.content }}</p>
           </div>
           {% endfor %}
+          </div>
         </section>
         {% endif %}
 
@@ -110,12 +115,12 @@
           {% if comments %}
           <div class="comment-list mb-4">
             {% for c in comments %}
-            <div class="comment-item border-bottom pb-3 mb-3">
-              <div class="d-flex justify-content-between align-items-center mb-1">
+            <div class="comment-item">
+              <div class="comment-meta">
                 <strong>{{ c.user.nickname }}</strong>
-                <small class="text-muted">{{ c.created_at.strftime('%d %b %Y, %I:%M %p') }}</small>
+                <small>{{ c.created_at.strftime('%d %b %Y, %I:%M %p') }}</small>
               </div>
-              <p class="mb-0">{{ c.content }}</p>
+              <p>{{ c.content }}</p>
             </div>
             {% endfor %}
           </div>
@@ -142,7 +147,7 @@
               <p class="eyebrow dark mb-1">Tickets</p>
               <h2>Reserve your seat</h2>
             </div>
-            <span class="price-pill">${{ ticket_price }}</span>
+            <span class="price-pill">${{ ticket_price_display }}</span>
           </div>
 
           <div class="ticket-availability">
@@ -165,7 +170,7 @@
           {% if current_user.is_authenticated %}
           <form method="POST" action="{{ url_for('participant.register_event', event_id=event.event_id) }}" id="bookingForm" class="mt-4">
             <input type="hidden" name="ticket_type" value="standard">
-            <input type="hidden" name="price" value="{{ ticket_price }}">
+            <input type="hidden" name="price" value="{{ ticket_price_display }}">
             <input type="hidden" name="payment_method" value="card">
             <label for="ticketQuantity" class="form-label">Number of tickets</label>
             <input type="number" name="quantity" class="form-control form-control-lg" id="ticketQuantity" min="1" max="{{ remaining }}" value="1" {% if remaining == 0 %}disabled{% endif %}>
@@ -195,9 +200,9 @@
           <li><strong>Event:</strong> {{ event.event_title }}</li>
           <li><strong>Date:</strong> {{ event.start_time.strftime('%d %B %Y, %I:%M %p') }}</li>
           <li><strong>Venue:</strong> {{ event.venue.venue_name if event.venue else 'TBA' }}</li>
-          <li><strong>Price per ticket:</strong> ${{ ticket_price }}</li>
+          <li><strong>Price per ticket:</strong> ${{ ticket_price_display }}</li>
           <li><strong>Quantity:</strong> <span id="modalQuantity">1</span></li>
-          <li><strong>Total:</strong> $<span id="modalTotal">{{ ticket_price }}</span></li>
+          <li><strong>Total:</strong> $<span id="modalTotal">{{ ticket_price_display }}</span></li>
         </ul>
         <p class="mb-0 small text-muted">Payment method: Card</p>
       </div>
@@ -215,7 +220,7 @@
   var modalQty = document.getElementById('modalQuantity');
   var modalTotal = document.getElementById('modalTotal');
   var confirmBtn = document.getElementById('confirmBookingBtn');
-  var pricePerTicket = {{ ticket_price }};
+  var pricePerTicket = {{ ticket_price_value }};
 
   if (qtyInput && modalQty && modalTotal && confirmBtn) {
     qtyInput.addEventListener('input', function() {
