@@ -1,5 +1,7 @@
 """Tests for WTForms form classes and validation."""
 
+from decimal import Decimal
+
 import pytest
 from flask import Flask
 
@@ -184,6 +186,7 @@ class TestEventForm:
             start_time="2026-08-01T19:00",
             end_time="2026-08-01T22:00",
             capacity=100,
+            ticket_price=Decimal("25.00"),
             age_restriction=18,
             venue_id=1,
         )
@@ -197,6 +200,7 @@ class TestEventForm:
             start_time="2026-08-01T19:00",
             end_time="2026-08-01T22:00",
             capacity=100,
+            ticket_price=Decimal("25.00"),
             age_restriction=18,
             venue_id=1,
         )
@@ -211,6 +215,7 @@ class TestEventForm:
             start_time="2026-08-01T19:00",
             end_time="2026-08-01T22:00",
             capacity=100,
+            ticket_price=Decimal("25.00"),
             age_restriction=18,
             venue_id=1,
         )
@@ -224,6 +229,7 @@ class TestEventForm:
             start_time="2026-08-01T19:00",
             end_time="2026-08-01T22:00",
             capacity=100,
+            ticket_price=Decimal("25.00"),
             age_restriction=18,
             venue_id=1,
         )
@@ -237,6 +243,7 @@ class TestEventForm:
             start_time="2026-08-01T19:00",
             end_time="2026-08-01T22:00",
             capacity=0,
+            ticket_price=Decimal("25.00"),
             age_restriction=18,
             venue_id=1,
         )
@@ -251,6 +258,7 @@ class TestEventForm:
         form.start_time.data = "2026-08-01T19:00"
         form.end_time.data = "2026-08-01T22:00"
         form.capacity.data = 100
+        form.ticket_price.data = Decimal("25.00")
         form.age_restriction.data = 1
         form.venue_id.data = 1
         assert form.validate() is True
@@ -263,6 +271,7 @@ class TestEventForm:
         form2.start_time.data = "2026-08-01T19:00"
         form2.end_time.data = "2026-08-01T22:00"
         form2.capacity.data = 100
+        form2.ticket_price.data = Decimal("25.00")
         form2.age_restriction.data = 101
         form2.venue_id.data = 1
         assert form2.validate() is False
@@ -275,6 +284,7 @@ class TestEventForm:
             start_time="2026-08-01T19:00",
             end_time="2026-08-01T22:00",
             capacity=100,
+            ticket_price=Decimal("25.00"),
             age_restriction=18,
             venue_id=1,
         )

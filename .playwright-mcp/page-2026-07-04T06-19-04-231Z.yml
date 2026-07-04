@@ -1,0 +1,159 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "SW SoundWave Events" [ref=e4] [cursor=pointer]:
+        - /url: /index
+        - generic [ref=e5]: SW
+        - text: SoundWave Events
+      - button [ref=e6] [cursor=pointer]
+  - banner [ref=e8]:
+    - generic [ref=e13]:
+      - paragraph [ref=e14]: Featured live show
+      - heading "Morning Acoustic Yoga" [level=1] [ref=e15]
+      - paragraph [ref=e16]: 12 July 2026 · Garden Room · Open
+      - paragraph [ref=e17]: Start the day with acoustic music and yoga in the garden.
+      - generic [ref=e18]:
+        - link "View event details" [ref=e19] [cursor=pointer]:
+          - /url: /events/38
+        - generic [ref=e20]:
+          - link "Browse all events" [ref=e21] [cursor=pointer]:
+            - /url: "#featured-events"
+          - link "Create event" [ref=e22] [cursor=pointer]:
+            - /url: /events/create
+    - generic [ref=e23]:
+      - button "Morning Acoustic Yoga" [ref=e24] [cursor=pointer]
+      - button "Fingerstyle Guitar Night" [ref=e25] [cursor=pointer]
+      - button "Riverside Jazz Night" [ref=e26] [cursor=pointer]
+    - button "Previous" [ref=e27] [cursor=pointer]:
+      - generic [ref=e29]: Previous
+    - button "Next" [ref=e30] [cursor=pointer]:
+      - generic [ref=e32]: Next
+  - main [ref=e33]:
+    - generic [ref=e34]:
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]: Search events
+          - textbox "Search events" [ref=e39]:
+            - /placeholder: Artist, event or venue
+        - generic [ref=e40]:
+          - generic [ref=e41]: Category
+          - combobox "Category" [ref=e42]:
+            - option "All categories" [selected]
+            - option "Jazz"
+            - option "Rock"
+            - option "Campus Festival"
+            - option "Acoustic"
+            - option "Concert"
+        - generic [ref=e43]:
+          - generic [ref=e44]: Date
+          - combobox "Date" [ref=e45]:
+            - option "Any date" [selected]
+            - option "This week"
+            - option "This month"
+        - button "Search" [ref=e47] [cursor=pointer]
+      - generic [ref=e48]:
+        - paragraph [ref=e49]: Browse by category
+        - heading "Explore music categories" [level=2] [ref=e50]
+      - generic [ref=e51]:
+        - generic [ref=e52]: Campus Festival
+        - generic [ref=e53]: Acoustic
+        - generic [ref=e54]: Concert
+        - generic [ref=e55]: Rock
+        - generic [ref=e56]: Jazz
+    - generic [ref=e57]:
+      - generic [ref=e58]:
+        - generic [ref=e59]:
+          - paragraph [ref=e60]: Event listings
+          - heading "Music events" [level=2] [ref=e61]
+        - paragraph [ref=e62]: Showing status, venue and date at a glance.
+      - generic [ref=e63]:
+        - article [ref=e64]:
+          - generic [ref=e65]: Open
+          - generic [ref=e66]:
+            - paragraph [ref=e67]: Featured live show
+            - paragraph [ref=e68]: 12 July 2026 · Garden Room
+            - heading "Morning Acoustic Yoga" [level=3] [ref=e69]
+            - paragraph [ref=e70]: Start the day with acoustic music and yoga in the garden.
+            - generic [ref=e71]:
+              - generic [ref=e72]:
+                - strong [ref=e73]: "60"
+                - text: tickets left
+              - generic [ref=e74]:
+                - strong [ref=e75]: 10 PM
+                - text: start
+              - generic [ref=e76]:
+                - strong [ref=e77]: $32
+                - text: from
+            - link "View event details" [ref=e78] [cursor=pointer]:
+              - /url: /events/38
+        - complementary [ref=e79]:
+          - generic [ref=e80]:
+            - paragraph [ref=e81]: Coming up
+            - heading "This week's lineup" [level=3] [ref=e82]
+          - link "15 Jul Open Fingerstyle Guitar Night Studio 9 · Solo fingerstyle guitar master Li performs live." [ref=e83] [cursor=pointer]:
+            - /url: /events/32
+            - generic [ref=e84]: 15 Jul
+            - generic [ref=e85]:
+              - generic [ref=e86]: Open
+              - heading "Fingerstyle Guitar Night" [level=4] [ref=e87]
+              - paragraph [ref=e88]: Studio 9 · Solo fingerstyle guitar master Li performs live.
+          - link "16 Jul Open Riverside Jazz Night Blue Hall · A warm live-jazz session with skyline views and food stalls." [ref=e89] [cursor=pointer]:
+            - /url: /events/1
+            - generic [ref=e90]: 16 Jul
+            - generic [ref=e91]:
+              - generic [ref=e92]: Open
+              - heading "Riverside Jazz Night" [level=4] [ref=e93]
+              - paragraph [ref=e94]: Blue Hall · A warm live-jazz session with skyline views and food stalls.
+          - link "17 Jul Open Vocal Ensemble Evening Moonlight Theater · Contemporary choral pieces in a beautiful theater." [ref=e95] [cursor=pointer]:
+            - /url: /events/46
+            - generic [ref=e96]: 17 Jul
+            - generic [ref=e97]:
+              - generic [ref=e98]: Open
+              - heading "Vocal Ensemble Evening" [level=4] [ref=e99]
+              - paragraph [ref=e100]: Moonlight Theater · Contemporary choral pieces in a beautiful theater.
+        - generic [ref=e101]:
+          - article [ref=e102]:
+            - generic [ref=e103]: Inactive
+            - heading "Last Semester Sendof..." [level=3] [ref=e104]
+            - paragraph [ref=e105]: 05 June · Main Lawn
+            - link "View details" [ref=e106] [cursor=pointer]:
+              - /url: /events/30
+          - article [ref=e107]:
+            - generic [ref=e108]: Inactive
+            - heading "Folk Memories Concer..." [level=3] [ref=e109]
+            - paragraph [ref=e110]: 14 June · Moonlight Theater
+            - link "View details" [ref=e111] [cursor=pointer]:
+              - /url: /events/40
+          - article [ref=e112]:
+            - generic [ref=e113]: Inactive
+            - heading "Summer Concert Final..." [level=3] [ref=e114]
+            - paragraph [ref=e115]: 17 June · Harbor Deck
+            - link "View details" [ref=e116] [cursor=pointer]:
+              - /url: /events/50
+          - article [ref=e117]:
+            - generic [ref=e118]: Inactive
+            - heading "Rock Legends Past" [level=3] [ref=e119]
+            - paragraph [ref=e120]: 21 June · Crystal Palace
+            - link "View details" [ref=e121] [cursor=pointer]:
+              - /url: /events/20
+    - generic [ref=e124]:
+      - generic [ref=e125]:
+        - paragraph [ref=e126]: Why SoundWave
+        - heading "Useful details before people commit to a ticket." [level=2] [ref=e127]
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - text: "01"
+          - strong [ref=e131]: Clear event status
+          - paragraph [ref=e132]: Open, sold out, cancelled and inactive events are easy to tell apart.
+        - generic [ref=e133]:
+          - text: "02"
+          - strong [ref=e134]: Venue and time
+          - paragraph [ref=e135]: Each event highlights where and when the show happens.
+        - generic [ref=e136]:
+          - text: "03"
+          - strong [ref=e137]: Ticket quantity
+          - paragraph [ref=e138]: The detail page makes the booking action visible.
+        - generic [ref=e139]:
+          - text: "04"
+          - strong [ref=e140]: Past orders
+          - paragraph [ref=e141]: The booking page keeps order IDs and booked times organised.

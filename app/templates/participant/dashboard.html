@@ -22,7 +22,7 @@
     <div class="history-timeline">
       {% for reg in registrations[:5] %}
       <article class="history-card">
-        <div class="history-poster poster-jazz">{{ reg.music_event.music_genre }}</div>
+        <div class="history-poster" style="background: linear-gradient(180deg, rgba(5, 8, 15, 0.04), rgba(5, 8, 15, 0.72)), url('{{ url_for('static', filename='img/events/' + (reg.music_event.image_filename or 'event_1.jpg')) }}') center/cover">{{ reg.music_event.music_genre }}</div>
         <div class="history-info">
           <span class="status-badge status-open">{{ reg.registration_status }}</span>
           <h2>{{ reg.music_event.event_title }}</h2>

@@ -1,0 +1,729 @@
+- generic [active] [ref=f1e1]:
+  - navigation [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - link "SW SoundWave Events" [ref=f1e4] [cursor=pointer]:
+        - /url: /index
+        - generic [ref=f1e5]: SW
+        - text: SoundWave Events
+      - button [ref=f1e6] [cursor=pointer]
+  - main [ref=f1e8]:
+    - generic [ref=f1e9]:
+      - generic [ref=f1e10]:
+        - generic [ref=f1e11]:
+          - paragraph [ref=f1e12]: Event listings
+          - heading "All music events." [level=1] [ref=f1e13]
+          - paragraph [ref=f1e14]: Browse by category or scroll through the full collection.
+        - generic [ref=f1e16]:
+          - link "All" [ref=f1e17] [cursor=pointer]:
+            - /url: /events
+          - link "Jazz" [ref=f1e18] [cursor=pointer]:
+            - /url: /events?genre=Jazz
+          - link "Rock" [ref=f1e19] [cursor=pointer]:
+            - /url: /events?genre=Rock
+          - link "Campus Festival" [ref=f1e20] [cursor=pointer]:
+            - /url: /events?genre=Campus+Festival
+          - link "Acoustic" [ref=f1e21] [cursor=pointer]:
+            - /url: /events?genre=Acoustic
+          - link "Concert" [ref=f1e22] [cursor=pointer]:
+            - /url: /events?genre=Concert
+      - generic [ref=f1e23]:
+        - article [ref=f1e25]:
+          - generic [ref=f1e26]:
+            - generic [ref=f1e27]: Inactive
+            - heading "Last Semester Sendoff" [level=2] [ref=f1e28]
+            - paragraph [ref=f1e29]: End-of-year sendoff concert for outgoing students.
+          - generic [ref=f1e30]:
+            - generic [ref=f1e31]:
+              - generic [ref=f1e32]:
+                - text: 05 June 2026, 07:18 AM
+                - paragraph [ref=f1e33]:
+                  - strong [ref=f1e34]: Main Lawn
+              - generic [ref=f1e35]: 500 left
+            - link "View details" [ref=f1e36] [cursor=pointer]:
+              - /url: /events/30
+        - article [ref=f1e38]:
+          - generic [ref=f1e39]:
+            - generic [ref=f1e40]: Inactive
+            - heading "Folk Memories Concert" [level=2] [ref=f1e41]
+            - paragraph [ref=f1e42]: A past acoustic folk concert of timeless classics.
+          - generic [ref=f1e43]:
+            - generic [ref=f1e44]:
+              - generic [ref=f1e45]:
+                - text: 14 June 2026, 08:18 AM
+                - paragraph [ref=f1e46]:
+                  - strong [ref=f1e47]: Moonlight Theater
+              - generic [ref=f1e48]: 150 left
+            - link "View details" [ref=f1e49] [cursor=pointer]:
+              - /url: /events/40
+        - article [ref=f1e51]:
+          - generic [ref=f1e52]:
+            - generic [ref=f1e53]: Inactive
+            - heading "Summer Concert Finale" [level=2] [ref=f1e54]
+            - paragraph [ref=f1e55]: A past grand finale summer harbor concert.
+          - generic [ref=f1e56]:
+            - generic [ref=f1e57]:
+              - generic [ref=f1e58]:
+                - text: 17 June 2026, 09:18 AM
+                - paragraph [ref=f1e59]:
+                  - strong [ref=f1e60]: Harbor Deck
+              - generic [ref=f1e61]: 200 left
+            - link "View details" [ref=f1e62] [cursor=pointer]:
+              - /url: /events/50
+        - article [ref=f1e64]:
+          - generic [ref=f1e65]:
+            - generic [ref=f1e66]: Inactive
+            - heading "Rock Legends Past" [level=2] [ref=f1e67]
+            - paragraph [ref=f1e68]: A past tribute concert for classic rock legends.
+          - generic [ref=f1e69]:
+            - generic [ref=f1e70]:
+              - generic [ref=f1e71]:
+                - text: 21 June 2026, 09:18 AM
+                - paragraph [ref=f1e72]:
+                  - strong [ref=f1e73]: Crystal Palace
+              - generic [ref=f1e74]: 300 left
+            - link "View details" [ref=f1e75] [cursor=pointer]:
+              - /url: /events/20
+        - article [ref=f1e77]:
+          - generic [ref=f1e78]:
+            - generic [ref=f1e79]: Inactive
+            - heading "Electronic Night Lab" [level=2] [ref=f1e80]
+            - paragraph [ref=f1e81]: Experimental electronic music with cutting-edge sound.
+          - generic [ref=f1e82]:
+            - generic [ref=f1e83]:
+              - generic [ref=f1e84]:
+                - text: 24 June 2026, 11:18 AM
+                - paragraph [ref=f1e85]:
+                  - strong [ref=f1e86]: Studio 9
+              - generic [ref=f1e87]: 40 left
+            - link "View details" [ref=f1e88] [cursor=pointer]:
+              - /url: /events/41
+        - article [ref=f1e90]:
+          - generic [ref=f1e91]:
+            - generic [ref=f1e92]: Inactive
+            - heading "Jazz Legends Tribute" [level=2] [ref=f1e93]
+            - paragraph [ref=f1e94]: A past tribute concert to jazz legends.
+          - generic [ref=f1e95]:
+            - generic [ref=f1e96]:
+              - generic [ref=f1e97]:
+                - text: 25 June 2026, 10:18 AM
+                - paragraph [ref=f1e98]:
+                  - strong [ref=f1e99]: Moonlight Theater
+              - generic [ref=f1e100]: 150 left
+            - link "View details" [ref=f1e101] [cursor=pointer]:
+              - /url: /events/10
+        - article [ref=f1e103]:
+          - generic [ref=f1e104]:
+            - generic [ref=f1e105]: Cancelled
+            - heading "Jazz Brunch Special" [level=2] [ref=f1e106]
+            - paragraph [ref=f1e107]: Sunday jazz brunch with live trio and mimosas.
+          - generic [ref=f1e108]:
+            - generic [ref=f1e109]:
+              - generic [ref=f1e110]:
+                - text: 05 July 2026, 12:18 AM
+                - paragraph [ref=f1e111]:
+                  - strong [ref=f1e112]: Garden Room
+              - generic [ref=f1e113]: 60 left
+            - link "View details" [ref=f1e114] [cursor=pointer]:
+              - /url: /events/9
+        - article [ref=f1e116]:
+          - generic [ref=f1e117]:
+            - generic [ref=f1e118]: draft
+            - heading "Basement Jazz Underground" [level=2] [ref=f1e119]
+            - paragraph [ref=f1e120]: Underground jazz in a cozy cellar setting.
+          - generic [ref=f1e121]:
+            - generic [ref=f1e122]:
+              - generic [ref=f1e123]:
+                - text: 05 July 2026, 09:18 AM
+                - paragraph [ref=f1e124]:
+                  - strong [ref=f1e125]: The Underground
+              - generic [ref=f1e126]: 50 left
+            - link "View details" [ref=f1e127] [cursor=pointer]:
+              - /url: /events/8
+        - article [ref=f1e129]:
+          - generic [ref=f1e130]:
+            - generic [ref=f1e131]: Cancelled
+            - heading "Campus DJ Clash" [level=2] [ref=f1e132]
+            - paragraph [ref=f1e133]: Student DJs compete for the campus crown.
+          - generic [ref=f1e134]:
+            - generic [ref=f1e135]:
+              - generic [ref=f1e136]:
+                - text: 05 July 2026, 09:18 AM
+                - paragraph [ref=f1e137]:
+                  - strong [ref=f1e138]: Sunset Arena
+              - generic [ref=f1e139]: 800 left
+            - link "View details" [ref=f1e140] [cursor=pointer]:
+              - /url: /events/29
+        - article [ref=f1e142]:
+          - generic [ref=f1e143]:
+            - generic [ref=f1e144]: draft
+            - heading "Acoustic Whiskey Night" [level=2] [ref=f1e145]
+            - paragraph [ref=f1e146]: Acoustic tunes paired with fine whiskey tasting.
+          - generic [ref=f1e147]:
+            - generic [ref=f1e148]:
+              - generic [ref=f1e149]:
+                - text: 05 July 2026, 10:18 AM
+                - paragraph [ref=f1e150]:
+                  - strong [ref=f1e151]: The Underground
+              - generic [ref=f1e152]: 50 left
+            - link "View details" [ref=f1e153] [cursor=pointer]:
+              - /url: /events/39
+        - article [ref=f1e155]:
+          - generic [ref=f1e156]:
+            - generic [ref=f1e157]: draft
+            - heading "Ambient Sound Lab" [level=2] [ref=f1e158]
+            - paragraph [ref=f1e159]: Immersive ambient electronic soundscape experience.
+          - generic [ref=f1e160]:
+            - generic [ref=f1e161]:
+              - generic [ref=f1e162]:
+                - text: 05 July 2026, 10:18 AM
+                - paragraph [ref=f1e163]:
+                  - strong [ref=f1e164]: Studio 9
+              - generic [ref=f1e165]: 40 left
+            - link "View details" [ref=f1e166] [cursor=pointer]:
+              - /url: /events/49
+        - article [ref=f1e168]:
+          - generic [ref=f1e169]:
+            - generic [ref=f1e170]: draft
+            - heading "Emo Night Rewind" [level=2] [ref=f1e171]
+            - paragraph [ref=f1e172]: A nostalgic emo and pop-punk throwback party.
+          - generic [ref=f1e173]:
+            - generic [ref=f1e174]:
+              - generic [ref=f1e175]:
+                - text: 05 July 2026, 11:18 AM
+                - paragraph [ref=f1e176]:
+                  - strong [ref=f1e177]: The Underground
+              - generic [ref=f1e178]: 50 left
+            - link "View details" [ref=f1e179] [cursor=pointer]:
+              - /url: /events/19
+        - article [ref=f1e181]:
+          - generic [ref=f1e182]:
+            - generic [ref=f1e183]: Sold Out
+            - heading "New Year Concert Gala" [level=2] [ref=f1e184]
+            - paragraph [ref=f1e185]: A sold-out New Year celebration concert.
+          - generic [ref=f1e186]:
+            - generic [ref=f1e187]:
+              - generic [ref=f1e188]:
+                - text: 09 July 2026, 10:18 AM
+                - paragraph [ref=f1e189]:
+                  - strong [ref=f1e190]: Crystal Palace
+              - generic [ref=f1e191]: 299 left
+            - link "View details" [ref=f1e192] [cursor=pointer]:
+              - /url: /events/47
+        - article [ref=f1e194]:
+          - generic [ref=f1e195]:
+            - generic [ref=f1e196]: Sold Out
+            - heading "Lo-Fi Acoustic Lab" [level=2] [ref=f1e197]
+            - paragraph [ref=f1e198]: Experimental acoustic sounds in an intimate space.
+          - generic [ref=f1e199]:
+            - generic [ref=f1e200]:
+              - generic [ref=f1e201]:
+                - text: 10 July 2026, 10:18 AM
+                - paragraph [ref=f1e202]:
+                  - strong [ref=f1e203]: Studio 9
+              - generic [ref=f1e204]: 39 left
+            - link "View details" [ref=f1e205] [cursor=pointer]:
+              - /url: /events/37
+        - article [ref=f1e207]:
+          - generic [ref=f1e208]:
+            - generic [ref=f1e209]: Sold Out
+            - heading "Garage Rock Revival" [level=2] [ref=f1e210]
+            - paragraph [ref=f1e211]: Raw and gritty garage rock duo live performance.
+          - generic [ref=f1e212]:
+            - generic [ref=f1e213]:
+              - generic [ref=f1e214]:
+                - text: 12 July 2026, 10:18 AM
+                - paragraph [ref=f1e215]:
+                  - strong [ref=f1e216]: Echo Stage
+              - generic [ref=f1e217]: 79 left
+            - link "View details" [ref=f1e218] [cursor=pointer]:
+              - /url: /events/16
+        - article [ref=f1e220]:
+          - generic [ref=f1e221]:
+            - generic [ref=f1e222]: Open
+            - heading "Morning Acoustic Yoga" [level=2] [ref=f1e223]
+            - paragraph [ref=f1e224]: Start the day with acoustic music and yoga in the garden.
+          - generic [ref=f1e225]:
+            - generic [ref=f1e226]:
+              - generic [ref=f1e227]:
+                - text: 12 July 2026, 10:18 PM
+                - paragraph [ref=f1e228]:
+                  - strong [ref=f1e229]: Garden Room
+              - generic [ref=f1e230]: 60 left
+            - link "View details" [ref=f1e231] [cursor=pointer]:
+              - /url: /events/38
+        - article [ref=f1e233]:
+          - generic [ref=f1e234]:
+            - generic [ref=f1e235]: Sold Out
+            - heading "Swing into Spring" [level=2] [ref=f1e236]
+            - paragraph [ref=f1e237]: Big band swing revival night with dance floor open.
+          - generic [ref=f1e238]:
+            - generic [ref=f1e239]:
+              - generic [ref=f1e240]:
+                - text: 13 July 2026, 08:18 AM
+                - paragraph [ref=f1e241]:
+                  - strong [ref=f1e242]: Blue Hall
+              - generic [ref=f1e243]: 99 left
+            - link "View details" [ref=f1e244] [cursor=pointer]:
+              - /url: /events/6
+        - article [ref=f1e246]:
+          - generic [ref=f1e247]:
+            - generic [ref=f1e248]: Sold Out
+            - heading "Dorm Jam 2026" [level=2] [ref=f1e249]
+            - paragraph [ref=f1e250]: Dormitory Echoes headline the biggest campus jam.
+          - generic [ref=f1e251]:
+            - generic [ref=f1e252]:
+              - generic [ref=f1e253]:
+                - text: 14 July 2026, 08:18 AM
+                - paragraph [ref=f1e254]:
+                  - strong [ref=f1e255]: Main Lawn
+              - generic [ref=f1e256]: 499 left
+            - link "View details" [ref=f1e257] [cursor=pointer]:
+              - /url: /events/26
+        - article [ref=f1e259]:
+          - generic [ref=f1e260]:
+            - generic [ref=f1e261]: Open
+            - heading "Fingerstyle Guitar Night" [level=2] [ref=f1e262]
+            - paragraph [ref=f1e263]: Solo fingerstyle guitar master Li performs live.
+          - generic [ref=f1e264]:
+            - generic [ref=f1e265]:
+              - generic [ref=f1e266]:
+                - text: 15 July 2026, 09:18 AM
+                - paragraph [ref=f1e267]:
+                  - strong [ref=f1e268]: Studio 9
+              - generic [ref=f1e269]: 40 left
+            - link "View details" [ref=f1e270] [cursor=pointer]:
+              - /url: /events/32
+        - article [ref=f1e272]:
+          - generic [ref=f1e273]:
+            - generic [ref=f1e274]: Open
+            - heading "Riverside Jazz Night" [level=2] [ref=f1e275]
+            - paragraph [ref=f1e276]: A warm live-jazz session with skyline views and food stalls.
+          - generic [ref=f1e277]:
+            - generic [ref=f1e278]:
+              - generic [ref=f1e279]:
+                - text: 16 July 2026, 09:18 AM
+                - paragraph [ref=f1e280]:
+                  - strong [ref=f1e281]: Blue Hall
+              - generic [ref=f1e282]: 99 left
+            - link "View details" [ref=f1e283] [cursor=pointer]:
+              - /url: /events/1
+        - article [ref=f1e285]:
+          - generic [ref=f1e286]:
+            - generic [ref=f1e287]: Open
+            - heading "Vocal Ensemble Evening" [level=2] [ref=f1e288]
+            - paragraph [ref=f1e289]: Contemporary choral pieces in a beautiful theater.
+          - generic [ref=f1e290]:
+            - generic [ref=f1e291]:
+              - generic [ref=f1e292]:
+                - text: 17 July 2026, 08:18 AM
+                - paragraph [ref=f1e293]:
+                  - strong [ref=f1e294]: Moonlight Theater
+              - generic [ref=f1e295]: 150 left
+            - link "View details" [ref=f1e296] [cursor=pointer]:
+              - /url: /events/46
+        - article [ref=f1e298]:
+          - generic [ref=f1e299]:
+            - generic [ref=f1e300]: Open
+            - heading "Punk Night Rebellion" [level=2] [ref=f1e301]
+            - paragraph [ref=f1e302]: Loud, fast, and unapologetic punk rock in the basement.
+          - generic [ref=f1e303]:
+            - generic [ref=f1e304]:
+              - generic [ref=f1e305]:
+                - text: 17 July 2026, 10:18 AM
+                - paragraph [ref=f1e306]:
+                  - strong [ref=f1e307]: The Underground
+              - generic [ref=f1e308]: 49 left
+            - link "View details" [ref=f1e309] [cursor=pointer]:
+              - /url: /events/13
+        - article [ref=f1e311]:
+          - generic [ref=f1e312]:
+            - generic [ref=f1e313]: Open
+            - heading "Campus Music Festival" [level=2] [ref=f1e314]
+            - paragraph [ref=f1e315]: Student bands and outdoor market energy for a summer night.
+          - generic [ref=f1e316]:
+            - generic [ref=f1e317]:
+              - generic [ref=f1e318]:
+                - text: 18 July 2026, 06:18 AM
+                - paragraph [ref=f1e319]:
+                  - strong [ref=f1e320]: Main Lawn
+              - generic [ref=f1e321]: 499 left
+            - link "View details" [ref=f1e322] [cursor=pointer]:
+              - /url: /events/21
+        - article [ref=f1e324]:
+          - generic [ref=f1e325]:
+            - generic [ref=f1e326]: Open
+            - heading "Candlelit Acoustic Eve" [level=2] [ref=f1e327]
+            - paragraph [ref=f1e328]: Soft acoustic melodies by candlelight in a cozy cellar.
+          - generic [ref=f1e329]:
+            - generic [ref=f1e330]:
+              - generic [ref=f1e331]:
+                - text: 18 July 2026, 08:18 AM
+                - paragraph [ref=f1e332]:
+                  - strong [ref=f1e333]: The Underground
+              - generic [ref=f1e334]: 50 left
+            - link "View details" [ref=f1e335] [cursor=pointer]:
+              - /url: /events/33
+        - article [ref=f1e337]:
+          - generic [ref=f1e338]:
+            - generic [ref=f1e339]: Open
+            - heading "Sunset Smooth Jazz" [level=2] [ref=f1e340]
+            - paragraph [ref=f1e341]: Smooth jazz under the sunset with cocktail pairing.
+          - generic [ref=f1e342]:
+            - generic [ref=f1e343]:
+              - generic [ref=f1e344]:
+                - text: 19 July 2026, 08:18 AM
+                - paragraph [ref=f1e345]:
+                  - strong [ref=f1e346]: Echo Stage
+              - generic [ref=f1e347]: 79 left
+            - link "View details" [ref=f1e348] [cursor=pointer]:
+              - /url: /events/2
+        - article [ref=f1e350]:
+          - generic [ref=f1e351]:
+            - generic [ref=f1e352]: Open
+            - heading "Fireside Folk Stories" [level=2] [ref=f1e353]
+            - paragraph [ref=f1e354]: Warm folk-acoustic storytelling in the theater.
+          - generic [ref=f1e355]:
+            - generic [ref=f1e356]:
+              - generic [ref=f1e357]:
+                - text: 19 July 2026, 09:18 AM
+                - paragraph [ref=f1e358]:
+                  - strong [ref=f1e359]: Moonlight Theater
+              - generic [ref=f1e360]: 150 left
+            - link "View details" [ref=f1e361] [cursor=pointer]:
+              - /url: /events/36
+        - article [ref=f1e363]:
+          - generic [ref=f1e364]:
+            - generic [ref=f1e365]: Open
+            - heading "Inter-University Battle" [level=2] [ref=f1e366]
+            - paragraph [ref=f1e367]: Top student bands from five universities compete.
+          - generic [ref=f1e368]:
+            - generic [ref=f1e369]:
+              - generic [ref=f1e370]:
+                - text: 20 July 2026, 03:18 AM
+                - paragraph [ref=f1e371]:
+                  - strong [ref=f1e372]: Sunset Arena
+              - generic [ref=f1e373]: 800 left
+            - link "View details" [ref=f1e374] [cursor=pointer]:
+              - /url: /events/25
+        - article [ref=f1e376]:
+          - generic [ref=f1e377]:
+            - generic [ref=f1e378]: Open
+            - heading "Indie Rock Live" [level=2] [ref=f1e379]
+            - paragraph [ref=f1e380]: Local indie bands with a packed live-house atmosphere.
+          - generic [ref=f1e381]:
+            - generic [ref=f1e382]:
+              - generic [ref=f1e383]:
+                - text: 20 July 2026, 10:18 AM
+                - paragraph [ref=f1e384]:
+                  - strong [ref=f1e385]: Echo Stage
+              - generic [ref=f1e386]: 79 left
+            - link "View details" [ref=f1e387] [cursor=pointer]:
+              - /url: /events/11
+        - article [ref=f1e389]:
+          - generic [ref=f1e390]:
+            - generic [ref=f1e391]: Open
+            - heading "Harbor EDM Night" [level=2] [ref=f1e392]
+            - paragraph [ref=f1e393]: DJ Pulse brings electronic energy to the harbor.
+          - generic [ref=f1e394]:
+            - generic [ref=f1e395]:
+              - generic [ref=f1e396]:
+                - text: 20 July 2026, 10:18 AM
+                - paragraph [ref=f1e397]:
+                  - strong [ref=f1e398]: Harbor Deck
+              - generic [ref=f1e399]: 200 left
+            - link "View details" [ref=f1e400] [cursor=pointer]:
+              - /url: /events/44
+        - article [ref=f1e402]:
+          - generic [ref=f1e403]:
+            - generic [ref=f1e404]: Open
+            - heading "Late Night Jazz Jam" [level=2] [ref=f1e405]
+            - paragraph [ref=f1e406]: Open jam session for jazz musicians and enthusiasts.
+          - generic [ref=f1e407]:
+            - generic [ref=f1e408]:
+              - generic [ref=f1e409]:
+                - text: 20 July 2026, 11:18 AM
+                - paragraph [ref=f1e410]:
+                  - strong [ref=f1e411]: Echo Stage
+              - generic [ref=f1e412]: 79 left
+            - link "View details" [ref=f1e413] [cursor=pointer]:
+              - /url: /events/7
+        - article [ref=f1e415]:
+          - generic [ref=f1e416]:
+            - generic [ref=f1e417]: Open
+            - heading "Wood Strings Harmony" [level=2] [ref=f1e418]
+            - paragraph [ref=f1e419]: Guitar and violin acoustic duo in the garden.
+          - generic [ref=f1e420]:
+            - generic [ref=f1e421]:
+              - generic [ref=f1e422]:
+                - text: 21 July 2026, 06:18 AM
+                - paragraph [ref=f1e423]:
+                  - strong [ref=f1e424]: Garden Room
+              - generic [ref=f1e425]: 60 left
+            - link "View details" [ref=f1e426] [cursor=pointer]:
+              - /url: /events/34
+        - article [ref=f1e428]:
+          - generic [ref=f1e429]:
+            - generic [ref=f1e430]: Open
+            - heading "Harbor Rock Sea Breeze" [level=2] [ref=f1e431]
+            - paragraph [ref=f1e432]: Rock by the water with ocean views and cold drinks.
+          - generic [ref=f1e433]:
+            - generic [ref=f1e434]:
+              - generic [ref=f1e435]:
+                - text: 21 July 2026, 08:18 AM
+                - paragraph [ref=f1e436]:
+                  - strong [ref=f1e437]: Harbor Deck
+              - generic [ref=f1e438]: 199 left
+            - link "View details" [ref=f1e439] [cursor=pointer]:
+              - /url: /events/15
+        - article [ref=f1e441]:
+          - generic [ref=f1e442]:
+            - generic [ref=f1e443]: Cancelled
+            - heading "Acoustic Sunset Session" [level=2] [ref=f1e444]
+            - paragraph [ref=f1e445]: An intimate acoustic weekend session in a garden.
+          - generic [ref=f1e446]:
+            - generic [ref=f1e447]:
+              - generic [ref=f1e448]:
+                - text: 22 July 2026, 07:18 AM
+                - paragraph [ref=f1e449]:
+                  - strong [ref=f1e450]: Garden Room
+              - generic [ref=f1e451]: 60 left
+            - link "View details" [ref=f1e452] [cursor=pointer]:
+              - /url: /events/31
+        - article [ref=f1e454]:
+          - generic [ref=f1e455]:
+            - generic [ref=f1e456]: Open
+            - heading "Symphony Under Stars" [level=2] [ref=f1e457]
+            - paragraph [ref=f1e458]: Full orchestra performing classical and modern pieces.
+          - generic [ref=f1e459]:
+            - generic [ref=f1e460]:
+              - generic [ref=f1e461]:
+                - text: 22 July 2026, 09:18 AM
+                - paragraph [ref=f1e462]:
+                  - strong [ref=f1e463]: Sunset Arena
+              - generic [ref=f1e464]: 800 left
+            - link "View details" [ref=f1e465] [cursor=pointer]:
+              - /url: /events/42
+        - article [ref=f1e467]:
+          - generic [ref=f1e468]:
+            - generic [ref=f1e469]: Open
+            - heading "Jazz in the Garden" [level=2] [ref=f1e470]
+            - paragraph [ref=f1e471]: An intimate garden jazz evening with acoustic ambiance.
+          - generic [ref=f1e472]:
+            - generic [ref=f1e473]:
+              - generic [ref=f1e474]:
+                - text: 23 July 2026, 07:18 AM
+                - paragraph [ref=f1e475]:
+                  - strong [ref=f1e476]: Garden Room
+              - generic [ref=f1e477]: 59 left
+            - link "View details" [ref=f1e478] [cursor=pointer]:
+              - /url: /events/3
+        - article [ref=f1e480]:
+          - generic [ref=f1e481]:
+            - generic [ref=f1e482]: Open
+            - heading "Campus Acoustic Night" [level=2] [ref=f1e483]
+            - paragraph [ref=f1e484]: Unplugged sessions under the stars on the lawn.
+          - generic [ref=f1e485]:
+            - generic [ref=f1e486]:
+              - generic [ref=f1e487]:
+                - text: 23 July 2026, 07:18 AM
+                - paragraph [ref=f1e488]:
+                  - strong [ref=f1e489]: Sunset Arena
+              - generic [ref=f1e490]: 800 left
+            - link "View details" [ref=f1e491] [cursor=pointer]:
+              - /url: /events/27
+        - article [ref=f1e493]:
+          - generic [ref=f1e494]:
+            - generic [ref=f1e495]: Open
+            - heading "Rock the Palace" [level=2] [ref=f1e496]
+            - paragraph [ref=f1e497]: Rock bands take over the grand ballroom.
+          - generic [ref=f1e498]:
+            - generic [ref=f1e499]:
+              - generic [ref=f1e500]:
+                - text: 23 July 2026, 09:18 AM
+                - paragraph [ref=f1e501]:
+                  - strong [ref=f1e502]: Crystal Palace
+              - generic [ref=f1e503]: 299 left
+            - link "View details" [ref=f1e504] [cursor=pointer]:
+              - /url: /events/14
+        - article [ref=f1e506]:
+          - generic [ref=f1e507]:
+            - generic [ref=f1e508]: Open
+            - heading "Crystal Gala Concert" [level=2] [ref=f1e509]
+            - paragraph [ref=f1e510]: Grand ballroom concert with choral ensemble.
+          - generic [ref=f1e511]:
+            - generic [ref=f1e512]:
+              - generic [ref=f1e513]:
+                - text: 24 July 2026, 08:18 AM
+                - paragraph [ref=f1e514]:
+                  - strong [ref=f1e515]: Crystal Palace
+              - generic [ref=f1e516]: 300 left
+            - link "View details" [ref=f1e517] [cursor=pointer]:
+              - /url: /events/43
+        - article [ref=f1e519]:
+          - generic [ref=f1e520]:
+            - generic [ref=f1e521]: Open
+            - heading "Neon Rebels Live" [level=2] [ref=f1e522]
+            - paragraph [ref=f1e523]: Punk-pop trio headlining a theater show.
+          - generic [ref=f1e524]:
+            - generic [ref=f1e525]:
+              - generic [ref=f1e526]:
+                - text: 24 July 2026, 09:18 AM
+                - paragraph [ref=f1e527]:
+                  - strong [ref=f1e528]: Moonlight Theater
+              - generic [ref=f1e529]: 149 left
+            - link "View details" [ref=f1e530] [cursor=pointer]:
+              - /url: /events/17
+        - article [ref=f1e532]:
+          - generic [ref=f1e533]:
+            - generic [ref=f1e534]: Open
+            - heading "Spring Campus Bash" [level=2] [ref=f1e535]
+            - paragraph [ref=f1e536]: University-wide spring celebration with live performances.
+          - generic [ref=f1e537]:
+            - generic [ref=f1e538]:
+              - generic [ref=f1e539]:
+                - text: 25 July 2026, 04:18 AM
+                - paragraph [ref=f1e540]:
+                  - strong [ref=f1e541]: Sunset Arena
+              - generic [ref=f1e542]: 799 left
+            - link "View details" [ref=f1e543] [cursor=pointer]:
+              - /url: /events/22
+        - article [ref=f1e545]:
+          - generic [ref=f1e546]:
+            - generic [ref=f1e547]: Open
+            - heading "Harbor Jazz Cruise" [level=2] [ref=f1e548]
+            - paragraph [ref=f1e549]: Jazz night on the harbor deck with sea breeze.
+          - generic [ref=f1e550]:
+            - generic [ref=f1e551]:
+              - generic [ref=f1e552]:
+                - text: 25 July 2026, 09:18 AM
+                - paragraph [ref=f1e553]:
+                  - strong [ref=f1e554]: Harbor Deck
+              - generic [ref=f1e555]: 199 left
+            - link "View details" [ref=f1e556] [cursor=pointer]:
+              - /url: /events/4
+        - article [ref=f1e558]:
+          - generic [ref=f1e559]:
+            - generic [ref=f1e560]: Open
+            - heading "Thunder Fest 2026" [level=2] [ref=f1e561]
+            - paragraph [ref=f1e562]: Hard rock festival with multiple bands on the arena stage.
+          - generic [ref=f1e563]:
+            - generic [ref=f1e564]:
+              - generic [ref=f1e565]:
+                - text: 26 July 2026, 08:18 AM
+                - paragraph [ref=f1e566]:
+                  - strong [ref=f1e567]: Sunset Arena
+              - generic [ref=f1e568]: 799 left
+            - link "View details" [ref=f1e569] [cursor=pointer]:
+              - /url: /events/12
+        - article [ref=f1e571]:
+          - generic [ref=f1e572]:
+            - generic [ref=f1e573]: Open
+            - heading "Harbor Acoustic Breeze" [level=2] [ref=f1e574]
+            - paragraph [ref=f1e575]: Gentle acoustic tunes with harbor sunset views.
+          - generic [ref=f1e576]:
+            - generic [ref=f1e577]:
+              - generic [ref=f1e578]:
+                - text: 27 July 2026, 07:18 AM
+                - paragraph [ref=f1e579]:
+                  - strong [ref=f1e580]: Harbor Deck
+              - generic [ref=f1e581]: 200 left
+            - link "View details" [ref=f1e582] [cursor=pointer]:
+              - /url: /events/35
+        - article [ref=f1e584]:
+          - generic [ref=f1e585]:
+            - generic [ref=f1e586]: Open
+            - heading "Synth Horizon Live" [level=2] [ref=f1e587]
+            - paragraph [ref=f1e588]: Electronic-synth band in a massive arena spectacle.
+          - generic [ref=f1e589]:
+            - generic [ref=f1e590]:
+              - generic [ref=f1e591]:
+                - text: 27 July 2026, 09:18 AM
+                - paragraph [ref=f1e592]:
+                  - strong [ref=f1e593]: Sunset Arena
+              - generic [ref=f1e594]: 800 left
+            - link "View details" [ref=f1e595] [cursor=pointer]:
+              - /url: /events/45
+        - article [ref=f1e597]:
+          - generic [ref=f1e598]:
+            - generic [ref=f1e599]: Open
+            - heading "Orchestra Nova Premier" [level=2] [ref=f1e600]
+            - paragraph [ref=f1e601]: Symphony orchestra premiering new compositions.
+          - generic [ref=f1e602]:
+            - generic [ref=f1e603]:
+              - generic [ref=f1e604]:
+                - text: 29 July 2026, 09:18 AM
+                - paragraph [ref=f1e605]:
+                  - strong [ref=f1e606]: Sunset Arena
+              - generic [ref=f1e607]: 800 left
+            - link "View details" [ref=f1e608] [cursor=pointer]:
+              - /url: /events/48
+        - article [ref=f1e610]:
+          - generic [ref=f1e611]:
+            - generic [ref=f1e612]: Open
+            - heading "Freshman Welcome Fest" [level=2] [ref=f1e613]
+            - paragraph [ref=f1e614]: Welcome new students with music and campus spirit.
+          - generic [ref=f1e615]:
+            - generic [ref=f1e616]:
+              - generic [ref=f1e617]:
+                - text: 30 July 2026, 05:18 AM
+                - paragraph [ref=f1e618]:
+                  - strong [ref=f1e619]: Main Lawn
+              - generic [ref=f1e620]: 499 left
+            - link "View details" [ref=f1e621] [cursor=pointer]:
+              - /url: /events/23
+        - article [ref=f1e623]:
+          - generic [ref=f1e624]:
+            - generic [ref=f1e625]: Open
+            - heading "Moonlight Jazz Soiree" [level=2] [ref=f1e626]
+            - paragraph [ref=f1e627]: Elegant jazz under the moonlight with candlelit tables.
+          - generic [ref=f1e628]:
+            - generic [ref=f1e629]:
+              - generic [ref=f1e630]:
+                - text: 30 July 2026, 10:18 AM
+                - paragraph [ref=f1e631]:
+                  - strong [ref=f1e632]: Moonlight Theater
+              - generic [ref=f1e633]: 149 left
+            - link "View details" [ref=f1e634] [cursor=pointer]:
+              - /url: /events/5
+        - article [ref=f1e636]:
+          - generic [ref=f1e637]:
+            - generic [ref=f1e638]: Open
+            - heading "Summer Rock Countdown" [level=2] [ref=f1e639]
+            - paragraph [ref=f1e640]: Countdown to summer with rock anthems all night.
+          - generic [ref=f1e641]:
+            - generic [ref=f1e642]:
+              - generic [ref=f1e643]:
+                - text: 02 August 2026, 07:18 AM
+                - paragraph [ref=f1e644]:
+                  - strong [ref=f1e645]: Sunset Arena
+              - generic [ref=f1e646]: 799 left
+            - link "View details" [ref=f1e647] [cursor=pointer]:
+              - /url: /events/18
+        - article [ref=f1e649]:
+          - generic [ref=f1e650]:
+            - generic [ref=f1e651]: Open
+            - heading "Graduation Music Night" [level=2] [ref=f1e652]
+            - paragraph [ref=f1e653]: Celebrate graduation with the best campus bands.
+          - generic [ref=f1e654]:
+            - generic [ref=f1e655]:
+              - generic [ref=f1e656]:
+                - text: 04 August 2026, 07:18 AM
+                - paragraph [ref=f1e657]:
+                  - strong [ref=f1e658]: Main Lawn
+              - generic [ref=f1e659]: 500 left
+            - link "View details" [ref=f1e660] [cursor=pointer]:
+              - /url: /events/24
+        - article [ref=f1e662]:
+          - generic [ref=f1e663]:
+            - generic [ref=f1e664]: Open
+            - heading "Autumn Campus Fair" [level=2] [ref=f1e665]
+            - paragraph [ref=f1e666]: Music, food stalls, and games at the autumn fair.
+          - generic [ref=f1e667]:
+            - generic [ref=f1e668]:
+              - generic [ref=f1e669]:
+                - text: 09 August 2026, 02:18 AM
+                - paragraph [ref=f1e670]:
+                  - strong [ref=f1e671]: Main Lawn
+              - generic [ref=f1e672]: 500 left
+            - link "View details" [ref=f1e673] [cursor=pointer]:
+              - /url: /events/28
