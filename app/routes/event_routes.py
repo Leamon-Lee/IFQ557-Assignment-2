@@ -143,6 +143,8 @@ def edit_event(event_id: int):
 
     form = EditEventForm(obj=event)
     form.venue_id.choices = _get_venue_choices()
+    if not form.is_submitted():
+        form.ticket_price.data = event._ticket_price
 
     if form.validate_on_submit():
         event.event_title = EventTitle(form.event_title.data)
