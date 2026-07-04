@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import DateTimeLocalField, IntegerField, SelectField, StringField, SubmitField, TextAreaField
+from wtforms import DateTimeLocalField, DecimalField, IntegerField, SelectField, StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length, NumberRange
 
 GENRE_CHOICES = [
@@ -24,10 +24,14 @@ class EventForm(FlaskForm):
     event_title = StringField("Event Title", validators=[DataRequired(), Length(min=1, max=100)])
     description = TextAreaField("Description", validators=[DataRequired(), Length(max=200)])
     music_genre = SelectField("Category", choices=GENRE_CHOICES, validators=[DataRequired()])
-    event_status = SelectField("Status", choices=STATUS_CHOICES, validators=[DataRequired()])
     start_time = DateTimeLocalField("Start Time", validators=[DataRequired()])
     end_time = DateTimeLocalField("End Time", validators=[DataRequired()])
     capacity = IntegerField("Total Tickets", validators=[DataRequired(), NumberRange(min=1)])
+    ticket_price = DecimalField("Ticket Price ($)", validators=[DataRequired(), NumberRange(min=0)])
     age_restriction = IntegerField("Age Restriction", validators=[DataRequired(), NumberRange(min=0, max=100)])
     venue_id = SelectField("Venue", coerce=int, validators=[DataRequired()])
     submit = SubmitField("Save Event")
+
+
+class EditEventForm(EventForm):
+    event_status = SelectField("Status", choices=STATUS_CHOICES, validators=[DataRequired()])

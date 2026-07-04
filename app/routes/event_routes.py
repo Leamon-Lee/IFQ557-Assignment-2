@@ -3,8 +3,8 @@ from flask_login import current_user, login_required
 
 from app.extensions import db
 from app.forms.comment_forms import CommentForm
-from app.forms.event_forms import EventForm
-from app.domain.value_objects import AgeRestriction, Capacity, DateTime, EventTitle, MusicGenre, Text200, EventStatus
+from app.forms.event_forms import EditEventForm, EventForm
+from app.domain.value_objects import AgeRestriction, Capacity, DateTime, EventTitle, Money, MusicGenre, Text200, EventStatus
 from app.models.announcement import Announcement
 from app.models.music_event import MusicEvent
 from app.models.organizer import Organizer
@@ -116,6 +116,7 @@ def create_event():
             start_time=DateTime(form.start_time.data),
             end_time=DateTime(form.end_time.data),
             capacity=Capacity(form.capacity.data),
+            ticket_price=Money(form.ticket_price.data),
             age_restriction=AgeRestriction(form.age_restriction.data),
             music_genre=MusicGenre(form.music_genre.data),
             organizer_id=org.organizer_id,
@@ -140,7 +141,7 @@ def edit_event(event_id: int):
         flash("You can only edit your own events.", "danger")
         return redirect(url_for("events.event_detail", event_id=event_id))
 
-    form = EventForm(obj=event)
+    form = EditEventForm(obj=event)
     form.venue_id.choices = _get_venue_choices()
 
     if form.validate_on_submit():
@@ -149,6 +150,7 @@ def edit_event(event_id: int):
         event.start_time = DateTime(form.start_time.data)
         event.end_time = DateTime(form.end_time.data)
         event.capacity = Capacity(form.capacity.data)
+        event.ticket_price = Money(form.ticket_price.data)
         event.age_restriction = AgeRestriction(form.age_restriction.data)
         event.music_genre = MusicGenre(form.music_genre.data)
         event.venue_id = form.venue_id.data

@@ -295,6 +295,7 @@ with app.app_context():
                 start_time=DateTime(now + timedelta(days=day_offset, hours=start_h)),
                 end_time=DateTime(now + timedelta(days=day_offset, hours=end_h)),
                 capacity=Capacity(cap),
+                ticket_price=Money(Decimal("25.00")),
                 age_restriction=AgeRestriction(age),
                 event_status=EventStatus(status),
                 music_genre=MusicGenre(genre),

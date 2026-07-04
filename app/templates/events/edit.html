@@ -75,6 +75,13 @@
                 {% endfor %}
               </div>
               <div class="col-md-6">
+                {{ form.ticket_price.label(class="form-label") }}
+                {{ form.ticket_price(class="form-control", min="0", step="0.01") }}
+                {% for error in form.ticket_price.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+              <div class="col-md-6">
                 {{ form.event_status.label(class="form-label") }}
                 {{ form.event_status(class="form-select") }}
                 {% for error in form.event_status.errors %}

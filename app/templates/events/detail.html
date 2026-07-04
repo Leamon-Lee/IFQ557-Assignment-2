@@ -5,8 +5,7 @@
   background: linear-gradient(180deg, rgba(5, 8, 15, 0.04), rgba(5, 8, 15, 0.72)), url('{{ url_for('static', filename='img/events/' + (event.image_filename or 'event_1.jpg')) }}') center/cover
 {%- endmacro %}
 
-{% set ticket_price = event.registrations[0].ticket.price if event.registrations and event.registrations[0].ticket else 25.00 %}
-{% set ticket_price_value = ticket_price|float %}
+{% set ticket_price_value = event.ticket_price.value|float %}
 {% set ticket_price_display = "%.2f"|format(ticket_price_value) %}
 {% set age_limit = event.age_restriction|int %}
 

@@ -1,5 +1,5 @@
 from app.extensions import db
-from app.domain.value_objects import AgeRestriction, Capacity, DateTime, EventStatus, EventTitle, MusicGenre, Text200
+from app.domain.value_objects import AgeRestriction, Capacity, DateTime, EventStatus, EventTitle, Money, MusicGenre, Text200
 from sqlalchemy.ext.hybrid import hybrid_property
 
 
@@ -23,6 +23,7 @@ class MusicEvent(db.Model):
     _event_status = db.Column("event_status", db.String(30), nullable=False, default="Open")
     _music_genre = db.Column("music_genre", db.String(80), nullable=False)
     image_filename = db.Column(db.String(100), nullable=True)
+    _ticket_price = db.Column("ticket_price", db.Numeric(10, 2), nullable=False, default=0.00)
     organizer_id = db.Column(db.Integer, db.ForeignKey("organizers.organizer_id"), nullable=False)
     venue_id = db.Column(db.Integer, db.ForeignKey("venues.venue_id"), nullable=False)
 
@@ -144,6 +145,20 @@ class MusicEvent(db.Model):
         if not isinstance(value, MusicGenre):
             raise TypeError("music_genre must be a MusicGenre value object")
         self._music_genre = value.value
+
+    @hybrid_property
+    def ticket_price(self) -> Money:
+        return Money(self._ticket_price)
+
+    @ticket_price.expression
+    def ticket_price(cls):
+        return cls._ticket_price
+
+    @ticket_price.setter
+    def ticket_price(self, value: Money) -> None:
+        if not isinstance(value, Money):
+            raise TypeError("ticket_price must be a Money value object")
+        self._ticket_price = value.value
 
     def publish(self) -> bool:
         self.event_status = EventStatus("Open")
