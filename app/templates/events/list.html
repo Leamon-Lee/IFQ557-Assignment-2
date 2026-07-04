@@ -1,13 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% set genre_css = {
-    'Jazz': 'poster-jazz',
-    'Rock': 'poster-rock',
-    'Campus Festival': 'poster-campus',
-    'Acoustic': 'poster-acoustic',
-    'Concert': 'poster-night',
-} %}
+{% macro event_bg(event) -%}
+  background: linear-gradient(180deg, rgba(5, 8, 15, 0.04), rgba(5, 8, 15, 0.72)), url('{{ url_for('static', filename='img/events/' + (event.image_filename or 'event_1.jpg')) }}') center/cover
+{%- endmacro %}
 
 {% macro status_class(status) -%}
   {% if status == 'Open' %}status-open
@@ -40,7 +36,7 @@
       {% for ed in events %}
       <div class="col-md-6 col-lg-4">
         <article class="event-card">
-          <div class="event-poster {{ genre_css.get(ed.event.music_genre, 'poster-jazz') }}">
+          <div class="event-poster" style="{{ event_bg(ed.event) }}">
             <span class="status-chip {{ status_class(ed.event.event_status) }}">{{ ed.event.event_status }}</span>
             <h2>{{ ed.event.event_title }}</h2>
             <p>{{ ed.event.description[:60] }}{% if ed.event.description|length > 60 %}...{% endif %}</p>

@@ -1,13 +1,9 @@
 ﻿{% extends "base.html" %}
 {% block content %}
 
-{% set genre_css = {
-    'Jazz': 'poster-jazz',
-    'Rock': 'poster-rock',
-    'Campus Festival': 'poster-campus',
-    'Acoustic': 'poster-acoustic',
-    'Concert': 'poster-night',
-} %}
+{% macro event_bg(event) -%}
+  background: linear-gradient(180deg, rgba(5, 8, 15, 0.04), rgba(5, 8, 15, 0.72)), url('{{ url_for('static', filename='img/events/' + (event.image_filename or 'event_1.jpg')) }}') center/cover
+{%- endmacro %}
 
 {% set ticket_price = event.registrations[0].ticket.price if event.registrations and event.registrations[0].ticket else 25.00 %}
 {% set ticket_price_value = ticket_price|float %}
@@ -24,7 +20,7 @@
 
 <main class="detail-page">
   <section class="container pt-5">
-    <article class="detail-hero {{ genre_css.get(event.music_genre, 'poster-jazz') }}">
+    <article class="detail-hero" style="{{ event_bg(event) }}">
       <div class="detail-hero-nav">
         <a href="{{ url_for('events.index') }}#featured-events">← Back to events</a>
         <div>

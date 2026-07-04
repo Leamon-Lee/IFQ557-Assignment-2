@@ -1,14 +1,6 @@
 ﻿{% extends "base.html" %}
 {% block content %}
 
-{% set genre_css = {
-    'Jazz': 'poster-jazz',
-    'Rock': 'poster-rock',
-    'Campus Festival': 'poster-campus',
-    'Acoustic': 'poster-acoustic',
-    'Concert': 'poster-night',
-} %}
-
 {% macro status_class(status) -%}
   {% if status == 'Open' %}status-open
   {% elif status == 'Sold Out' %}status-sold
@@ -17,16 +9,8 @@
   {% endif %}
 {%- endmacro %}
 
-{% macro hero_css(genre) -%}
-  {% if genre == 'Jazz' %}hero-slide-jazz
-  {% elif genre == 'Rock' %}hero-slide-rock
-  {% elif genre == 'Campus Festival' %}hero-slide-campus
-  {% else %}hero-slide-jazz
-  {% endif %}
-{%- endmacro %}
-
-{% macro genre_card_css(genre) -%}
-  {{ genre_css.get(genre, 'poster-jazz') }}
+{% macro event_bg(event) -%}
+  background: linear-gradient(180deg, rgba(5, 8, 15, 0.04), rgba(5, 8, 15, 0.72)), url('{{ url_for('static', filename='img/events/' + (event.image_filename or 'event_1.jpg')) }}') center/cover
 {%- endmacro %}
 
 <header id="heroEventCarousel" class="hero-stage carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5200">
@@ -34,7 +18,7 @@
     {% for item in featured_events %}
     {% set e = item.event %}
     <div class="carousel-item {% if loop.first %}active{% endif %}">
-      <div class="hero-slide {{ hero_css(e.music_genre) }}">
+      <div class="hero-slide" style="background-image: url('{{ url_for('static', filename='img/events/' + (e.image_filename or 'event_1.jpg')) }}')">
         <div class="container hero-content">
           <div class="hero-copy-block">
             <p class="eyebrow">
@@ -137,7 +121,7 @@
 
       {% if open_events %}
       {% set headliner = open_events[0] %}
-      <article class="event-card event-headliner {{ genre_card_css(headliner.event.music_genre) }}">
+      <article class="event-card event-headliner" style="{{ event_bg(headliner.event) }}">
         <span class="status-badge status-open">Open</span>
         <div class="event-headliner-copy">
           <p class="event-kicker">Featured live show</p>
@@ -179,7 +163,7 @@
       <div class="status-strip">
         {% for item in all_events[:4] %}
         {% set e = item.event %}
-        <article class="event-card status-tile {% if e.music_genre in genre_css %}{{ genre_css[e.music_genre] }}{% else %}status-tile-plain{% endif %}">
+        <article class="event-card status-tile" style="{{ event_bg(e) }}">
           <span class="status-chip {{ status_class(e.event_status) }}">{{ e.event_status }}</span>
           <h3>{{ e.event_title[:20] }}{% if e.event_title|length > 20 %}...{% endif %}</h3>
           <p>{{ e.start_time.strftime('%d %B') }} · {{ item.venue_name }}</p>

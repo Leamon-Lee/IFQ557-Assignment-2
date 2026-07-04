@@ -22,6 +22,7 @@ class MusicEvent(db.Model):
     _age_restriction = db.Column("age_restriction", db.Integer, nullable=False)
     _event_status = db.Column("event_status", db.String(30), nullable=False, default="Open")
     _music_genre = db.Column("music_genre", db.String(80), nullable=False)
+    image_filename = db.Column(db.String(100), nullable=True)
     organizer_id = db.Column(db.Integer, db.ForeignKey("organizers.organizer_id"), nullable=False)
     venue_id = db.Column(db.Integer, db.ForeignKey("venues.venue_id"), nullable=False)
 

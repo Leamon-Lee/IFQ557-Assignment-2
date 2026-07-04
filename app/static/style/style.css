@@ -945,6 +945,12 @@ p {
   font-weight: 800;
 }
 
+.poster-event {
+  background:
+    linear-gradient(180deg, rgba(5, 8, 15, 0.04), rgba(5, 8, 15, 0.72)),
+    center/cover no-repeat;
+}
+
 .poster-jazz {
   background:
     linear-gradient(180deg, rgba(5, 8, 15, 0.04), rgba(5, 8, 15, 0.72)),

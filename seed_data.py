@@ -287,8 +287,8 @@ with app.app_context():
     # Rebuild events with proper genre assignment
     events = []
 
-    def add_events(specs, genre):
-        for org_obj, venue, title, desc, start_h, end_h, cap, age, status, day_offset in specs:
+    def add_events(specs, genre, start_index):
+        for i, (org_obj, venue, title, desc, start_h, end_h, cap, age, status, day_offset) in enumerate(specs):
             e = MusicEvent(
                 event_title=EventTitle(title),
                 description=Text200(desc),
@@ -298,16 +298,17 @@ with app.app_context():
                 age_restriction=AgeRestriction(age),
                 event_status=EventStatus(status),
                 music_genre=MusicGenre(genre),
+                image_filename=f"event_{start_index + i}.jpg",
                 organizer_id=org_obj.organizer_id,
                 venue_id=venue.venue_id,
             )
             events.append(e)
 
-    add_events(jazz_events, "Jazz")
-    add_events(rock_events, "Rock")
-    add_events(campus_events, "Campus Festival")
-    add_events(acoustic_events, "Acoustic")
-    add_events(concert_events, "Concert")
+    add_events(jazz_events, "Jazz", 1)
+    add_events(rock_events, "Rock", 11)
+    add_events(campus_events, "Campus Festival", 21)
+    add_events(acoustic_events, "Acoustic", 31)
+    add_events(concert_events, "Concert", 41)
 
     db.session.add_all(events)
     db.session.flush()
