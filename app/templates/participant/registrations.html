@@ -20,6 +20,10 @@
           <div><strong>{{ registrations|length }}</strong><span>Total bookings</span></div>
           <div><strong>{{ registrations|length }}</strong><span>All time</span></div>
         </div>
+        <div class="page-action-row justify-content-lg-end mt-3">
+          <a href="{{ url_for('participant.dashboard') }}" class="page-back-link page-back-link-dark">← Back to dashboard</a>
+          <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+        </div>
       </div>
     </div>
 

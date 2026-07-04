@@ -6,6 +6,7 @@
     <div class="row g-5 align-items-start">
       <div class="col-lg-4">
         <div class="creator-panel">
+          <a href="{{ url_for('events.event_detail', event_id=event.event_id) }}" class="page-back-link mb-3">← Back to event</a>
           <p class="eyebrow">Event editor</p>
           <h1>Edit event.</h1>
           <p>Update the details and status for <strong>{{ event.event_title }}</strong>.</p>

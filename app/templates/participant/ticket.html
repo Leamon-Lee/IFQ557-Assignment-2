@@ -1,28 +1,34 @@
 {% extends "base.html" %}
 {% block content %}
 
-<main class="detail-page">
-  <section class="container pt-5">
-    <div class="row g-4 align-items-end mb-4">
-      <div class="col-lg-7">
-        <p class="eyebrow">Ticket detail</p>
-        <h1>{{ ticket.registration.music_event.event_title }}.</h1>
-        <p class="text-white-50 mb-0">Ticket #{{ ticket.ticket_id }} &middot; {{ ticket.ticket_type|capitalize }} &middot; ${{ ticket.price }}</p>
-      </div>
-      <div class="col-lg-5 text-lg-end">
-        <a href="{{ url_for('participant.registrations') }}" class="btn btn-outline-light">← Back to bookings</a>
+{% set event = ticket.registration.music_event %}
+{% set ticket_price = "%.2f"|format(ticket.price|float) %}
+
+<main class="ticket-detail-page" style="--ticket-bg: url('{{ url_for('static', filename='img/events/' + (event.image_filename or 'event_1.jpg')) }}')">
+  <section class="ticket-detail-hero">
+    <div class="container">
+      <a href="{{ url_for('participant.registrations') }}" class="page-back-link">← Back to bookings</a>
+      <div class="ticket-hero-card">
+        <div>
+          <p class="eyebrow">Ticket detail</p>
+          <h1>{{ event.event_title }}</h1>
+          <p>Ticket #{{ ticket.ticket_id }} &middot; {{ ticket.ticket_type|capitalize }} &middot; ${{ ticket_price }}</p>
+        </div>
+        <span class="price-pill">{{ event.music_genre }}</span>
       </div>
     </div>
+  </section>
 
+  <section class="container ticket-detail-content">
     <div class="row g-4">
       <div class="col-lg-8">
         <div class="content-panel">
           <h2>Event details</h2>
           <ul class="event-facts mt-3">
-            <li><span>Event</span><strong>{{ ticket.registration.music_event.event_title }}</strong></li>
-            <li><span>Venue</span><strong>{{ ticket.registration.music_event.venue.venue_name if ticket.registration.music_event.venue else 'TBA' }}</strong></li>
-            <li><span>Date</span><strong>{{ ticket.registration.music_event.start_time.strftime('%d %B %Y') }}</strong></li>
-            <li><span>Time</span><strong>{{ ticket.registration.music_event.start_time.strftime('%I:%M %p') }} - {{ ticket.registration.music_event.end_time.strftime('%I:%M %p') }}</strong></li>
+            <li><span>Event</span><strong>{{ event.event_title }}</strong></li>
+            <li><span>Venue</span><strong>{{ event.venue.venue_name if event.venue else 'TBA' }}</strong></li>
+            <li><span>Date</span><strong>{{ event.start_time.strftime('%d %B %Y') }}</strong></li>
+            <li><span>Time</span><strong>{{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</strong></li>
             <li><span>Booked at</span><strong>{{ ticket.registration.registration_time.strftime('%d %B %Y, %I:%M %p') }}</strong></li>
           </ul>
         </div>
