@@ -1310,6 +1310,72 @@ p {
   z-index: 2;
 }
 
+.organizer-participants-page {
+  min-height: 100vh;
+  padding-bottom: 5rem;
+  background:
+    linear-gradient(180deg, rgba(6, 10, 22, 0.12), #f8fafc 58%),
+    #f8fafc;
+}
+
+.organizer-participants-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 116px 0 6rem;
+  color: white;
+  isolation: isolate;
+}
+
+.organizer-participants-hero::before,
+.organizer-participants-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.organizer-participants-hero::before {
+  background:
+    linear-gradient(90deg, rgba(5, 8, 20, 0.94), rgba(5, 8, 20, 0.6) 55%, rgba(5, 8, 20, 0.34)),
+    linear-gradient(180deg, rgba(5, 8, 20, 0.28), rgba(5, 8, 20, 0.92)),
+    var(--participant-event-bg) center / cover;
+  transform: scale(1.02);
+}
+
+.organizer-participants-hero::after {
+  inset: auto 0 0;
+  height: 130px;
+  background: linear-gradient(180deg, transparent, #f8fafc);
+}
+
+.participant-hero-copy {
+  max-width: 900px;
+  margin-top: 2rem;
+}
+
+.participant-hero-copy h1 {
+  max-width: 860px;
+  margin: 0.45rem 0 0.75rem;
+  color: white;
+  font-size: clamp(2.4rem, 5.5vw, 5rem);
+  font-weight: 900;
+  letter-spacing: -0.055em;
+}
+
+.participant-hero-copy p:not(.eyebrow) {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 1.08rem;
+}
+
+.organizer-participants-content {
+  margin-top: -3.5rem;
+  position: relative;
+  z-index: 2;
+  padding-bottom: 5rem;
+}
+
 .detail-section-card p:last-child {
   margin-bottom: 0;
 }
@@ -2496,7 +2562,15 @@ p {
     padding-top: 96px;
   }
 
+  .organizer-participants-hero {
+    padding-top: 96px;
+  }
+
   .ticket-detail-content {
+    margin-top: -2.25rem;
+  }
+
+  .organizer-participants-content {
     margin-top: -2.25rem;
   }
 }

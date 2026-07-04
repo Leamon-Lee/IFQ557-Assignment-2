@@ -6,7 +6,7 @@
     <div class="row g-5 align-items-start">
       <div class="col-lg-4">
         <div class="creator-panel">
-          <a href="{{ url_for('events.index') }}" class="page-back-link mb-3">← Back to events</a>
+          <a href="{{ url_for('organizer.dashboard') }}" class="page-back-link mb-3">← Back to dashboard</a>
           <p class="eyebrow">Event creator</p>
           <h1>Add a new event.</h1>
           <p>Enter the details attendees need before deciding to book: title, category, venue, schedule, ticket count and description.</p>
@@ -100,7 +100,7 @@
 
           <div class="d-flex flex-wrap gap-3">
             {{ form.submit(class="btn btn-primary-action") }}
-            <a href="{{ url_for('events.index') }}" class="btn btn-outline-secondary">Cancel</a>
+            <a href="{{ url_for('organizer.dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
           </div>
         </form>
       </div>

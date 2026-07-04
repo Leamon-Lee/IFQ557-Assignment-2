@@ -61,7 +61,6 @@
 </header>
 
 <main>
-  <!-- 搜索区 -->
   <section class="container py-5">
     <form method="GET" action="{{ url_for('events.index') }}" class="search-panel mb-5">
       <div class="row g-3 align-items-end">
@@ -92,7 +91,6 @@
       </div>
     </form>
 
-    <!-- 分类浏览 -->
     <div class="section-heading">
       <p class="eyebrow dark">Browse by category</p>
       <h2>Explore music categories</h2>
@@ -105,7 +103,6 @@
     </div>
   </section>
 
-  <!-- 活动列表 -->
   <section class="container pb-5" id="featured-events">
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
       <div>
@@ -138,7 +135,6 @@
       </article>
       {% endif %}
 
-      <!-- 队列区 -->
       <aside class="event-card event-queue">
         <div class="queue-header">
           <p class="event-kicker">Coming up</p>
@@ -159,7 +155,6 @@
         {% endif %}
       </aside>
 
-      <!-- 状态卡片区 -->
       <div class="status-strip">
         {% for item in all_events[:4] %}
         {% set e = item.event %}
@@ -174,7 +169,6 @@
     </div>
   </section>
 
-  <!-- 体验区（静态内容保持不变） -->
   <section class="experience-band">
     <div class="container">
       <div class="row g-4 align-items-center">

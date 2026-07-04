@@ -1,24 +1,23 @@
 {% extends "base.html" %}
 {% block content %}
 
-<main class="detail-page">
-  <section class="container pt-5">
-    <div class="row g-4 align-items-end mb-4">
-      <div class="col-lg-7">
+<main class="organizer-participants-page" style="--participant-event-bg: url('{{ url_for('static', filename='img/events/' + (event.image_filename or 'event_1.jpg')) }}')">
+  <section class="organizer-participants-hero">
+    <div class="container">
+      <a href="{{ url_for('organizer.dashboard') }}" class="page-back-link">← Back to dashboard</a>
+      <div class="participant-hero-copy">
         <p class="eyebrow">Participant list</p>
-        <h1>{{ event.event_title }}.</h1>
-        <p class="text-white-50 mb-0">
+        <h1>{{ event.event_title }}</h1>
+        <p>
           {{ event.venue.venue_name if event.venue else 'TBA' }} &middot;
           {{ event.start_time.strftime('%d %B %Y, %I:%M %p') }} &middot;
           {{ registrations|length }} registration{% if registrations|length != 1 %}s{% endif %}
         </p>
       </div>
-      <div class="col-lg-5 text-lg-end">
-        <a href="{{ url_for('organizer.dashboard') }}" class="btn btn-outline-light">← Back to dashboard</a>
-      </div>
     </div>
+  </section>
 
-    <!-- Announcements -->
+  <section class="container organizer-participants-content">
     <div class="row g-4 mb-4">
       <div class="col-lg-6">
         <div class="content-panel">

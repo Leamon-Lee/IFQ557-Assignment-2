@@ -21,7 +21,7 @@
   <section class="container pt-5">
     <article class="detail-hero" style="{{ event_bg(event) }}">
       <div class="detail-hero-nav">
-        <a href="{{ url_for('events.index') }}#featured-events">← Back to events</a>
+        <a href="{{ url_for('events.list_events') }}">← Back to events</a>
         <div>
           {% if current_user.is_authenticated and current_user.user_id == event.organizer_id %}
           <a href="{{ url_for('events.edit_event', event_id=event.event_id) }}" class="btn btn-outline-light btn-sm me-2">Edit Event</a>
@@ -51,7 +51,6 @@
   <section class="container py-5">
     <div class="row g-4 align-items-start">
       <div class="col-lg-8">
-        <!-- 活动简介 -->
         <section class="content-panel detail-section-card">
           <p class="eyebrow dark">About this event</p>
           <h2>{{ event.description[:80] }}{% if event.description|length > 80 %}...{% endif %}</h2>
@@ -61,7 +60,6 @@
           {% endif %}
         </section>
 
-        <!-- 详细信息卡片 -->
         <section class="detail-info-grid mt-4">
           <div class="detail-info-card">
             <span>Artist</span>
@@ -81,7 +79,6 @@
           </div>
         </section>
 
-        <!-- 公告区 -->
         {% if announcements %}
         <section class="content-panel mt-4">
           <p class="eyebrow dark">Announcements</p>
@@ -97,7 +94,6 @@
         </section>
         {% endif %}
 
-        <!-- 评论区 -->
         <section class="content-panel mt-4">
           <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-3">
             <div>
@@ -134,7 +130,6 @@
         </section>
       </div>
 
-      <!-- 购票面板 -->
       <div class="col-lg-4">
         <aside class="ticket-panel detail-ticket-panel">
           <div class="ticket-topline">

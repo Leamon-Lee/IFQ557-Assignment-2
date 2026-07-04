@@ -39,12 +39,12 @@
 
     <div class="d-flex gap-3 mt-4">
       <a href="{{ url_for('participant.registrations') }}" class="btn btn-outline-light">View all bookings</a>
-      <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+      <a href="{{ url_for('events.list_events') }}" class="btn btn-primary-action">Browse events</a>
     </div>
     {% else %}
     <div class="text-center py-5">
       <p class="text-white-50">You haven't booked any events yet.</p>
-      <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+      <a href="{{ url_for('events.list_events') }}" class="btn btn-primary-action">Browse events</a>
     </div>
     {% endif %}
   </section>

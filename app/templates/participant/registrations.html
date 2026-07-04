@@ -22,7 +22,7 @@
         </div>
         <div class="page-action-row justify-content-lg-end mt-3">
           <a href="{{ url_for('participant.dashboard') }}" class="page-back-link page-back-link-dark">← Back to dashboard</a>
-          <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+          <a href="{{ url_for('events.list_events') }}" class="btn btn-primary-action">Browse events</a>
         </div>
       </div>
     </div>
@@ -102,7 +102,7 @@
     {% else %}
     <div class="text-center py-5">
       <p class="text-white-50">No bookings yet.</p>
-      <a href="{{ url_for('events.index') }}" class="btn btn-primary-action">Browse events</a>
+      <a href="{{ url_for('events.list_events') }}" class="btn btn-primary-action">Browse events</a>
     </div>
     {% endif %}
   </section>
