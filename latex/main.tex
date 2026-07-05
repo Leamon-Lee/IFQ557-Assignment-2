@@ -1,3 +1,4 @@
+
 \documentclass[12pt,a4paper]{article}
 
 \usepackage[
@@ -18,6 +19,7 @@
 \usepackage{ragged2e}
 \usepackage{ulem}
 \usepackage{fvextra}
+\usepackage{eso-pic}
 
 \setmainfont{Segoe UI}[
   Path = C:/Windows/Fonts/,
@@ -40,33 +42,48 @@
 
 \definecolor{wordTitle}{HTML}{000000}
 \definecolor{headingGray}{HTML}{404040}
-\definecolor{guideBlue}{HTML}{0070C0}
 \definecolor{functionalGreen}{HTML}{275317}
 \definecolor{functionalBorder}{HTML}{003366}
-\definecolor{nonFunctionalRed}{HTML}{660000}
+\definecolor{linkBlue}{HTML}{0563C1}
 
 \hypersetup{
   colorlinks=true,
-  linkcolor=guideBlue,
-  urlcolor=guideBlue
+  linkcolor=linkBlue,
+  urlcolor=linkBlue
 }
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\renewcommand{\arraystretch}{1.22}
-\setlength{\tabcolsep}{0pt}
+\renewcommand{\arraystretch}{1.16}
+\setlength{\extrarowheight}{2pt}
+\setlength{\tabcolsep}{3pt}
 \pagestyle{empty}
 
 \newcommand{\blankline}{\vspace{\baselineskip}}
 \newcommand{\sectitle}[1]{%
   {\fontsize{16pt}{19pt}\selectfont\color{headingGray}#1\par}%
 }
-\newcommand{\guide}[1]{{\color{guideBlue}#1}}
-\newcommand{\tabletext}[1]{\raggedright\arraybackslash #1}
-\newcommand{\centerwhite}[1]{\centering\arraybackslash\color{white}#1}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+\newcommand{\centerwhite}[1]{\raggedright\arraybackslash\color{white}#1}
 \newcommand{\headercell}[1]{\cellcolor{functionalGreen}\centerwhite{#1}}
-\newcommand{\redheadercell}[1]{\cellcolor{nonFunctionalRed}\centerwhite{#1}}
 \newcommand{\email}[1]{{\footnotesize #1}}
+\newcommand{\repolink}{\href{https://github.com/Leamon-Lee/IFQ557-Assignment-2}{\textcolor{linkBlue}{\uline{Leamon-Lee/IFQ557-Assignment-2}}}}
+\newcommand{\contributormap}{%
+  \AddToShipoutPictureFG*{%
+    \AtPageLowerLeft{%
+      \put(\LenToUnit{1in},\LenToUnit{0.35in}){%
+        \parbox{6.9in}{%
+          \fontsize{8pt}{9.5pt}\selectfont\raggedright
+          \textbf{Git contributor names:}
+          Leamon Lee = Jingru (Leamon) Li;\quad
+          rongyicheng23-afk = Yicheng (Bacon) Rong;\quad
+          yetaohao / yetaohao4-cmd = Taohao (Leaf) Ye;\quad
+          张峥岩 = Zhengyan (Paul) Zhang.
+        }%
+      }%
+    }%
+  }%
+}
 
 \begin{document}
 
@@ -75,48 +92,40 @@
 
 \blankline
 
-\sectitle{Section 1: Team declaration (functional / non-functional)}
+\sectitle{Section 1: Team declaration}
 
 \blankline
 
 Please declare your team details on this submission itself by completing and
-including one of the two table options below. The details should reflect the
-same team as defined in your canvas group. It will assist the marker.
+including the table below. The details should reflect the same team as defined
+in your canvas group. It will assist the marker.
 
 \blankline
 
-\guide{Delete the blue guide text through the document.}
-
-\blankline
-
-\guide{Use either Option A or Option B and delete the one not used.}
-
-\blankline
-
-\textbf{Option A:} \guide{-- Most will use this option. Delete if not used}
+\textbf{Functional team declaration}
 
 \vspace{2pt}
 
 \arrayrulecolor{functionalBorder}
-\begin{tabular}{|p{154.5pt}|p{86.0pt}|p{208.25pt}|}
+\begin{tabular}{|L{148.5pt}|L{80.0pt}|L{202.25pt}|}
 \hline
-\multicolumn{3}{|>{\columncolor{functionalGreen}}c|}{\color{white}\textbf{Functional Team -- most teams should use this one}}\\
+\multicolumn{3}{|>{\columncolor{functionalGreen}\raggedright\arraybackslash}m{442.75pt}|}{\color{white}\textbf{Functional Team}}\\
 \hline
-\cellcolor{functionalGreen}\centering\color{white}Group/team number:
-  & \multicolumn{2}{p{294.25pt}|}{Group 01}\\
+\cellcolor{functionalGreen}\color{white}Group/team number:
+  & \multicolumn{2}{L{288.25pt}|}{Group 01}\\
 \hline
-\cellcolor{functionalGreen}\centering\color{white}GitHub or Gitee name and link:
-  & \multicolumn{2}{p{294.25pt}|}{\href{https://github.com/Leamon-Lee/IFQ557-Assignment-2}{Leamon-Lee/IFQ557-Assignment-2}}\\
+\cellcolor{functionalGreen}\color{white}GitHub name and link:
+  & \multicolumn{2}{L{288.25pt}|}{\repolink}\\
 \hline
 \headercell{Full name} & \headercell{Student\#} & \headercell{Email}\\
 \hline
-Rong Yicheng (Bacon) & 2422441046 & \email{rongyicheng23@gmail.com}\\
+Jingru (Leamon) Li & 2422441049 & \email{2422441049@stu.jit.edu.cn}\\
 \hline
-Ye Taohao (Leaf) & 2422441048 & \email{2475676977@qq.com}\\
+Yicheng (Bacon) Rong & 2422441046 & \email{2422441046@stu.jit.edu.cn}\\
 \hline
-Li Jingru (Leamon) & 2422441049 & \email{leamon-lee@foxmail.com}\\
+Taohao (Leaf) Ye & 2422441048 & \email{yetaohao4@gmail.com}\\
 \hline
-Zhang Zhengyan (Paul) & 2422441050 & \email{zhangzhengyan@pauls-MacBook-Pro.local}\\
+Zhengyan (Paul) Zhang & 2422441050 & \email{zzy20051022zzy123@gmail.com}\\
 \hline
 \end{tabular}
 \arrayrulecolor{black}
@@ -125,64 +134,6 @@ Zhang Zhengyan (Paul) & 2422441050 & \email{zhangzhengyan@pauls-MacBook-Pro.loca
 \blankline
 
 \newpage
-
-\blankline
-
-\textbf{\color{headingGray}Option B:} {\color{headingGray} }\guide{-- Only use if necessary. Delete if not used}{\color{headingGray}:}\\
-To be used when contribution to the assignment was significantly unequal
-between team members. Teams are required to collectively negotiate and agree
-to a representative \% contribution. All team members must be invited to this
-collective discussion and where possible all should agree with the negotiated
-outcome (however a majority will be sufficient). This discussion does not have
-to be face to face, but this is encouraged. After unanimous (or majority)
-agreement has been reached, the team member (nominated by a majority) will
-enter the agreed (or majority agreed) percentages into the above table. The
-unit coordinator will consider if marks need to be adjusted to reflect
-individual contributions to malfunctioning teams. This process is in addition
-to the peer assessment process that you will use to rate your teammates.
-
-\blankline
-\blankline
-
-\arrayrulecolor{nonFunctionalRed}
-\begin{tabular}{|p{145.85pt}|p{83.15pt}|p{167.15pt}|p{51.85pt}|}
-\hline
-\multicolumn{4}{|>{\columncolor{nonFunctionalRed}}c|}{\color{white}\textbf{\uline{Non-functional} team}}\\
-\hline
-\cellcolor{nonFunctionalRed}\centering\color{white}Group/team number:
-  & \multicolumn{3}{p{304.15pt}|}{Group 01}\\
-\hline
-\cellcolor{nonFunctionalRed}\centering\color{white}GitHub or Gitee name and link:
-  & \multicolumn{3}{p{304.15pt}|}{\href{https://github.com/Leamon-Lee/IFQ557-Assignment-2}{Leamon-Lee/IFQ557-Assignment-2}}\\
-\hline
-\redheadercell{Full name} & \redheadercell{Student\#} & \redheadercell{Email} & \redheadercell{\%}\\
-\hline
-Rong Yicheng (Bacon) & 2422441046 & \email{rongyicheng23@gmail.com} & \centering\arraybackslash 28\\
-\hline
-Ye Taohao (Leaf) & 2422441048 & \email{2475676977@qq.com} & \centering\arraybackslash 47\\
-\hline
-Li Jingru (Leamon) & 2422441049 & \email{leamon-lee@foxmail.com} & \centering\arraybackslash 22\\
-\hline
-Zhang Zhengyan (Paul) & 2422441050 & \email{zhangzhengyan@pauls-MacBook-Pro.local} & \centering\arraybackslash 3\\
-\hline
- & & & \\
-\hline
-\multicolumn{3}{|>{\columncolor{nonFunctionalRed}}r|}{\color{white}Total must equal:}
-  & \centering\arraybackslash 100\\
-\hline
-\multicolumn{4}{|p{450.0pt}|}{As the submitter of this assignment, I confirm that the above percentage distribution was agreed by [ all / the majority (correct as appropriate)] of the team members by way of collective negotiation.}\\
-\hline
-\multicolumn{4}{|p{450.0pt}|}{Additional comments from any team member (list as full name: comment): Percentages in this option are estimated from git commit authorship only and are provided for comparison before choosing the final declaration option.}\\
-\hline
-\end{tabular}
-\arrayrulecolor{black}
-
-\blankline
-
-\guide{In the example above: person 3 contributed less than the others in a 4 person team.}
-
-\blankline
-\blankline
 
 \sectitle{Section 2: Team contribution statement}
 
@@ -194,26 +145,29 @@ limit, however, 60-100 words should be sufficient.
 
 \blankline
 
-\begin{tabular}{|p{106.1pt}|p{344.7pt}|}
+\begin{tabular}{|L{130.1pt}|L{308.7pt}|}
 \hline
-Rong Yicheng & Implemented and polished the frontend experience for SoundWave Events, including the homepage prototype, loading entrance page, hero carousel, footer, visual styling, role-aware UI behaviour, organizer dashboard, event display fixes, and ticket page presentation. Also connected frontend expectations to API contracts and helped prepare the interface for final submission.\\
+Jingru (Leamon) Li & Created the initial Flask MVC scaffold, merged the frontend prototype into Flask views/templates, wrote README and submission documentation, developed the value object layer and validation rules, refactored models to use value objects, connected frontend API routes, and stabilized database rebuild/startup behaviour.\\
 \hline
-Ye Taohao & Completed major backend and integration work for authentication, registration, event management, comments, ticket booking, user profile APIs, organizer event status changes, seed data, image handling, password hashing migration, and form submission fixes. Also added and refined tests and corrected several route and pricing bugs during integration.\\
+Yicheng (Bacon) Rong & Implemented and polished the frontend experience for SoundWave Events, including the homepage prototype, loading entrance page, hero carousel, footer, visual styling, role-aware UI behaviour, organizer dashboard, event display fixes, and ticket page presentation. Also connected frontend expectations to API contracts and helped prepare the interface for final submission.\\
 \hline
-Li Jingru & Created the initial Flask MVC scaffold, merged the frontend prototype into Flask views/templates, wrote README and submission documentation, developed the value object layer and validation rules, refactored models to use value objects, connected frontend API routes, and stabilized database rebuild/startup behaviour.\\
+Taohao (Leaf) Ye & Completed major backend and integration work for authentication, registration, event management, comments, ticket booking, user profile APIs, organizer event status changes, seed data, image handling, password hashing migration, and form submission fixes. Also added and refined tests and corrected several route and pricing bugs during integration.\\
 \hline
-Zhang Zhengyan & Built the early database and model foundation, including core user, participant, and organizer model definitions supporting login and registration tests. This work helped establish the SQLAlchemy data layer that later features, services, and tests extended.\\
+Zhengyan (Paul) Zhang & Built the early database and model foundation, including core user, participant, and organizer model definitions supporting login and registration tests. This work helped establish the SQLAlchemy data layer that later features, services, and tests extended.\\
 \hline
 \end{tabular}
 
 \blankline
 
+\newpage
+
 \sectitle{Section 3: git shortlog > output.txt}
+\contributormap
 
 \blankline
 
 \begin{Verbatim}[fontsize=\scriptsize,breaklines=true]
-Leamon Lee (16):
+Leamon Lee (15):
       Initial Flask MVC scaffold
       Merge bacon frontend into Flask views
       Add project README and UML guide
@@ -225,13 +179,12 @@ Leamon Lee (16):
       Add detailed submission notes
       Merge leamon value objects into temp
       Refactor models to use value objects
-      index on main: 72a6bad 通过pytest进行的项目测试，测试结果报告位于test文件夹中
-      On main: preserve local deletions before switching to bacon
       Add database rebuild toggle to runner
       Connect frontend API routes
       Stabilize database rebuild runner
+      Add latex assignment files
 
-rongyicheng23-afk (20):
+rongyicheng23-afk (16):
       Add SoundWave event prototype
       Refine homepage hero carousel
       Add polished site footer
@@ -248,52 +201,49 @@ rongyicheng23-afk (20):
       Optimize loading light show performance
       Refine hero actions and auto-dismiss alerts
       Add role-based auth UI and API contract
-      Make loading page default entry
-      Refine organizer dashboard UI
-      Fix event page display issues
-      Match ticket pages to event visuals
 
-yetaohao (30):
+yetaohao (17):
       登录，注册，登出功能完善，修改了login,signup部分前端代码
+      (English: Improved login, registration, and logout; updated login/signup frontend code)
       前端页面修改:原数据写死改为从数据库中获取动态数据,新增错误处理页面
+      (English: Changed frontend pages from hard-coded data to dynamic database data; added error pages)
       根据最新models完善用户认证和事件管理功能，重构相关模型和路由，更新模板以提升用户体验
+      (English: Improved authentication and event management based on latest models; refactored models/routes/templates)
       对上一步提交的一些补充
+      (English: Added follow-up changes for the previous commit)
       Revert "对上一步提交的一些补充"
+      (English: Reverted the follow-up changes from the previous commit)
       Revert "根据最新models完善用户认证和事件管理功能，重构相关模型和路由，更新模板以提升用户体验"
+      (English: Reverted the authentication/event-management refactor based on latest models)
       根据Paul最新版models完善用户模型和参与者模型，添加事件创建、更新、取消及注册功能；更新认证路由以支持用户登录和注册
+      (English: Updated user/participant models from Paul's latest models; added event create/update/cancel/registration and auth route support)
       修改了一个冲突内容
+      (English: Fixed a merge conflict item)
       错误拉取主分支后出现报错，修正提交
+      (English: Fixed errors caused by accidentally pulling the main branch)
       feat: 新增评论系统和购票预订流程
-      feat: 新增创建/编辑活动功能
+      (English: Added comment system and ticket-booking flow)
+      - feat: 新增创建/编辑活动功能
+      (English: Added create/edit event functionality)
       feat: 填充全部空壳页面
+      (English: Filled all placeholder pages)
       feat: 实现首页搜索/筛选和Organizer公告功能
+      (English: Implemented homepage search/filtering and Organizer announcements)
       feat: 新增Organizer取消活动功能
+      (English: Added Organizer event cancellation)
       修正了文本模板切片操作失败的问题
+      (English: Fixed failed text-template slicing operation)
       修复图片缺失问题
+      (English: Fixed missing image issue)
       通过pytest进行的项目测试，测试结果报告位于test文件夹中
-      清理html文件垃圾，修改“启动重建数据库”为关
-      统一密码哈希方案（werkzeug → flask_bcrypt),同时修改了上一次在main提交中错误提交的一个路由跳转bug
-      新增 Admin API 端点
-      新增登出 API
-      实现模型层空壳方法
-      Web 表单登录路由增加角色验证,Web 表单注册路由支持创建 Organizer
-      新增用户资料管理 API
-      新增组织者修改活动状态
-      修改种子数据，新增更多活动
-      活动图片系统改造
-      修正了组织者创建活动提交表单错误问题，补全创建活动决定票价的功能
-      在 form = EditEventForm(obj=event) 之后加一行 form.ticket_price.data = event._ticket_price，直接将底层的 Decimal 值赋给表单字段。POST 提交时 validate_on_submit() 会用提交数据覆盖该值，不影响写入逻辑。
-      修复了修改价格不能够正确返回的bug
+      (English: Ran project tests with pytest; test report is in the test folder)
 
-yetaohao4-cmd (4):
+yetaohao4-cmd (1):
       Merge branch 'main' into Leaf
-      Merge pull request #4 from Leamon-Lee/Leaf
-      Merge pull request #5 from Leamon-Lee/Leaf
-      Merge pull request #6 from Leamon-Lee/Leaf
 
-张峥岩 (2):
+张峥岩 (1):
       feat: 完成 User, Participant, Organizer 模型定义，支持登录注册测试
-      feat: 完成所有数据库
+      (English: Completed User, Participant, and Organizer model definitions supporting login/registration tests)
 \end{Verbatim}
 
 \blankline
@@ -302,63 +252,58 @@ yetaohao4-cmd (4):
 
 \blankline
 
-Instructions:
-\begin{itemize}[leftmargin=.5in, label=\textbullet, topsep=0pt, itemsep=8pt, parsep=0pt]
-  \item We did not use AI. Include part A. Delete part B.
-  \item We (one or more team members) used AI in an authorised way (as described in the assignment brief). Complete part B. Delete part A.
-\end{itemize}
+As a team, we report that some members used AI in an authorized way, as
+development and writing support for this assignment. AI output was not accepted
+automatically. Team members reviewed, edited, tested, and took responsibility
+for the final code, documentation, declaration content, and submission files.
 
 \blankline
 
-Part A : (delete part if not used)
+\textbf{Summary of AI use}
 
 \blankline
 
-Delete this part if Part B is used.
-
-\blankline
-\blankline
-
-Part B : (delete part if not used)
-
-\blankline
-
-As a team, we report that some members used AI in the following authorized way.
-
-\blankline
-
-Summary of AI use
-
-\blankline
-
-AI tools were used as authorised development support for brainstorming,
-debugging, refactoring, documentation drafting, LaTeX formatting, and test
-interpretation. Team members used AI suggestions to improve wording, identify
-possible implementation issues, and speed up repetitive coding tasks, but the
-final code, project structure, tests, and submission content were reviewed,
-adapted, and accepted by the team members before submission.
+AI tools were used to support brainstorming, debugging, refactoring,
+documentation drafting, LaTeX formatting, and interpretation of test output.
+They were also used to help summarize git history and repository evidence into
+clearer contribution statements. AI assistance was treated as advisory: the team
+checked suggestions against the actual Flask application, repository files, git
+history, and generated PDF before including the final material.
 
 \blankline
 \blankline
 
-Key examples of AI use
+\textbf{Key examples of AI use}
 
-Your marker needs to clearly understand how your team used AI to improve your
-work. Provide representative samples of how you used AI using the requested
-format.
-
-(Repeat for each example. There is no word limit for this declaration. Please
-also include the separator line)
-
-\{
 \begin{itemize}[leftmargin=.5in, label=\textbullet, topsep=0pt, itemsep=8pt, parsep=0pt]
   \item Prompt: ``Based on this Flask music event project, help summarize each team member's contribution from the git history and repository files.''
   \item Input/upload: Repository files including README, SUBMIT notes, tests, routes, models, templates, and git shortlog output.
-  \item Output used: Draft contribution summaries for Bacon, Leaf, Leamon, and Paul, which were checked against the repository and edited into this declaration.
+  \item Output used: Draft contribution summaries for Jingru (Leamon) Li, Yicheng (Bacon) Rong, Taohao (Leaf) Ye, and Zhengyan (Paul) Zhang. The team checked the summaries against the repository and edited them before placing them in Section 2.
 \end{itemize}
 
 {\footnotesize ========================= NEXT SAMPLE OF AI USE ====================}
 
-\}
+\begin{itemize}[leftmargin=.5in, label=\textbullet, topsep=0pt, itemsep=8pt, parsep=0pt]
+  \item Prompt: ``Review this Flask route/model change and suggest possible bugs or missing validation before we commit it.''
+  \item Input/upload: Relevant snippets from Flask routes, SQLAlchemy models, forms, and error output from local testing.
+  \item Output used: Suggestions about edge cases, validation checks, and likely causes of errors. The team manually inspected the code, selected relevant fixes, and verified behaviour with local testing before accepting any changes.
+\end{itemize}
+
+{\footnotesize ========================= NEXT SAMPLE OF AI USE ====================}
+
+\begin{itemize}[leftmargin=.5in, label=\textbullet, topsep=0pt, itemsep=8pt, parsep=0pt]
+  \item Prompt: ``Help format this assignment declaration in LaTeX so that the tables are readable, aligned, and suitable for PDF submission.''
+  \item Input/upload: The declaration template, team details, contribution text, git history, and PDF layout notes.
+  \item Output used: LaTeX formatting adjustments for tables, page breaks, links, and explanatory notes. The generated PDF was compiled and visually checked before inclusion.
+\end{itemize}
+
+{\footnotesize ========================= NEXT SAMPLE OF AI USE ====================}
+
+\begin{itemize}[leftmargin=.5in, label=\textbullet, topsep=0pt, itemsep=8pt, parsep=0pt]
+  \item Prompt: ``Explain this pytest or runtime error and suggest likely files to inspect in the Flask project.''
+  \item Input/upload: Terminal error messages, selected test output, and related project files.
+  \item Output used: Debugging guidance and possible causes. The team used the suggestions to guide manual investigation, then implemented and tested fixes themselves.
+\end{itemize}
 
 \end{document}
+
