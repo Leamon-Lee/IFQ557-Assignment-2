@@ -14,6 +14,7 @@
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{multirow}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{enumitem}
 \usepackage{ragged2e}
@@ -159,8 +160,6 @@ Zhengyan (Paul) Zhang & Built the early database and model foundation, including
 
 \blankline
 
-\newpage
-
 \sectitle{Section 3: git shortlog > output.txt}
 \contributormap
 
@@ -304,6 +303,57 @@ history, and generated PDF before including the final material.
   \item Input/upload: Terminal error messages, selected test output, and related project files.
   \item Output used: Debugging guidance and possible causes. The team used the suggestions to guide manual investigation, then implemented and tested fixes themselves.
 \end{itemize}
+
+\newpage
+
+\appendix
+\sectitle{Appendix A: Runtime HTML Screens}
+
+\blankline
+
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.02}
+\begin{tabular}{cc}
+\includegraphics[width=.38\textwidth]{runtime_pages/loading.png} &
+\includegraphics[width=.38\textwidth]{runtime_pages/home.png}\\
+{\scriptsize Loading Page} & {\scriptsize Home Page}\\[8pt]
+\includegraphics[width=.38\textwidth]{runtime_pages/events_list.png} &
+\includegraphics[width=.38\textwidth]{runtime_pages/event_detail.png}\\
+{\scriptsize Events List} & {\scriptsize Event Detail}\\[8pt]
+\includegraphics[width=.38\textwidth]{runtime_pages/login.png} &
+\includegraphics[width=.38\textwidth]{runtime_pages/signup.png}\\
+{\scriptsize Login Page} & {\scriptsize Sign Up Page}\\[8pt]
+\includegraphics[width=.38\textwidth]{runtime_pages/organizer_dashboard.png} &
+\includegraphics[width=.38\textwidth]{runtime_pages/create_event.png}\\
+{\scriptsize Organizer Dashboard} & {\scriptsize Create Event}
+\end{tabular}
+\end{center}
+
+\newpage
+
+\sectitle{Appendix A: Runtime HTML Screens (continued)}
+
+\blankline
+
+\begin{center}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.02}
+\begin{tabular}{cc}
+\includegraphics[width=.38\textwidth]{runtime_pages/edit_event.png} &
+\includegraphics[width=.38\textwidth]{runtime_pages/organizer_participants.png}\\
+{\scriptsize Edit Event} & {\scriptsize Organizer Participants}\\[8pt]
+\includegraphics[width=.38\textwidth]{runtime_pages/participant_dashboard.png} &
+\includegraphics[width=.38\textwidth]{runtime_pages/participant_registrations.png}\\
+{\scriptsize Participant Dashboard} & {\scriptsize Participant Registrations}\\[8pt]
+\includegraphics[width=.38\textwidth]{runtime_pages/participant_ticket.png} &
+\includegraphics[width=.38\textwidth]{runtime_pages/admin_dashboard.png}\\
+{\scriptsize Participant Ticket} & {\scriptsize Admin Dashboard}\\[8pt]
+\includegraphics[width=.38\textwidth]{runtime_pages/admin_review_events.png} &
+\includegraphics[width=.38\textwidth]{runtime_pages/not_found.png}\\
+{\scriptsize Admin Review Events} & {\scriptsize 404 Page}
+\end{tabular}
+\end{center}
 
 \end{document}
 

@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "loading",
+    "title": "Loading Page",
+    "path": "/loading",
+    "role": null
+  },
+  {
+    "slug": "home",
+    "title": "Home Page",
+    "path": "/",
+    "role": null
+  },
+  {
+    "slug": "events_list",
+    "title": "Events List",
+    "path": "/events",
+    "role": null
+  },
+  {
+    "slug": "event_detail",
+    "title": "Event Detail",
+    "path": "/events/1",
+    "role": null
+  },
+  {
+    "slug": "login",
+    "title": "Login Page",
+    "path": "/auth/login",
+    "role": null
+  },
+  {
+    "slug": "signup",
+    "title": "Sign Up Page",
+    "path": "/auth/signup",
+    "role": null
+  },
+  {
+    "slug": "organizer_dashboard",
+    "title": "Organizer Dashboard",
+    "path": "/organizer/dashboard",
+    "role": "organizer"
+  },
+  {
+    "slug": "create_event",
+    "title": "Create Event",
+    "path": "/events/create",
+    "role": "organizer"
+  },
+  {
+    "slug": "edit_event",
+    "title": "Edit Event",
+    "path": "/events/1/edit",
+    "role": "organizer"
+  },
+  {
+    "slug": "organizer_participants",
+    "title": "Organizer Participants",
+    "path": "/organizer/events/1/participants",
+    "role": "organizer"
+  },
+  {
+    "slug": "participant_dashboard",
+    "title": "Participant Dashboard",
+    "path": "/participant/dashboard",
+    "role": "participant"
+  },
+  {
+    "slug": "participant_registrations",
+    "title": "Participant Registrations",
+    "path": "/participant/registrations",
+    "role": "participant"
+  },
+  {
+    "slug": "participant_ticket",
+    "title": "Participant Ticket",
+    "path": "/participant/tickets/1",
+    "role": "participant"
+  },
+  {
+    "slug": "admin_dashboard",
+    "title": "Admin Dashboard",
+    "path": "/admin/dashboard",
+    "role": null
+  },
+  {
+    "slug": "admin_review_events",
+    "title": "Admin Review Events",
+    "path": "/admin/review-events",
+    "role": null
+  },
+  {
+    "slug": "not_found",
+    "title": "404 Page",
+    "path": "/missing-page-for-screenshot",
+    "role": null
+  }
+]
